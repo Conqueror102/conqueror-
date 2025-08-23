@@ -268,6 +268,13 @@ export default function RootLayout({
               jobTitle: portfolioInfo.title,
               description: portfolioInfo.description,
               image: portfolioInfo.image,
+              address: {
+                "@type": "PostalAddress",
+                "addressLocality": "Lagos",
+                "addressCountry": "Nigeria"
+              },
+              email: "victorvector608@gmail.com",
+              telephone: "+234 802 538 3208",
               sameAs: [
                 "https://github.com/Conqueror102",
                 "https://www.linkedin.com/in/victor-conqueror-956635327/",

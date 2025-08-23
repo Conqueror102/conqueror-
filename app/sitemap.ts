@@ -2,13 +2,13 @@ import type { MetadataRoute } from "next"
 
 // Portfolio sections for sitemap
 const sections = [
-  { path: "/", lastModified: new Date() },
-  { path: "/about", lastModified: new Date() },
-  { path: "/skills", lastModified: new Date() },
-  { path: "/projects", lastModified: new Date() },
-  { path: "/services", lastModified: new Date() },
-  { path: "/education", lastModified: new Date() },
-  { path: "/contact", lastModified: new Date() },
+  { path: "/", lastModified: new Date('2025-08-23') },
+  { path: "/about", lastModified: new Date('2025-08-23') },
+  { path: "/skills", lastModified: new Date('2025-08-23') },
+  { path: "/projects", lastModified: new Date('2025-08-23') },
+  { path: "/services", lastModified: new Date('2025-08-23') },
+  { path: "/education", lastModified: new Date('2025-08-23') },
+  { path: "/contact", lastModified: new Date('2025-08-23') },
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
