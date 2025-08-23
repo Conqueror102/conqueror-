@@ -188,7 +188,7 @@ function HeroSection() {
             <div className="relative">
               <div className="absolute -top-10 -left-10 w-32 h-32 md:w-40 md:h-40 bg-blue-700/20 rounded-full blur-3xl"></div>
               <div className="absolute -bottom-10 -right-10 w-32 h-32 md:w-40 md:h-40 bg-blue-400/20 rounded-full blur-3xl"></div>
-              <h1 className="text-4xl sm:text-4xl md:text-6xl font-bold mb-1 leading-tight animate-fade-in text-gray-800">Hi, I'm <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-blue-400">Victor Onyemaechi</span></h1>
+              <h1 className="text-5xl sm:text-4xl md:text-6xl font-bold mb-1 leading-tight animate-fade-in text-gray-800">Hi, I'm <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-blue-400">Victor Onyemaechi</span></h1>
              
               <div className="text-2xl py-3 max-sm:py-1 sm:text-3xl md:text-5xl">Frontend Engineer & Server Architecturer</div>
               <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-8 md:mb-10 max-w-2xl animate-fade-in-delay">
@@ -273,8 +273,7 @@ function AboutSection() {
                 <div className="h-1 w-20 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full"></div>
               </div>
               <p className="text-gray-600 mb-6 text-lg">
-                I'm a passionate fullstack developer with 1+ years of experience creating modern web applications. I
-                specialize in React, Next.js, Node.js, Express Js, and creating beautiful user interfaces with Tailwind CSS.
+               I'm a passionate Full Stack Developer with expertise in building modern web applications. With over 1 years of experience, I specialize in creating responsive, user-friendly interfaces and robust backend systems.
               </p>
               <p className="text-gray-600 mb-8 text-lg">
                 My approach combines technical expertise with an eye for design, allowing me to build solutions that are
@@ -345,9 +344,9 @@ function ServicesSection() {
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl"></div>
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-left md:text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">My Services</h2>
-            <div className="h-1 w-20 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full mb-6 mx-auto"></div>
+            <div className="h-1 w-20 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full mb-6 mx-0 md:mx-auto"></div>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -408,9 +407,9 @@ function SkillsSection() {
     <section id="skills" className="py-20 bg-white">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-left md:text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">My Skills</h2>
-            <div className="h-1 w-20 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full mb-6 mx-auto"></div>
+            <div className="h-1 w-20 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full mb-6 mx-0 md:mx-auto"></div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             {skills.map((skill, index) => (
@@ -550,12 +549,12 @@ function ProjectsSection() {
 
   return (
     <section id="projects" className="py-20 bg-gray-50 relative">
-      <div className="absolute top-0 left-0 w-96 h-96 bg-fuchsia-500/10 rounded-full blur-3xl"></div>
+      <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-left md:text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">My Projects</h2>
-            <div className="h-1 w-20 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full mb-6 mx-auto"></div>
+            <div className="h-1 w-20 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full mb-6 mx-0 md:mx-auto"></div>
           </div>
           <div className="flex justify-center mb-8">
          
@@ -564,7 +563,7 @@ function ProjectsSection() {
             {projects.map((project, index) => (
               <div
                 key={index}
-                className="group bg-white backdrop-blur-sm rounded-3xl shadow-xl border border-gray-100 overflow-hidden transform hover:-translate-y-2 transition-all duration-300"
+                className="group bg-white backdrop-blur-sm rounded-2xl shadow-xl border border-gray-100 overflow-hidden transform hover:-translate-y-2 transition-all duration-300"
               >
                 <div className="relative h-48 overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-0 group-hover:opacity-60 transition-opacity z-10"></div>
@@ -648,22 +647,22 @@ function ProcessSection() {
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-left md:text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">My Work Process</h2>
-            <div className="h-1 w-20 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full mb-6 mx-auto"></div>
+            <div className="h-1 w-20 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full mb-6 mx-0 md:mx-auto"></div>
           </div>
 
-          <div className="flex flex-col md:flex-row  justify-between relative">
+          <div className="flex flex-col md:flex-row  justify-between relative max-sm:items-start">
             <div className="hidden md:block absolute top-[74px] left-0 right-0 h-1 bg-gradient-to-r from-blue-700 to-blue-400 transform -translate-y-1/2 z-0"></div>
 
             {process.map((step, index) => (
               <div key={index} className="md:w-1/4 relative z-10  mb-10 md:mb-0">
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col md:items-center">
                   <div className="w-16 h-16 rounded-full bg-white shadow-lg border border-gray-100 flex items-center justify-center mb-6 text-blue-500">
                     {step.icon}
                   </div>
                   <h3 className="text-xl font-bold mb-3 text-gray-800">{step.title}</h3>
-                  <p className="text-center text-gray-600 px-4">{step.description}</p>
+                  <p className="md:text-center text-gray-600 px-4 max-sm:p-0">{step.description}</p>
                 </div>
               </div>
             ))}
@@ -718,9 +717,9 @@ function EducationSection() {
       <div className="absolute top-0 right-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl"></div>
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-left md:text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">Education & Certifications</h2>
-            <div className="h-1 w-20 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full mb-6 mx-auto"></div>
+            <div className="h-1 w-20 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full mb-6 mx-0 md:mx-auto"></div>
           </div>
 
           <div className="grid  gap-10">
@@ -806,9 +805,9 @@ function ContactSection() {
       <div className="absolute top-0 right-0 w-96 h-96 bg-blue-100 z-10 rounded-full blur-3xl"></div>
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-left md:text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">Get In Touch</h2>
-            <div className="h-1 w-20 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full mb-6 mx-auto"></div>
+            <div className="h-1 w-20 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full mb-6 mx-0 md:mx-auto"></div>
           </div>
           <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
             <div className="grid md:grid-cols-2">
@@ -1014,9 +1013,9 @@ function FAQSection() {
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl"></div>
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-left md:text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">Frequently Asked Questions</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 max-w-2xl mx-0 md:mx-auto">
               Answers to common questions about my services, process, and workflow.
             </p>
           </div>
