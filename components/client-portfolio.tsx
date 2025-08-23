@@ -45,7 +45,7 @@ export default function ClientPortfolio() {
         <EducationSection />
         {/* <BlogSection /> */}
         <ContactSection />
-        {/* <FAQSection /> */}
+        <FAQSection />
       </main>
       <Footer />
     </div>
@@ -80,8 +80,8 @@ function Navbar() {
             <div>
               <img src="/victor logo.jpg" alt="" className="h-14 w-14"/>
             </div>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-blue-400">
-              Victor.Conqueror
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-400">
+             &lt;Victor Conqueror/&gt;
             </span>
           </a>
           <nav className="hidden md:flex items-center space-x-8">
@@ -188,7 +188,7 @@ function HeroSection() {
             <div className="relative">
               <div className="absolute -top-10 -left-10 w-32 h-32 md:w-40 md:h-40 bg-blue-700/20 rounded-full blur-3xl"></div>
               <div className="absolute -bottom-10 -right-10 w-32 h-32 md:w-40 md:h-40 bg-blue-400/20 rounded-full blur-3xl"></div>
-              <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-1 leading-tight animate-fade-in text-gray-800">Hi, I'm <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-blue-400">Victor Onyemaechi</span></h1>
+              <h1 className="text-4xl sm:text-4xl md:text-6xl font-bold mb-1 leading-tight animate-fade-in text-gray-800">Hi, I'm <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-blue-400">Victor Onyemaechi</span></h1>
              
               <div className="text-2xl py-3 max-sm:py-1 sm:text-3xl md:text-5xl">Frontend Engineer & Server Architecturer</div>
               <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-8 md:mb-10 max-w-2xl animate-fade-in-delay">
@@ -227,9 +227,9 @@ function HeroSection() {
 
 function StatsSection() {
   const stats = [
-    { value: "1+", label: "Years Experience" },
-    { value: "4+", label: "Projects Completed" },
-    { value: "30+", label: "Happy Clients" },
+   { value: "75%↑",  label: "Tech Stack Familiarity" },
+    { value: "10+", label: "Projects Completed" },
+    { value: "14+", label: "Satisfied Users" },
   ]
 
   return (
@@ -400,6 +400,8 @@ function SkillsSection() {
     "Tailwind CSS",
     "Node.js",
     "TypeScript",
+    "SuperBase",
+    "TankStack"
   ]
 
   return (
@@ -454,10 +456,56 @@ function ProjectsSection() {
       title: "A Saas Website",
       description: "A modern, responsive SaaS website built for an IT solutions company. It features pages for services, products, projects, and company information, with a fully functional contact form and clean, professional UI.",
       image: "/lims.png",
-      tags: ["Next.js", "React", "Tailwind CSS", "Stripe"],
+      tags: ["Next.js", "React", "Tailwind CSS", "NodeMailer", "Google Sheet"],
       demoLink: "https:wearelims.com",
       githubLink: "https://github.com/Conqueror102?tab=repositories",
     },
+   {
+  title: "AI Prompts Platform",
+  description: "A prompt-sharing platform where users can post, browse, rate, and copy AI prompts. Includes feed filtering, ratings, and user authentication.",
+  image: "/ai.png",
+  tags: ["Next.js", "MongoDB", "Tailwind CSS", "Shadcn UI", "NextAuth"],
+  demoLink: "https://aiprompt-feeds.vercel.app/",
+  githubLink: "https://github.com/Conqueror102/Aiprompt-feeds"
+},
+{
+  title: "Time Wise – Staff Attendance System",
+  description: "A staff attendance tracking app with QR code check-in, photo capture on clock-in, and admin controls for user registration, lateness rules, and daily logs.",
+  image: "/checkIn.png",
+  tags: ["Next.js", "MongoDB", "Tailwind CSS", "Cloudinary", "Multer", "QR Code"],
+  demoLink: "https://time-wise-check-in-out.vercel.app",
+  githubLink: "https://github.com/Conqueror102/TimeWise-CheckIn-Out"
+},
+
+{
+  title: "Show Royal Meal – Bread Booking App",
+  description: "An SEO-friendly bread booking platform that lets customers place orders online. Includes an admin panel for managing products, bookings, and uploads.",
+  image: "/bread.png",
+  tags: ["Next.js", "React", "TypeScript","Express", "MongoDB", "Tailwind CSS", "Cloudinary", "Multer", "TanStack", "Nodemailer"],
+  demoLink: "https://royal-meal-bakery.vercel.app/", // if available
+  githubLink: "https://github.com/Conqueror102" // adjust if specific repo
+},
+
+{
+  title: "Celymed – Logistics & Transport Website",
+  description: "A clean, SEO-optimized website for a logistics and transport company. Designed to build brand awareness, showcase services, and enable easy contact via WhatsApp and call options.",
+  image: "/logis.png",
+  tags: ["Next.js", "TypeScript", "Tailwind CSS"],
+  demoLink: "https://celymed-logistic.vercel.app/",
+  githubLink: "https://github.com/Conqueror102" // replace if there's a specific repo
+},
+
+{
+  title: "Ronix Kitchen – Food Ordering Website",
+  description: "A modern food delivery platform for Nigerian cuisine. Users can browse dishes, view featured meals, and place orders. Built for responsiveness, speed, and customer engagement.",
+  image: "/food.png",
+  tags: ["React", "Node.js", "Tailwind CSS", "Express", "Multer"],
+  demoLink: "https://ronix-kitchen.vercel.app/",
+  githubLink: "https://github.com/Conqueror102" // update if there's a dedicated repo
+},
+
+
+
     {
       title: "A Fashion E-commerce Website",
       description: "A simple static fashion eCommerce website built using HTML and CSS, showcasing product listings, pricing, and a contact page.",
@@ -930,6 +978,83 @@ function ContactSection() {
                 </form>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function FAQSection() {
+  const faqs = [
+    {
+      question: "What services do you offer?",
+      answer:
+        "I offer web development, UI/UX design, mobile app development, e-commerce solutions, SEO optimization, and ongoing maintenance and support services.",
+    },
+    {
+      question: "How long does it take to complete a project?",
+      answer:
+        "Project timelines vary depending on scope and complexity. A simple website might take 2-4 weeks, while a complex web application could take 2-3 months. I'll provide a detailed timeline during our initial consultation.",
+    },
+    {
+      question: "What is your design process?",
+      answer:
+        "My design process involves discovery (understanding your needs), planning (wireframes and mockups), design implementation, feedback and revisions, and final delivery. I keep you involved throughout the process.",
+    },
+    {
+      question: "Do you provide maintenance after project completion?",
+      answer:
+        "Yes, I offer ongoing maintenance packages to ensure your website remains secure, up-to-date, and performing optimally. This includes regular updates, security patches, and technical support.",
+    },
+  ]
+
+  return (
+    <section className="py-20 bg-gray-50 relative">
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl"></div>
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">Frequently Asked Questions</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Answers to common questions about my services, process, and workflow.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {faqs.map((faq, index) => (
+              <div key={index} className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+                <details className="group">
+                  <summary className="flex justify-between items-center p-6 cursor-pointer">
+                    <h3 className="text-lg font-bold text-gray-800">{faq.question}</h3>
+                    <span className="transition-transform duration-300 group-open:rotate-180">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 text-blue-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </span>
+                  </summary>
+                  <div className="px-6 pb-6 text-gray-600">
+                    <p>{faq.answer}</p>
+                  </div>
+                </details>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-gray-600 mb-4">Have more questions? Feel free to reach out directly.</p>
+            <Link
+              href="#contact"
+              className="inline-flex items-center px-6 py-3 text-white  bg-gradient-to-r from-blue-700 to-blue-400 rounded-full shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 font-medium  "
+            >
+              Contact Me
+            </Link>
           </div>
         </div>
       </div>

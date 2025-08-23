@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState, useRef } from "react"
-import { Award, CheckCircle, Clock, Download } from "lucide-react"
+import { Award, BarChart3, CheckCircle, Clock, Download, Layout } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 
@@ -43,18 +43,19 @@ export function Hero() {
   }, [])
 
   const stats = [
+   {
+  title: "Skill Level",
+  value: "Intermediate",
+  icon: <BarChart3 className="w-8 h-8" />,
+  color: "yellow",
+},
+
     {
-      title: "Years Experience",
-      value: "1+",
-      icon: <Clock className="w-8 h-8" />,
-      color: "blue",
-    },
-    {
-      title: "Projects Completed",
-      value: "5+",
-      icon: <CheckCircle className="w-8 h-8" />,
-      color: "green",
-    },
+  title: "Real-World Projects",
+  value: "10+",
+  icon: <Layout className="w-8 h-8" />,
+  color: "green",
+},
     {
       title: "Client Satisfaction",
       value: "100%",

@@ -103,20 +103,20 @@ export function Education() {
   ]
 
   const courses = [
-    // {
-    //   name: "Advanced React and Redux",
-    //   platform: "Udemy",
-    //   instructor: "Stephen Grider",
-    //   completionDate: "2023",
-    //   url: "https://www.udemy.com/course/react-redux/",
-    // },
-    // {
-    //   name: "Next.js & React - The Complete Guide",
-    //   platform: "Udemy",
-    //   instructor: "Maximilian Schwarzmüller",
-    //   completionDate: "2023",
-    //   url: "https://www.udemy.com/course/nextjs-react-the-complete-guide/",
-    // },
+    {
+      name: "Advanced React and Redux",
+      platform: "Udemy",
+      instructor: "Stephen Grider",
+      completionDate: "2024",
+      url: "https://www.udemy.com/course/react-redux/",
+    },
+    {
+      name: "Next.js - Next.js 15 Full Tutorial",
+      platform: "YouTube",
+      instructor: "codevolution",
+      completionDate: "2025",
+      url: "https://www.udemy.com/course/nextjs-react-the-complete-guide/",
+    },
     {
       name: "TypeScript: The Complete Developer's Guide",
       platform: "Udemy",
@@ -140,7 +140,7 @@ export function Education() {
         <div className="text-[#569CD6] text-3xl font-bold mb-4">Academic Background</div>
         <div className="text-[#D4D4D4] mb-8">My educational journey and continuous learning path</div>
       </div>
-
+{/* 
       <div className="bg-[#1E1E1E] border border-[#3C3C3C] rounded-md p-4 mb-8">
         <pre className="font-mono text-sm md:text-base whitespace-pre-wrap overflow-auto">
           <code>
@@ -185,7 +185,7 @@ export function Education() {
             <br />
             <span className="text-[#DCDCAA]"> ]</span>
             <span className="text-white">,</span>
-            {/* <br />
+            <br />
             <span className="text-[#9CDCFE]"> certifications</span>
             <span className="text-white">:</span> <span className="text-[#DCDCAA]">[</span>
             <span className="text-[#CE9178]">"AWS Certified Solutions Architect"</span>
@@ -194,7 +194,7 @@ export function Education() {
             <span className="text-white">,</span> <span className="text-[#CE9178]">"Meta Frontend Developer"</span>
             <span className="text-[#DCDCAA]">]</span>
             <span className="text-white">,</span>
-            <br /> */}
+            <br />
             <span className="text-[#9CDCFE]"> continuousLearning</span>
             <span className="text-white">:</span> <span className="text-[#569CD6]">true</span>
             <br />
@@ -202,7 +202,7 @@ export function Education() {
             <span className="text-white">;</span>
           </code>
         </pre>
-      </div>
+      </div> */}
 
       <div className="space-y-6">
         {/* Formal Education */}

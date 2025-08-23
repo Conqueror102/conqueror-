@@ -78,10 +78,31 @@ export function VSCodePortfolio({ initialSection = "Home.jsx" }: VSCodePortfolio
       caption: "A modern, interactive quiz application",
     },
     {
-      src: "/WAS.png",
-      alt: "Project Screenshot 5",
-      caption: "Study Abroad Consultancy Website  ",
-    },
+    src: "/ai.png",
+    alt: "AI Prompts Platform Screenshot",
+    caption: "AI Prompts Sharing Platform",
+  },
+  {
+    src: "/checkIn.png",
+    alt: "Time Wise Staff Attendance System Screenshot",
+    caption: "Staff Attendance & QR Check-In System",
+  },
+  {
+    src: "/bread.png",
+    alt: "Show Royal Meal Bread Booking Screenshot",
+    caption: "Bakery Bread Booking & Ordering Website",
+  },
+  {
+    src: "/logis.png",
+    alt: "Celymed Logistics Screenshot",
+    caption: "Logistics & Transport Company Website",
+  },
+  {
+    src: "/food.png",
+    alt: "Ronix Kitchen Screenshot",
+    caption: "Food Ordering & Delivery Website",
+  },
+    
   ]
 
   useEffect(() => {

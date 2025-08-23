@@ -55,6 +55,53 @@ export function Projects() {
       demo: "https://gentle-men101.vercel.app/",
       image: "/gentle.png",
     },
+
+     {
+  title: "AI Prompts Platform",
+  description: "A prompt-sharing platform where users can post, browse, rate, and copy AI prompts. Includes feed filtering, ratings, and user authentication.",
+  image: "/ai.png",
+  technologies: ["Next.js", "MongoDB", "Tailwind CSS", "Shadcn UI", "NextAuth"],
+  demoLink: "https://aiprompt-feeds.vercel.app/",
+  githubLink: "https://github.com/Conqueror102/Aiprompt-feeds"
+},
+{
+  title: "Time Wise – Staff Attendance System",
+  description: "A staff attendance tracking app with QR code check-in, photo capture on clock-in, and admin controls for user registration, lateness rules, and daily logs.",
+  image: "/checkIn.png",
+  technologies: ["Next.js", "MongoDB", "Tailwind CSS", "Cloudinary", "Multer", "QR Code"],
+  demoLink: "https://time-wise-check-in-out.vercel.app",
+  githubLink: "https://github.com/Conqueror102/TimeWise-CheckIn-Out"
+},
+
+{
+  title: "Show Royal Meal – Bread Booking App",
+  description: "An SEO-friendly bread booking platform that lets customers place orders online. Includes an admin panel for managing products, bookings, and uploads.",
+  image: "/bread.png",
+  technologies: ["Next.js", "React", "TypeScript","Express", "MongoDB", "Tailwind CSS", "Cloudinary", "Multer", "TanStack", "Nodemailer"],
+  demoLink: "https://royal-meal-bakery.vercel.app/", // if available
+  githubLink: "https://github.com/Conqueror102" // adjust if specific repo
+},
+
+{
+  title: "Celymed – Logistics & Transport Website",
+  description: "A clean, SEO-optimized website for a logistics and transport company. Designed to build brand awareness, showcase services, and enable easy contact via WhatsApp and call options.",
+  image: "/logis.png",
+  technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
+  demoLink: "https://celymed-logistic.vercel.app/",
+  githubLink: "https://github.com/Conqueror102" // replace if there's a specific repo
+},
+
+{
+  title: "Ronix Kitchen – Food Ordering Website",
+  description: "A modern food delivery platform for Nigerian cuisine. Users can browse dishes, view featured meals, and place orders. Built for responsiveness, speed, and customer engagement.",
+  image: "/food.png",
+  technologies: ["React", "Node.js", "Tailwind CSS", "Express", "Multer"],
+  demoLink: "https://ronix-kitchen.vercel.app/",
+  githubLink: "https://github.com/Conqueror102" // update if there's a dedicated repo
+},
+
+
+
   ]
 
   return (

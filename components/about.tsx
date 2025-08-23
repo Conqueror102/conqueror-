@@ -25,10 +25,10 @@ export function About() {
               <span className="text-white">:</span> <span className="text-[#CE9178]">"Lagos, Ajegule"</span>
               <span className="text-white">,</span>
               <br />
-              <span className="text-[#9CDCFE]"> education</span>
+              {/* <span className="text-[#9CDCFE]"> education</span>
               <span className="text-white">:</span>{" "}
              <span className="text-[#CE9178]">Awodi-ora Senior Secondary School (2016-2022) - WAEC</span>
-              <span className="text-white">,</span>
+              <span className="text-white">,</span> */}
               <br />
               <span className="text-[#9CDCFE]"> experience</span>
               <span className="text-white">:</span> <span className="text-[#DCDCAA]">[</span>
@@ -98,8 +98,7 @@ export function About() {
               <span className="text-[#9CDCFE]"> bio</span>
               <span className="text-white">:</span>{" "}
               <span className="text-[#CE9178]">
-                "I'm a passionate developer with 1+ years of experience building web applications. I love creating
-                elegant solutions to complex problems and continuously learning new technologies."
+              "I'm a dedicated developer with a track record of building real-world web applications. I thrive on solving challenges with clean, efficient code and constantly leveling up my skills."
               </span>
               <br />
               <span className="text-[#DCDCAA]">{"}"}</span>
