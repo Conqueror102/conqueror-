@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: {
     formats: ["image/avif", "image/webp"],
+    // Icons8 icons (see src/components/icons/icons8.tsx).
+    remotePatterns: [{ protocol: "https", hostname: "img.icons8.com" }],
   },
   async redirects() {
     return [
