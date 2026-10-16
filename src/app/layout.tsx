@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next"
-import { Inter, JetBrains_Mono } from "next/font/google"
+import { Delius, Fredoka, JetBrains_Mono } from "next/font/google"
 import { site, profile, allSkills } from "@/content"
 import "./globals.css"
 
-const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" })
+const delius = Delius({ weight: "400", subsets: ["latin"], display: "swap", variable: "--font-delius" })
+const fredoka = Fredoka({ subsets: ["latin"], display: "swap", variable: "--font-fredoka" })
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], display: "swap", variable: "--font-jetbrains-mono" })
 
 const title = `${profile.name} | ${profile.jobTitle} in Lagos, Nigeria`
@@ -76,7 +77,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${delius.variable} ${fredoka.variable} ${jetbrainsMono.variable}`}>
       <body className="font-sans antialiased">{children}</body>
     </html>
   )

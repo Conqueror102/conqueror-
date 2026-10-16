@@ -21,17 +21,17 @@ export default async function OpenGraphImage() {
           alignItems: "center",
           gap: 64,
           padding: 80,
-          background: "linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #007acc 140%)",
-          color: "white",
+          background: "#ffe8d0",
+          color: "#562d29",
         }}
       >
-        <img src={photoSrc} alt="" width={340} height={340} style={{ borderRadius: 32, objectFit: "cover", border: "6px solid #38bdf8" }} />
+        <img src={photoSrc} alt="" width={340} height={340} style={{ borderRadius: 32, objectFit: "cover", border: "6px solid #fed15c" }} />
         <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-          <div style={{ fontSize: 30, color: "#7dd3fc" }}>Portfolio</div>
+          <div style={{ fontSize: 30, color: "#562d29" }}>Portfolio</div>
           <div style={{ fontSize: 72, fontWeight: 700, lineHeight: 1.05, marginTop: 12 }}>{profile.name}</div>
-          <div style={{ fontSize: 40, marginTop: 20, color: "#e2e8f0" }}>{profile.jobTitle}</div>
-          <div style={{ fontSize: 28, marginTop: 28, color: "#94a3b8" }}>React · Next.js · TypeScript · Node.js</div>
-          <div style={{ fontSize: 26, marginTop: 12, color: "#94a3b8" }}>Lagos, Nigeria · Available for remote work</div>
+          <div style={{ fontSize: 40, marginTop: 20, color: "#562d29" }}>{profile.jobTitle}</div>
+          <div style={{ fontSize: 28, marginTop: 28, color: "#765e54" }}>React · Next.js · TypeScript · Node.js</div>
+          <div style={{ fontSize: 26, marginTop: 12, color: "#765e54" }}>Lagos, Nigeria · Available for remote work</div>
         </div>
       </div>
     ),

@@ -1,0 +1,2801 @@
+diff --git a/src/legacy/vscode/components/client-portfolio.tsx b/src/legacy/vscode/components/client-portfolio.tsx
+index 0e35da3..6f7a422 100644
+--- a/src/legacy/vscode/components/client-portfolio.tsx
++++ b/src/legacy/vscode/components/client-portfolio.tsx
+@@ -27,14 +27,15 @@ import Image from "next/image"
+ import Link from "next/link"
+ import React from "react"
+ import { sendContactMessage } from "@/lib/contact"
++import { PortfolioHeader, PortfolioHero } from "@/components/portfolio-hero"
+ 
+ 
+-export default function ClientPortfolio() {
++export default function ClientPortfolio({ redesignedHero = false }: { redesignedHero?: boolean }) {
+   return (
+-    <div className="min-h-screen bg-gradient-to-br from-white to-blue-100 font-sans text-gray-800">
+-      <Navbar />
++    <div className="min-h-screen bg-peach font-sans text-cocoa">
++      {redesignedHero ? <PortfolioHeader /> : <Navbar />}
+       <main>
+-        <HeroSection />
++        {redesignedHero ? <PortfolioHero /> : <HeroSection />}
+         <StatsSection />
+         <AboutSection />
+         <ServicesSection />
+@@ -73,14 +74,14 @@ function Navbar() {
+   const navLinks = ["Home", "About", "Services", "Skills", "Projects", "Contact"];
+ 
+   return (
+-    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-xs">
++    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/90 backdrop-blur-md border-b border-line shadow-xs">
+       <div className="container mx-auto md:px-16 sm:px-6 max-sm:py-1 py-4">
+         <div className="flex items-center justify-between">
+-          <a href="#home" className="text-xl flex items-center font-bold hover:text-blue-600 transition-colors">
++          <a href="#home" className="text-xl flex items-center font-bold hover:text-cocoa-soft transition-colors">
+             <div>
+               <img src="/images/logo.jpg" alt="" className="h-14 w-14"/>
+             </div>
+-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-400">
++            <span className="text-cocoa">
+              &lt;Victor Conqueror/&gt;
+             </span>
+           </a>
+@@ -89,7 +90,7 @@ function Navbar() {
+               <a
+                 key={item}
+                 href={`#${item.toLowerCase()}`}
+-                className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium"
++                className="text-muted hover:text-cocoa-soft transition-colors text-sm font-medium"
+               >
+                 {item}
+               </a>
+@@ -99,7 +100,7 @@ function Navbar() {
+ {/* Dropdown for switching views */}
+ <div className="relative max-sm:hidden">
+               <button
+-                className="px-4 py-2 bg-gradient-to-r from-blue-700 to-blue-400 text-white rounded-full font-semibold shadow-sm hover:shadow-lg focus:outline-hidden"
++                className="px-4 py-2 bg-sunshine text-cocoa rounded-full font-semibold shadow-sm hover:shadow-lg focus:outline-hidden"
+                 onClick={() => setOpen((prev) => !prev)}
+               >
+                 {userType === 'developer' ? 'Developer View' : 'Client View'}
+@@ -108,15 +109,15 @@ function Navbar() {
+                 </svg>
+               </button>
+               {open && (
+-                <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
++                <div className="absolute right-0 mt-2 w-40 bg-white border border-line rounded-lg shadow-lg z-50">
+                   <button
+-                    className={`block w-full text-left px-4 py-2 hover:bg-blue-100 rounded-t-lg ${userType === 'client' ? 'font-bold text-blue-600' : ''}`}
++                    className={`block w-full text-left px-4 py-2 hover:bg-peach rounded-t-lg ${userType === 'client' ? 'font-bold text-cocoa-soft' : ''}`}
+                     onClick={() => { handleSwitch('client'); setOpen(false); }}
+                   >
+                     Client View
+                   </button>
+                   <button
+-                    className={`block w-full text-left px-4 py-2 hover:bg-blue-100 rounded-b-lg ${userType === 'developer' ? 'font-bold text-blue-600' : ''}`}
++                    className={`block w-full text-left px-4 py-2 hover:bg-peach rounded-b-lg ${userType === 'developer' ? 'font-bold text-cocoa-soft' : ''}`}
+                     onClick={() => { handleSwitch('developer'); setOpen(false); }}
+                   >
+                     Developer View
+@@ -126,7 +127,7 @@ function Navbar() {
+             </div>
+             
+             {/* Hamburger for mobile */}
+-            <button className="md:hidden  text-blue-500 bg-blue-500/10 rounded-full p-2" onClick={() => setMobileMenu((prev) => !prev)}>
++            <button className="md:hidden  text-cocoa bg-sunshine/25 rounded-full p-2" onClick={() => setMobileMenu((prev) => !prev)}>
+               <svg
+                 xmlns="http://www.w3.org/2000/svg"
+                 className="h-6 w-6"
+@@ -143,12 +144,12 @@ function Navbar() {
+         <div
+           className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out z-40 ${mobileMenu ? 'max-h-[500px] opacity-100 ' : 'max-h-0 opacity-0 mt-0'}`}
+         >
+-          <nav className="flex flex-col gap-2 bg-white rounded-2xl shadow-lg p-4 border border-gray-100 pointer-events-auto">
++          <nav className="flex flex-col gap-2 bg-white rounded-2xl shadow-lg p-4 border border-line pointer-events-auto">
+             {navLinks.map((item) => (
+               <a
+                 key={item}
+                 href={`#${item.toLowerCase()}`}
+-                className="block text-gray-600 hover:text-blue-600 transition-colors text-base font-medium py-2 px-2 rounded-lg"
++                className="block text-muted hover:text-cocoa-soft transition-colors text-base font-medium py-2 px-2 rounded-lg"
+                 onClick={() => setMobileMenu(false)}
+               >
+                 {item}
+@@ -156,16 +157,16 @@ function Navbar() {
+             ))}
+             {/* Client/Developer view dropdown in mobile menu */}
+             <div className="mt-4 border-t pt-3">
+-              <div className="font-semibold text-xs text-gray-500 mb-2 pl-1">View Mode</div>
++              <div className="font-semibold text-xs text-muted mb-2 pl-1">View Mode</div>
+               <div className="flex flex-col gap-1">
+                 <button
+-                  className={`w-full text-left px-4 py-2 rounded-sm ${userType === 'client' ? 'bg-blue-100 text-blue-700 font-bold' : 'hover:bg-blue-50 text-gray-700'}`}
++                  className={`w-full text-left px-4 py-2 rounded-sm ${userType === 'client' ? 'bg-peach text-cocoa font-bold' : 'hover:bg-cream text-cocoa'}`}
+                   onClick={() => { handleSwitch('client'); setMobileMenu(false); }}
+                 >
+                   Client View
+                 </button>
+                 <button
+-                  className={`w-full text-left px-4 py-2 rounded-sm ${userType === 'developer' ? 'bg-blue-100 text-blue-700 font-bold' : 'hover:bg-blue-50 text-gray-700'}`}
++                  className={`w-full text-left px-4 py-2 rounded-sm ${userType === 'developer' ? 'bg-peach text-cocoa font-bold' : 'hover:bg-cream text-cocoa'}`}
+                   onClick={() => { handleSwitch('developer'); setMobileMenu(false); }}
+                 >
+                   Developer View
+@@ -186,26 +187,26 @@ function HeroSection() {
+         <div className="flex flex-col md:flex-row items-center md:justify-center gap-8 md:gap-12">
+           <div className="w-full md:w-1/2 z-10">
+             <div className="relative">
+-              <div className="absolute -top-10 -left-10 w-32 h-32 md:w-40 md:h-40 bg-blue-700/20 rounded-full blur-3xl"></div>
+-              <div className="absolute -bottom-10 -right-10 w-32 h-32 md:w-40 md:h-40 bg-blue-400/20 rounded-full blur-3xl"></div>
+-              <h1 className="text-5xl sm:text-4xl md:text-6xl font-bold mb-1 leading-tight animate-fade-in text-gray-800">Hi, I'm <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-blue-400">Victor Onyemaechi</span></h1>
++              <div className="absolute -top-10 -left-10 w-32 h-32 md:w-40 md:h-40 bg-rose/25 rounded-full blur-3xl"></div>
++              <div className="absolute -bottom-10 -right-10 w-32 h-32 md:w-40 md:h-40 bg-sky/25 rounded-full blur-3xl"></div>
++              <h1 className="text-5xl sm:text-4xl md:text-6xl font-bold mb-1 leading-tight animate-fade-in text-cocoa">Hi, I'm <span className="text-cocoa">Victor Onyemaechi</span></h1>
+              
+               <div className="text-2xl py-3 max-sm:py-1 sm:text-3xl md:text-5xl">Frontend Engineer & Server Architecturer</div>
+-              <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-8 md:mb-10 max-w-2xl animate-fade-in-delay">
++              <p className="text-base sm:text-lg md:text-xl text-muted mb-8 md:mb-10 max-w-2xl animate-fade-in-delay">
+                 I craft beautiful, functional digital experiences with a focus on clean design and intuitive user
+                 interfaces. Helping businesses stand out in the digital landscape.
+               </p>
+               <div className="flex flex-wrap gap-4">
+                 <a
+                   href="#projects"
+-                  className="inline-flex items-center px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-3 text-sm sm:text-base md:text-lg font-medium text-white bg-gradient-to-r from-blue-700 to-blue-400 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 animate-fade-in-delay-2"
++                  className="inline-flex items-center px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-3 text-sm sm:text-base md:text-lg font-medium text-cocoa bg-sunshine rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 animate-fade-in-delay-2"
+                 >
+                   View My Work
+                   <ArrowRight className="ml-2 h-5 w-5" />
+                 </a>
+                 <a
+                   href="#contact"
+-                  className="inline-flex items-center px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-3 text-sm sm:text-base md:text-lg font-medium text-gray-700 bg-white border border-gray-200 rounded-full shadow-lg hover:shadow-xl hover:bg-gray-50 transform hover:-translate-y-1 transition-all duration-300 animate-fade-in-delay-2"
++                  className="inline-flex items-center px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-3 text-sm sm:text-base md:text-lg font-medium text-cocoa bg-white border border-line rounded-full shadow-lg hover:shadow-xl hover:bg-cream transform hover:-translate-y-1 transition-all duration-300 animate-fade-in-delay-2"
+                 >
+                   Contact Me
+                 </a>
+@@ -213,11 +214,11 @@ function HeroSection() {
+             </div>
+           </div>
+           <div className="w-full md:w-1/2 relative flex justify-center">
+-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 sm:w-48 sm:h-48 md:w-80 md:h-80 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full blur-3xl opacity-20"></div>
+-            <div className="relative z-10 w-full max-w-[400px] sm:max-w-xs md:max-w-md aspect-square rounded-3xl overflow-hidden border-4 border-blue-700 shadow-2xl transform md:rotate-3 hover:rotate-0 transition-all duration-500">
++            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 sm:w-48 sm:h-48 md:w-80 md:h-80 bg-sunshine rounded-full blur-3xl opacity-20"></div>
++            <div className="relative z-10 w-full max-w-[400px] sm:max-w-xs md:max-w-md aspect-square rounded-3xl overflow-hidden border-4 border-cocoa shadow-2xl transform md:rotate-3 hover:rotate-0 transition-all duration-500">
+               <Image src="/images/me3.jpg" alt="Victor Onyemaechi" fill className="object-cover" priority />
+             </div>
+-            <div className="absolute -bottom-10 -left-10 w-32 h-32 md:w-40 md:h-40 bg-blue-200/20 rounded-full blur-3xl"></div>
++            <div className="absolute -bottom-10 -left-10 w-32 h-32 md:w-40 md:h-40 bg-sunshine/25 rounded-full blur-3xl"></div>
+           </div>
+         </div>
+       </div>
+@@ -235,17 +236,17 @@ function StatsSection() {
+   return (
+     <section className="py-12  md:px-16">
+       <div className="container mx-auto px-6">
+-        <div className="bg-blue-100 rounded-3xl shadow-xl overflow-hidden">
++        <div className="bg-peach rounded-3xl shadow-xl overflow-hidden">
+           <div className="grid grid-cols-2 md:grid-cols-3">
+             {stats.map((stat, index) => (
+               <div
+                 key={index}
+-                className={`p-8 text-center ${index < stats.length - 1 ? "border-r border-gray-100" : ""}`}
++                className={`p-8 text-center ${index < stats.length - 1 ? "border-r border-line" : ""}`}
+               >
+-                <div className="text-4xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-blue-400">
++                <div className="text-4xl font-bold mb-2 text-cocoa">
+                   {stat.value}
+                 </div>
+-                <div className="text-gray-600 font-medium">{stat.label}</div>
++                <div className="text-muted font-medium">{stat.label}</div>
+               </div>
+             ))}
+           </div>
+@@ -258,7 +259,7 @@ function StatsSection() {
+ function AboutSection() {
+   return (
+     <section id="about" className="py-20 relative">
+-      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-100 rounded-full blur-3xl"></div>
++      <div className="absolute top-0 right-0 w-96 h-96 bg-peach rounded-full blur-3xl"></div>
+       <div className="container mx-auto px-6 relative z-10">
+         <div className="max-w-6xl mx-auto">
+           <div className="flex flex-col md:flex-row items-center gap-12">
+@@ -269,13 +270,13 @@ function AboutSection() {
+             </div>
+             <div className="md:w-2/3">
+               <div className="inline-block mb-6">
+-                <h2 className="text-3xl md:text-4xl font-bold mb-1 text-gray-800">About Me</h2>
+-                <div className="h-1 w-20 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full"></div>
++                <h2 className="text-3xl md:text-4xl font-bold mb-1 text-cocoa">About Me</h2>
++                <div className="h-1 w-20 bg-sunshine rounded-full"></div>
+               </div>
+-              <p className="text-gray-600 mb-6 text-lg">
++              <p className="text-muted mb-6 text-lg">
+                I'm a passionate Full Stack Developer with expertise in building modern web applications. With over 1 years of experience, I specialize in creating responsive, user-friendly interfaces and robust backend systems.
+               </p>
+-              <p className="text-gray-600 mb-8 text-lg">
++              <p className="text-muted mb-8 text-lg">
+                 My approach combines technical expertise with an eye for design, allowing me to build solutions that are
+                 both functional and visually stunning. I'm constantly learning new technologies and techniques to stay
+                 at the cutting edge of web development.
+@@ -284,14 +285,14 @@ function AboutSection() {
+                 <a 
+                   href="/victor-onyemaechi-cv.pdf" 
+                   download 
+-                  className="inline-flex items-center px-6 py-3 text-gray-700 bg-white border border-gray-200 rounded-full shadow-md hover:shadow-lg hover:bg-gray-50 transform hover:-translate-y-1 transition-all duration-300 font-medium"
++                  className="inline-flex items-center px-6 py-3 text-cocoa bg-white border border-line rounded-full shadow-md hover:shadow-lg hover:bg-cream transform hover:-translate-y-1 transition-all duration-300 font-medium"
+                 >
+                   <Download className="mr-2 h-5 w-5" />
+                   Download CV
+                 </a>
+                 <Link
+                   href="#contact"
+-                  className="inline-flex items-center px-6 py-3 text-white bg-gradient-to-r from-blue-700 to-blue-400 rounded-full shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 font-medium"
++                  className="inline-flex items-center px-6 py-3 text-cocoa bg-sunshine rounded-full shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 font-medium"
+                 >
+                   <Mail className="mr-2 h-5 w-5" />
+                   Hire Me
+@@ -306,6 +307,7 @@ function AboutSection() {
+ }
+ 
+ function ServicesSection() {
++  const accentClasses = ["bg-sunshine/40", "bg-leaf/25", "bg-rose/35", "bg-sky/35", "bg-tangerine/30", "bg-peach"]
+   const services = [
+     {
+       icon: <Code className="w-8 h-8 " />,
+@@ -340,28 +342,28 @@ function ServicesSection() {
+   ]
+ 
+   return (
+-    <section id="services" className="py-20 bg-gray-50 relative">
+-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl"></div>
++    <section id="services" className="py-20 bg-cream relative">
++      <div className="absolute bottom-0 left-0 w-96 h-96 bg-leaf/10 rounded-full blur-3xl"></div>
+       <div className="container mx-auto px-6 relative z-10">
+         <div className="max-w-6xl mx-auto">
+           <div className="text-left md:text-center mb-16">
+-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">My Services</h2>
+-            <div className="h-1 w-20 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full mb-6 mx-0 md:mx-auto"></div>
++            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-cocoa">My Services</h2>
++            <div className="h-1 w-20 bg-sunshine rounded-full mb-6 mx-0 md:mx-auto"></div>
+           </div>
+ 
+           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+             {services.map((service, index) => (
+               <div
+                 key={index}
+-                className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 group"
++                className="bg-white rounded-3xl p-8 shadow-lg border border-line hover:shadow-xl transition-all duration-300 group"
+               >
+-                <div className="w-16 h-16 rounded-2xl text-blue-500  bg-blue-500/10 flex items-center justify-center mb-6 group-hover:bg-gradient-to-r from-blue-500 to-blue-400 group-hover:text-white transition-all duration-300">
++                <div className={`w-16 h-16 rounded-2xl text-cocoa ${accentClasses[index % accentClasses.length]} flex items-center justify-center mb-6 group-hover:bg-sunshine transition-all duration-300`}>
+                   {service.icon}
+                 </div>
+-                <h3 className="text-xl font-bold mb-4 text-gray-800 group-hover:text-blue-500 transition-colors">
++                <h3 className="text-xl font-bold mb-4 text-cocoa group-hover:text-cocoa transition-colors">
+                   {service.title}
+                 </h3>
+-                <p className="text-gray-600">{service.description}</p>
++                <p className="text-muted">{service.description}</p>
+               </div>
+             ))}
+           </div>
+@@ -408,22 +410,22 @@ function SkillsSection() {
+       <div className="container mx-auto px-4 sm:px-6">
+         <div className="max-w-6xl mx-auto">
+           <div className="text-left md:text-center mb-16">
+-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">My Skills</h2>
+-            <div className="h-1 w-20 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full mb-6 mx-0 md:mx-auto"></div>
++            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-cocoa">My Skills</h2>
++            <div className="h-1 w-20 bg-sunshine rounded-full mb-6 mx-0 md:mx-auto"></div>
+           </div>
+           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+             {skills.map((skill, index) => (
+-              <div key={index} className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 group">
++              <div key={index} className="bg-white rounded-3xl p-8 shadow-lg border border-line hover:shadow-xl transition-all duration-300 group">
+                 <div className="flex items-center mb-4">
+-                  <span className="w-8 h-8 flex items-center text-blue-500 justify-center bg-blue-500/10 rounded-lg mr-3 text-lg shadow-xs">
++                  <span className="w-8 h-8 flex items-center text-cocoa justify-center bg-sunshine/25 rounded-lg mr-3 text-lg shadow-xs">
+                     {skill.icon}
+                   </span>
+-                  <span className="font-medium text-gray-800">{skill.name}</span>
++                  <span className="font-medium text-cocoa">{skill.name}</span>
+                 </div>
+-                <span className="text-gray-500">{skill.level}%</span>
+-                <div className="h-3 w-full bg-gray-200 rounded-full overflow-hidden mt-2">
++                <span className="text-muted">{skill.level}%</span>
++                <div className="h-3 w-full bg-line rounded-full overflow-hidden mt-2">
+                   <div
+-                    className="h-full bg-gradient-to-r from-blue-500 to-blue-400 rounded-full"
++                    className="h-full bg-sunshine rounded-full"
+                     style={{ width: `${skill.level}%` }}
+                   ></div>
+                 </div>
+@@ -431,12 +433,12 @@ function SkillsSection() {
+             ))}
+           </div>
+           <div className="mt-12">
+-            <h3 className="text-xl font-bold mb-6 text-gray-800">Other Technologies</h3>
++            <h3 className="text-xl font-bold mb-6 text-cocoa">Other Technologies</h3>
+             <div className="flex flex-wrap gap-3">
+               {otherSkills.map((skill) => (
+                 <span
+                   key={skill}
+-                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors"
++                  className="px-4 py-2 bg-peach text-cocoa rounded-full text-sm font-medium hover:bg-line transition-colors"
+                 >
+                   {skill}
+                 </span>
+@@ -548,13 +550,13 @@ function ProjectsSection() {
+   ]
+ 
+   return (
+-    <section id="projects" className="py-20 bg-gray-50 relative">
+-      <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
++    <section id="projects" className="py-20 bg-cream relative">
++      <div className="absolute top-0 left-0 w-96 h-96 bg-sunshine/25 rounded-full blur-3xl"></div>
+       <div className="container mx-auto px-6 relative z-10">
+         <div className="max-w-6xl mx-auto">
+           <div className="text-left md:text-center mb-16">
+-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">My Projects</h2>
+-            <div className="h-1 w-20 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full mb-6 mx-0 md:mx-auto"></div>
++            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-cocoa">My Projects</h2>
++            <div className="h-1 w-20 bg-sunshine rounded-full mb-6 mx-0 md:mx-auto"></div>
+           </div>
+           <div className="flex justify-center mb-8">
+          
+@@ -563,10 +565,10 @@ function ProjectsSection() {
+             {projects.map((project, index) => (
+               <div
+                 key={index}
+-                className="group bg-white backdrop-blur-xs rounded-2xl shadow-xl border border-gray-100 overflow-hidden transform hover:-translate-y-2 transition-all duration-300"
++                className="group bg-white backdrop-blur-xs rounded-2xl shadow-xl border border-line overflow-hidden transform hover:-translate-y-2 transition-all duration-300"
+               >
+                 <div className="relative h-48 overflow-hidden">
+-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-0 group-hover:opacity-60 transition-opacity z-10"></div>
++                  <div className="absolute inset-0 bg-gradient-to-t from-cocoa to-transparent opacity-0 group-hover:opacity-60 transition-opacity z-10"></div>
+                   <Image
+                     src={project.image}
+                     alt={project.title}
+@@ -575,13 +577,13 @@ function ProjectsSection() {
+                   />
+                 </div>
+                 <div className="p-6">
+-                  <h3 className="text-xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-400">
++                  <h3 className="text-xl font-bold mb-2 text-cocoa">
+                     {project.title}
+                   </h3>
+-                  <p className="text-gray-600 mb-4 text-sm">{project.description}</p>
++                  <p className="text-muted mb-4 text-sm">{project.description}</p>
+                   <div className="flex flex-wrap gap-2 mb-4">
+                     {project.tags.map((tag) => (
+-                      <span key={tag} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium">
++                      <span key={tag} className="px-3 py-1 bg-peach text-cocoa rounded-full text-xs font-medium">
+                         {tag}
+                       </span>
+                     ))}
+@@ -589,14 +591,14 @@ function ProjectsSection() {
+                   <div className="flex justify-between">
+                     <Link
+                       href={project.demoLink}
+-                      className="text-blue-500 hover:text-blue-400 font-medium text-sm flex items-center transition-colors"
++                      className="text-cocoa hover:text-cocoa-soft font-medium text-sm flex items-center transition-colors"
+                     >
+                       Live Demo
+                       <ExternalLink className="ml-1 h-4 w-4" />
+                     </Link>
+                     <Link
+                       href={project.githubLink}
+-                      className="text-gray-600 hover:text-blue-500 font-medium text-sm flex items-center transition-colors"
++                      className="text-muted hover:text-cocoa font-medium text-sm flex items-center transition-colors"
+                     >
+                       <Github className="mr-1 h-4 w-4" />
+                       Code
+@@ -643,26 +645,26 @@ function ProcessSection() {
+   ]
+ 
+   return (
+-    <section className="py-20 bg-gray-50 relative">
+-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
++    <section className="py-20 bg-cream relative">
++      <div className="absolute bottom-0 left-0 w-96 h-96 bg-sunshine/25 rounded-full blur-3xl"></div>
+       <div className="container mx-auto px-6 relative z-10">
+         <div className="max-w-6xl mx-auto">
+           <div className="text-left md:text-center mb-16">
+-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">My Work Process</h2>
+-            <div className="h-1 w-20 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full mb-6 mx-0 md:mx-auto"></div>
++            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-cocoa">My Work Process</h2>
++            <div className="h-1 w-20 bg-sunshine rounded-full mb-6 mx-0 md:mx-auto"></div>
+           </div>
+ 
+           <div className="flex flex-col md:flex-row  justify-between relative max-sm:items-start">
+-            <div className="hidden md:block absolute top-[74px] left-0 right-0 h-1 bg-gradient-to-r from-blue-700 to-blue-400 transform -translate-y-1/2 z-0"></div>
++            <div className="hidden md:block absolute top-[74px] left-0 right-0 h-1 bg-sunshine transform -translate-y-1/2 z-0"></div>
+ 
+             {process.map((step, index) => (
+               <div key={index} className="md:w-1/4 relative z-10  mb-10 md:mb-0">
+                 <div className="flex flex-col md:items-center">
+-                  <div className="w-16 h-16 rounded-full bg-white shadow-lg border border-gray-100 flex items-center justify-center mb-6 text-blue-500">
++                  <div className="w-16 h-16 rounded-full bg-white shadow-lg border border-line flex items-center justify-center mb-6 text-cocoa">
+                     {step.icon}
+                   </div>
+-                  <h3 className="text-xl font-bold mb-3 text-gray-800">{step.title}</h3>
+-                  <p className="md:text-center text-gray-600 px-4 max-sm:p-0">{step.description}</p>
++                  <h3 className="text-xl font-bold mb-3 text-cocoa">{step.title}</h3>
++                  <p className="md:text-center text-muted px-4 max-sm:p-0">{step.description}</p>
+                 </div>
+               </div>
+             ))}
+@@ -714,29 +716,29 @@ function EducationSection() {
+ 
+   return (
+     <section id="education" className="py-20 relative">
+-      <div className="absolute top-0 right-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl"></div>
++      <div className="absolute top-0 right-0 w-96 h-96 bg-leaf/10 rounded-full blur-3xl"></div>
+       <div className="container mx-auto px-6 relative z-10">
+         <div className="max-w-6xl mx-auto">
+           <div className="text-left md:text-center mb-16">
+-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">Education & Certifications</h2>
+-            <div className="h-1 w-20 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full mb-6 mx-0 md:mx-auto"></div>
++            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-cocoa">Education & Certifications</h2>
++            <div className="h-1 w-20 bg-sunshine rounded-full mb-6 mx-0 md:mx-auto"></div>
+           </div>
+ 
+           <div className="grid  gap-10">
+             <div>
+-              <h3 className="text-2xl font-bold mb-6 flex items-center text-gray-800">
+-                <GraduationCap className="mr-3 text-blue-500" />
++              <h3 className="text-2xl font-bold mb-6 flex items-center text-cocoa">
++                <GraduationCap className="mr-3 text-cocoa" />
+                 Education
+               </h3>
+               <div className="space-y-8">
+                 {education.map((item, index) => (
+-                  <div key={index} className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 relative">
+-                    <div className="absolute h-full w-1 bg-gradient-to-b from-blue-500 to-blue-400 left-0 top-0 rounded-l-2xl"></div>
++                  <div key={index} className="bg-white rounded-2xl p-6 shadow-lg border border-line relative">
++                    <div className="absolute h-full w-1 bg-gradient-to-b from-leaf to-sky left-0 top-0 rounded-l-2xl"></div>
+                     <div className="pl-4">
+-                      <h4 className="text-xl font-bold text-gray-800 mb-1">{item.degree}</h4>
+-                      <p className="text-blue-500 font-medium mb-2">{item.institution}</p>
+-                      <p className="text-gray-500 text-sm mb-3">{item.period}</p>
+-                      <p className="text-gray-600">{item.description}</p>
++                      <h4 className="text-xl font-bold text-cocoa mb-1">{item.degree}</h4>
++                      <p className="text-cocoa font-medium mb-2">{item.institution}</p>
++                      <p className="text-muted text-sm mb-3">{item.period}</p>
++                      <p className="text-muted">{item.description}</p>
+                     </div>
+                   </div>
+                 ))}
+@@ -744,18 +746,18 @@ function EducationSection() {
+             </div>
+ 
+             {/* <div>
+-              <h3 className="text-2xl font-bold mb-6 flex items-center text-gray-800">
+-                <Award className="mr-3 text-violet-500" />
++              <h3 className="text-2xl font-bold mb-6 flex items-center text-cocoa">
++                <Award className="mr-3 text-rose-ink" />
+                 Certifications
+               </h3>
+-              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
++              <div className="bg-white rounded-2xl p-6 shadow-lg border border-line">
+                 <div className="space-y-4">
+                   {certifications.map((cert, index) => (
+-                    <div key={index} className="border-b border-gray-100 last:border-b-0 pb-4 last:pb-0">
+-                      <h4 className="font-bold text-gray-800">{cert.title}</h4>
++                    <div key={index} className="border-b border-line last:border-b-0 pb-4 last:pb-0">
++                      <h4 className="font-bold text-cocoa">{cert.title}</h4>
+                       <div className="flex justify-between text-sm">
+-                        <span className="text-violet-500">{cert.issuer}</span>
+-                        <span className="text-gray-500">{cert.date}</span>
++                        <span className="text-rose-ink">{cert.issuer}</span>
++                        <span className="text-muted">{cert.date}</span>
+                       </div>
+                     </div>
+                   ))}
+@@ -802,27 +804,27 @@ function ContactSection() {
+ 
+   return (
+     <section id="contact" className="py-20 relative bg-white">
+-      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-100 z-10 rounded-full blur-3xl"></div>
++      <div className="absolute top-0 right-0 w-96 h-96 bg-peach z-10 rounded-full blur-3xl"></div>
+       <div className="container mx-auto px-6 relative z-10">
+         <div className="max-w-4xl mx-auto">
+           <div className="text-left md:text-center mb-16">
+-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">Get In Touch</h2>
+-            <div className="h-1 w-20 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full mb-6 mx-0 md:mx-auto"></div>
++            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-cocoa">Get In Touch</h2>
++            <div className="h-1 w-20 bg-sunshine rounded-full mb-6 mx-0 md:mx-auto"></div>
+           </div>
+-          <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
++          <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-line">
+             <div className="grid md:grid-cols-2">
+-              <div className="p-8 md:p-12 bg-gradient-to-br from-blue-500/10 to-blue-400/10 backdrop-blur-xs">
+-                <h3 className="text-2xl font-bold mb-6 text-gray-800">Contact Information</h3>
+-                <p className="mb-8 text-gray-600">
++              <div className="p-8 md:p-12 bg-gradient-to-br from-rose/15 to-sky/20 backdrop-blur-xs">
++                <h3 className="text-2xl font-bold mb-6 text-cocoa">Contact Information</h3>
++                <p className="mb-8 text-muted">
+                   I'd love to hear from you. Fill out the form or reach out directly through the following channels:
+                 </p>
+                 <div className="space-y-6">
+                   <div className="flex items-center">
+-                    <Mail className="h-6 w-6 mr-4 text-blue-500" />
+-                    <span className="text-gray-700">victorvector608@gmail.com</span>
++                    <Mail className="h-6 w-6 mr-4 text-cocoa" />
++                    <span className="text-cocoa">victorvector608@gmail.com</span>
+                   </div>
+                   <div className="flex items-center">
+-                    <div className="h-6 w-6 mr-4 flex items-center justify-center text-blue-500">
++                    <div className="h-6 w-6 mr-4 flex items-center justify-center text-cocoa">
+                       <svg
+                         xmlns="http://www.w3.org/2000/svg"
+                         className="h-6 w-6"
+@@ -838,10 +840,10 @@ function ContactSection() {
+                         />
+                       </svg>
+                     </div>
+-                    <span className="text-gray-700">+234 802 538 3208</span>
++                    <span className="text-cocoa">+234 802 538 3208</span>
+                   </div>
+                   <div className="flex items-center">
+-                    <div className="h-6 w-6 mr-4 flex items-center justify-center text-blue-500">
++                    <div className="h-6 w-6 mr-4 flex items-center justify-center text-cocoa">
+                       <svg
+                         xmlns="http://www.w3.org/2000/svg"
+                         className="h-6 w-6"
+@@ -863,25 +865,25 @@ function ContactSection() {
+                         />
+                       </svg>
+                     </div>
+-                    <span className="text-gray-700">Lagos, Nigeria</span>
++                    <span className="text-cocoa">Lagos, Nigeria</span>
+                   </div>
+                 </div>
+                 <div className="mt-12 flex space-x-4">
+                   <Link
+                     href="https://x.com/TECH_snitch101?t=1MXTBHsRp_tx9nFgz7iNAA&s=09"
+-                    className="bg-white p-3 rounded-full hover:bg-gray-100 transition-colors text-blue-500 shadow-xs"
++                    className="bg-white p-3 rounded-full hover:bg-peach transition-colors text-cocoa shadow-xs"
+                   >
+                     <Twitter className="h-5 w-5" />
+                   </Link>
+                   <Link
+                     href="https://www.linkedin.com/in/victor-conqueror-956635327/"
+-                    className="bg-white p-3 rounded-full hover:bg-gray-100 transition-colors text-blue-500 shadow-xs"
++                    className="bg-white p-3 rounded-full hover:bg-peach transition-colors text-cocoa shadow-xs"
+                   >
+                     <Linkedin className="h-5 w-5" />
+                   </Link>
+                   <Link
+                     href="https://github.com/Conqueror102"
+-                    className="bg-white p-3 rounded-full hover:bg-gray-100 transition-colors text-blue-500 shadow-xs"
++                    className="bg-white p-3 rounded-full hover:bg-peach transition-colors text-cocoa shadow-xs"
+                   >
+                     <Github className="h-5 w-5" />
+                   </Link>
+@@ -889,7 +891,7 @@ function ContactSection() {
+                     href="https://wa.me/+2348025383208?text=Hi%20there!%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project."
+                     target="_blank"
+                     rel="noopener noreferrer"
+-                    className="bg-white p-3 rounded-full hover:bg-gray-100 transition-colors text-blue-500 shadow-xs"
++                    className="bg-white p-3 rounded-full hover:bg-peach transition-colors text-cocoa shadow-xs"
+                   >
+                     <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+@@ -899,13 +901,13 @@ function ContactSection() {
+               </div>
+               <div className="p-8 md:p-12">
+                 {status && (
+-                  <div className={`mb-4 px-4 py-3 rounded-xl text-center font-medium ${status.type === "success" ? "bg-green-100 text-green-700 border border-green-200" : "bg-red-100 text-red-700 border border-red-200"}`}>
++                  <div className={`mb-4 px-4 py-3 rounded-xl text-center font-medium ${status.type === "success" ? "bg-leaf/15 text-leaf-ink border border-leaf" : "bg-rose/20 text-rose-ink border border-rose"}`}>
+                     {status.message}
+                   </div>
+                 )}
+                 <form className="space-y-6" onSubmit={handleSubmit}>
+                   <div>
+-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
++                    <label htmlFor="name" className="block text-sm font-medium text-cocoa mb-1">
+                       Name
+                     </label>
+                     <input
+@@ -915,12 +917,12 @@ function ContactSection() {
+                       id="name"
+                       name="name"
+                       disabled={isLoading}
+-                      className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-hidden transition-all disabled:opacity-50 disabled:cursor-not-allowed"
++                      className="w-full px-4 py-3 rounded-xl bg-cream border border-line text-cocoa focus:ring-2 focus:ring-cocoa focus:border-transparent outline-hidden transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                       placeholder="Your name"
+                     />
+                   </div>
+                   <div>
+-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
++                    <label htmlFor="email" className="block text-sm font-medium text-cocoa mb-1">
+                       Email
+                     </label>
+                     <input
+@@ -930,23 +932,23 @@ function ContactSection() {
+                       id="email"
+                       name="email"
+                       disabled={isLoading}
+-                      className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-hidden transition-all disabled:opacity-50 disabled:cursor-not-allowed"
++                      className="w-full px-4 py-3 rounded-xl bg-cream border border-line text-cocoa focus:ring-2 focus:ring-cocoa focus:border-transparent outline-hidden transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                       placeholder="your.email@example.com"
+                     />
+                   </div>
+                   {/* <div>
+-                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
++                    <label htmlFor="subject" className="block text-sm font-medium text-cocoa mb-1">
+                       Subject
+                     </label>
+                     <input
+                       type="text"
+                       id="subject"
+-                      className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 focus:ring-2 focus:ring-violet-500 focus:border-transparent outline-hidden transition-all"
++                      className="w-full px-4 py-3 rounded-xl bg-cream border border-line text-cocoa focus:ring-2 focus:ring-cocoa focus:border-transparent outline-hidden transition-all"
+                       placeholder="Project inquiry"
+                     />
+                   </div> */}
+                   <div>
+-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
++                    <label htmlFor="message" className="block text-sm font-medium text-cocoa mb-1">
+                       Message
+                     </label>
+                     <textarea
+@@ -956,14 +958,14 @@ function ContactSection() {
+                       value={formData.message}
+                       onChange={handleChange}
+                       disabled={isLoading}
+-                      className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-hidden transition-all disabled:opacity-50 disabled:cursor-not-allowed"
++                      className="w-full px-4 py-3 rounded-xl bg-cream border border-line text-cocoa focus:ring-2 focus:ring-cocoa focus:border-transparent outline-hidden transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                       placeholder="Your message"
+                     ></textarea>
+                   </div>
+                   <button
+                     type="submit"
+                     disabled={isLoading}
+-                    className="w-full py-3 px-6 text-white bg-gradient-to-r from-blue-500 to-blue-400 rounded-xl shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 font-medium disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
++                    className="w-full py-3 px-6 text-cocoa bg-sunshine rounded-xl shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 font-medium disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                   >
+                     {isLoading ? (
+                       <div className="flex items-center justify-center">
+@@ -1009,27 +1011,27 @@ function FAQSection() {
+   ]
+ 
+   return (
+-    <section className="py-20 bg-gray-50 relative">
+-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl"></div>
++    <section className="py-20 bg-cream relative">
++      <div className="absolute bottom-0 left-0 w-96 h-96 bg-leaf/10 rounded-full blur-3xl"></div>
+       <div className="container mx-auto px-6 relative z-10">
+         <div className="max-w-3xl mx-auto">
+           <div className="text-left md:text-center mb-16">
+-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">Frequently Asked Questions</h2>
+-            <p className="text-gray-600 max-w-2xl mx-0 md:mx-auto">
++            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-cocoa">Frequently Asked Questions</h2>
++            <p className="text-muted max-w-2xl mx-0 md:mx-auto">
+               Answers to common questions about my services, process, and workflow.
+             </p>
+           </div>
+ 
+           <div className="space-y-6">
+             {faqs.map((faq, index) => (
+-              <div key={index} className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
++              <div key={index} className="bg-white rounded-2xl shadow-lg border border-line overflow-hidden">
+                 <details className="group">
+                   <summary className="flex justify-between items-center p-6 cursor-pointer">
+-                    <h3 className="text-lg font-bold text-gray-800">{faq.question}</h3>
++                    <h3 className="text-lg font-bold text-cocoa">{faq.question}</h3>
+                     <span className="transition-transform duration-300 group-open:rotate-180">
+                       <svg
+                         xmlns="http://www.w3.org/2000/svg"
+-                        className="h-5 w-5 text-blue-400"
++                        className="h-5 w-5 text-cocoa-soft"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke="currentColor"
+@@ -1038,7 +1040,7 @@ function FAQSection() {
+                       </svg>
+                     </span>
+                   </summary>
+-                  <div className="px-6 pb-6 text-gray-600">
++                  <div className="px-6 pb-6 text-muted">
+                     <p>{faq.answer}</p>
+                   </div>
+                 </details>
+@@ -1047,10 +1049,10 @@ function FAQSection() {
+           </div>
+ 
+           <div className="mt-12 text-center">
+-            <p className="text-gray-600 mb-4">Have more questions? Feel free to reach out directly.</p>
++            <p className="text-muted mb-4">Have more questions? Feel free to reach out directly.</p>
+             <Link
+               href="#contact"
+-              className="inline-flex items-center px-6 py-3 text-white  bg-gradient-to-r from-blue-700 to-blue-400 rounded-full shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 font-medium  "
++              className="inline-flex items-center px-6 py-3 text-cocoa  bg-sunshine rounded-full shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 font-medium  "
+             >
+               Contact Me
+             </Link>
+@@ -1064,32 +1066,32 @@ function FAQSection() {
+ 
+ function Footer() {
+   return (
+-    <footer className="bg-gray-50 border-t border-gray-100 pt-16 pb-8  md:px-16">
++    <footer className="bg-cream border-t border-line pt-16 pb-8  md:px-16">
+       <div className="container mx-auto px-6">
+         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-16">
+           <div className="md:col-span-2">
+-            <div className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-400">
++            <div className="text-2xl font-bold mb-4 text-cocoa">
+               Victor Onyemaechi
+             </div>
+-            <p className="text-gray-600 mb-6 max-w-md">
++            <p className="text-muted mb-6 max-w-md">
+               I create beautiful, functional websites and applications that help businesses grow and succeed in the digital world.
+             </p>
+             <div className="flex space-x-4 ">
+               <Link
+                 href="https://x.com/TECH_snitch101?t=1MXTBHsRp_tx9nFgz7iNAA&s=09"
+-                className="bg-white shadow-xs p-3 rounded-full hover:bg-gray-200 transition-colors text-blue-500"
++                className="bg-white shadow-xs p-3 rounded-full hover:bg-line transition-colors text-cocoa"
+               >
+                 <Twitter className="h-5 w-5" />
+               </Link>
+               <Link
+                 href="https://www.linkedin.com/in/victor-conqueror-956635327/"
+-                className="bg-white shadow-xs p-3 rounded-full hover:bg-gray-200 transition-colors text-blue-500"
++                className="bg-white shadow-xs p-3 rounded-full hover:bg-line transition-colors text-cocoa"
+               >
+                 <Linkedin className="h-5 w-5" />
+               </Link>
+               <Link
+                 href="https://github.com/Conqueror102"
+-                className="bg-white shadow-xs p-3 rounded-full hover:bg-gray-200 transition-colors text-blue-500"
++                className="bg-white shadow-xs p-3 rounded-full hover:bg-line transition-colors text-cocoa"
+               >
+                 <Github className="h-5 w-5" />
+               </Link>
+@@ -1097,7 +1099,7 @@ function Footer() {
+                 href="https://wa.me/+2348025383208?text=Hi%20there!%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project."
+                 target="_blank"
+                 rel="noopener noreferrer"
+-                className="bg-white p-3 rounded-full hover:bg-gray-100 transition-colors text-blue-500 shadow-xs"
++                className="bg-white p-3 rounded-full hover:bg-peach transition-colors text-cocoa shadow-xs"
+               >
+                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+@@ -1107,13 +1109,13 @@ function Footer() {
+           </div>
+ 
+           <div>
+-            <h3 className="text-lg font-bold mb-4 text-blue-500">Quick Links</h3>
++            <h3 className="text-lg font-bold mb-4 text-cocoa">Quick Links</h3>
+             <ul className="space-y-2">
+               {["Home", "About", "Services", "Projects", "Contact"].map((item) => (
+                 <li key={item}>
+                   <Link
+                     href={`#${item.toLowerCase()}`}
+-                    className="text-gray-600 hover:text-blue-500 transition-colors"
++                    className="text-muted hover:text-cocoa transition-colors"
+                   >
+                     {item}
+                   </Link>
+@@ -1123,14 +1125,14 @@ function Footer() {
+           </div>
+ 
+           <div>
+-            <h3 className="text-lg font-bold mb-4 text-blue-500">Contact</h3>
++            <h3 className="text-lg font-bold mb-4 text-cocoa">Contact</h3>
+             <ul className="space-y-3">
+               <li className="flex items-start">
+-                <Mail className="h-5 w-5 mr-3 text-blue-500 mt-1" />
+-                <span className="text-gray-600">victorvector608@gmail.com</span>
++                <Mail className="h-5 w-5 mr-3 text-cocoa mt-1" />
++                <span className="text-muted">victorvector608@gmail.com</span>
+               </li>
+               <li className="flex items-start">
+-                <div className="h-5 w-5 mr-3 flex items-center justify-center text-blue-500 mt-1">
++                <div className="h-5 w-5 mr-3 flex items-center justify-center text-cocoa mt-1">
+                   <svg
+                     xmlns="http://www.w3.org/2000/svg"
+                     className="h-5 w-5"
+@@ -1146,10 +1148,10 @@ function Footer() {
+                     />
+                   </svg>
+                 </div>
+-                <span className="text-gray-600">+234 802 538 3208</span>
++                <span className="text-muted">+234 802 538 3208</span>
+               </li>
+               <li className="flex items-start">
+-                <div className="h-5 w-5 mr-3 flex items-center justify-center text-blue-500 mt-1">
++                <div className="h-5 w-5 mr-3 flex items-center justify-center text-cocoa mt-1">
+                   <svg
+                     xmlns="http://www.w3.org/2000/svg"
+                     className="h-5 w-5"
+@@ -1171,17 +1173,17 @@ function Footer() {
+                     />
+                   </svg>
+                 </div>
+-                <span className="text-gray-600">Lagos, Nigeria</span>
++                <span className="text-muted">Lagos, Nigeria</span>
+               </li>
+             </ul>
+           </div>
+         </div>
+ 
+-        <div className="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-center items-center">
+-          <p className="text-gray-500 text-sm">© {new Date().getFullYear()} Victor Onyemaechi. All rights reserved.</p>
++        <div className="border-t border-line pt-8 flex flex-col md:flex-row justify-center items-center">
++          <p className="text-muted text-sm">© {new Date().getFullYear()} Victor Onyemaechi. All rights reserved.</p>
+         
+         </div>
+       </div>
+     </footer>
+   )
+-} 
+\ No newline at end of file
++}
+diff --git a/src/legacy/vscode/components/loading-placeholder.tsx b/src/legacy/vscode/components/loading-placeholder.tsx
+index 010bdbd..20cf7cf 100644
+--- a/src/legacy/vscode/components/loading-placeholder.tsx
++++ b/src/legacy/vscode/components/loading-placeholder.tsx
+@@ -1,7 +1,7 @@
+ export function LoadingPlaceholder({ height = "400px" }: { height?: string }) {
+   return (
+-    <div className="w-full bg-[#1E1E1E] rounded-md flex items-center justify-center" style={{ height }}>
+-      <div className="text-[#569CD6] opacity-50 animate-pulse">Loading...</div>
++    <div className="w-full bg-editor-background rounded-md flex items-center justify-center" style={{ height }}>
++      <div className="text-editor-keyword opacity-50 animate-pulse">Loading...</div>
+     </div>
+   )
+ }
+diff --git a/src/legacy/vscode/components/modal.tsx b/src/legacy/vscode/components/modal.tsx
+index ba34bbf..ad5994b 100644
+--- a/src/legacy/vscode/components/modal.tsx
++++ b/src/legacy/vscode/components/modal.tsx
+@@ -2,10 +2,10 @@ import React from "react"
+ 
+ export function Modal({ children }: { children: React.ReactNode }) {
+   return (
+-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+-      <div className="bg-white dark:bg-[#1E1E1E] rounded-lg shadow-lg p-0 min-w-[320px] max-w-full">
++    <div className="fixed inset-0 z-50 flex items-center justify-center bg-cocoa/60">
++      <div className="bg-cream text-cocoa border border-line rounded-lg shadow-lg p-0 min-w-[320px] max-w-full">
+         {children}
+       </div>
+     </div>
+   )
+-} 
+\ No newline at end of file
++}
+diff --git a/src/legacy/vscode/components/vscode-layout.tsx b/src/legacy/vscode/components/vscode-layout.tsx
+index db62ba5..b9e6d5f 100644
+--- a/src/legacy/vscode/components/vscode-layout.tsx
++++ b/src/legacy/vscode/components/vscode-layout.tsx
+@@ -27,6 +27,24 @@ interface VSCodeLayoutProps {
+ 
+ // VS Code themes
+ const themes = {
++  "Peach & Cocoa": {
++    id: "peach-cocoa",
++    background: "var(--color-cream)",
++    foreground: "var(--color-cocoa)",
++    sidebarBackground: "var(--color-peach)",
++    sidebarForeground: "var(--color-cocoa)",
++    activityBarBackground: "var(--color-cocoa)",
++    activityBarForeground: "var(--color-cream)",
++    tabActiveBackground: "var(--color-cream)",
++    tabInactiveBackground: "var(--color-peach)",
++    statusBarBackground: "var(--color-sunshine)",
++    statusBarForeground: "var(--color-cocoa)",
++    borderColor: "var(--color-line)",
++    accentBlue: "var(--color-sky-ink)",
++    accentGreen: "var(--color-leaf-ink)",
++    accentOrange: "var(--color-tangerine-ink)",
++    accentPurple: "var(--color-rose-ink)",
++  },
+   "Dark+ (default)": {
+     id: "dark-plus",
+     background: "#1E1E1E",
+@@ -120,14 +138,14 @@ const themes = {
+ }
+ 
+ export function VSCodeLayout({ children, activeSection, setActiveSection }: VSCodeLayoutProps) {
+-  const [currentTheme, setCurrentTheme] = useState<string>("Dark+ (default)")
++  const [currentTheme, setCurrentTheme] = useState<string>("Peach & Cocoa")
+   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
+   const [isMobile, setIsMobile] = useState(false)
+   const [isMaximized, setIsMaximized] = useState(true)
+   const [isMounted, setIsMounted] = useState(false)
+ 
+   // Use default theme for initial server render
+-  const defaultTheme = themes["Dark+ (default)"]
++  const defaultTheme = themes["Peach & Cocoa"]
+   const [theme, setTheme] = useState(defaultTheme)
+ 
+   // Update theme when currentTheme changes (client-side only)
+@@ -163,14 +181,14 @@ export function VSCodeLayout({ children, activeSection, setActiveSection }: VSCo
+   }, [])
+ 
+   const sections = [
+-    { id: "Home.jsx", label: "Home.jsx", icon: <FileCode className="w-4 h-4 text-blue-400" /> },
+-    { id: "AboutMe.jsx", label: "AboutMe.jsx", icon: <FileCode className="w-4 h-4 text-green-400" /> },
+-    { id: "Skills.jsx", label: "Skills.jsx", icon: <FileCode className="w-4 h-4 text-yellow-400" /> },
+-    { id: "Services.jsx", label: "Services.jsx", icon: <FileCode className="w-4 h-4 text-red-400" /> },
+-    { id: "Education.jsx", label: "Education.jsx", icon: <FileCode className="w-4 h-4 text-indigo-400" /> },
+-    { id: "Projects.jsx", label: "Projects.jsx", icon: <FileCode className="w-4 h-4 text-orange-400" /> },
+-    { id: "Gallery.jsx", label: "Gallery.jsx", icon: <FileCode className="w-4 h-4 text-pink-400" /> },
+-    { id: "Contact.jsx", label: "Contact.jsx", icon: <FileCode className="w-4 h-4 text-purple-400" /> },
++    { id: "Home.jsx", label: "Home.jsx", icon: <FileCode className="w-4 h-4 text-editor-keyword" /> },
++    { id: "AboutMe.jsx", label: "AboutMe.jsx", icon: <FileCode className="w-4 h-4 text-editor-comment" /> },
++    { id: "Skills.jsx", label: "Skills.jsx", icon: <FileCode className="w-4 h-4 text-editor-string" /> },
++    { id: "Services.jsx", label: "Services.jsx", icon: <FileCode className="w-4 h-4 text-editor-accent" /> },
++    { id: "Education.jsx", label: "Education.jsx", icon: <FileCode className="w-4 h-4 text-editor-keyword" /> },
++    { id: "Projects.jsx", label: "Projects.jsx", icon: <FileCode className="w-4 h-4 text-editor-string" /> },
++    { id: "Gallery.jsx", label: "Gallery.jsx", icon: <FileCode className="w-4 h-4 text-editor-accent" /> },
++    { id: "Contact.jsx", label: "Contact.jsx", icon: <FileCode className="w-4 h-4 text-editor-accent" /> },
+   ]
+ 
+   const socialLinks = [
+@@ -208,13 +226,13 @@ export function VSCodeLayout({ children, activeSection, setActiveSection }: VSCo
+         {/* Static version for server-side rendering */}
+         <div
+           className="flex items-center justify-between h-9 px-2 border-b"
+-          style={{ borderColor: defaultTheme.borderColor, backgroundColor: defaultTheme.activityBarBackground }}
++          style={{ borderColor: defaultTheme.borderColor, backgroundColor: defaultTheme.activityBarBackground, color: defaultTheme.activityBarForeground }}
+         >
+           <div className="flex items-center space-x-2">
+             <div className="flex space-x-2 mr-4">
+-              <div className="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
+-              <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
+-              <div className="w-3 h-3 rounded-full bg-[#27C93F]"></div>
++              <div className="w-3 h-3 rounded-full bg-rose"></div>
++              <div className="w-3 h-3 rounded-full bg-sunshine"></div>
++              <div className="w-3 h-3 rounded-full bg-leaf"></div>
+             </div>
+             <span className="text-xs opacity-70">VS Code Portfolio</span>
+           </div>
+@@ -233,26 +251,39 @@ export function VSCodeLayout({ children, activeSection, setActiveSection }: VSCo
+   return (
+     <div
+       className={cn(
+-        "flex flex-col h-screen font-mono text-sm transition-colors duration-200",
++        "flex flex-col h-screen font-sans text-sm transition-colors duration-200",
+         isMaximized
+           ? "fixed inset-0 z-50"
+-          : "border border-gray-700 rounded-lg shadow-xl mx-auto my-4 max-w-[1200px] h-[100vh]",
++          : "border border-editor-border rounded-lg shadow-xl mx-auto my-4 max-w-[1200px] h-[100vh]",
+       )}
+       style={{
++        "--editor-background": theme.background,
++        "--editor-surface": theme.sidebarBackground,
++        "--editor-raised": theme.tabInactiveBackground,
++        "--editor-foreground": theme.foreground,
++        "--editor-muted": theme.sidebarForeground,
++        "--editor-border": theme.borderColor,
++        "--editor-keyword": theme.accentBlue,
++        "--editor-comment": theme.accentGreen,
++        "--editor-string": theme.accentOrange,
++        "--editor-symbol": theme.foreground,
++        "--editor-accent": theme.accentPurple,
++        "--editor-primary": theme.statusBarBackground,
++        "--editor-primary-foreground": theme.statusBarForeground,
+         backgroundColor: theme.background,
+         color: theme.foreground,
+-      }}
++      } as React.CSSProperties}
+     >
+       {/* Window Controls Bar */}
+       <div
+         className="flex items-center justify-between h-9 px-2 border-b"
+-        style={{ borderColor: theme.borderColor, backgroundColor: theme.activityBarBackground }}
++        style={{ borderColor: theme.borderColor, backgroundColor: theme.activityBarBackground, color: theme.activityBarForeground }}
+       >
+         <div className="flex items-center space-x-2">
+           <div className="flex space-x-2 mr-4">
+-            <button className="w-3 h-3 rounded-full bg-[#FF5F56] hover:opacity-80"></button>
+-            <button className="w-3 h-3 rounded-full bg-[#FFBD2E] hover:opacity-80" onClick={toggleMaximize}></button>
+-            <button className="w-3 h-3 rounded-full bg-[#27C93F] hover:opacity-80"></button>
++            <button className="w-3 h-3 rounded-full bg-rose hover:opacity-80"></button>
++            <button className="w-3 h-3 rounded-full bg-sunshine hover:opacity-80" onClick={toggleMaximize}></button>
++            <button className="w-3 h-3 rounded-full bg-leaf hover:opacity-80"></button>
+           </div>
+           <span className="text-xs opacity-70">VS Code Portfolio</span>
+         </div>
+@@ -261,7 +292,7 @@ export function VSCodeLayout({ children, activeSection, setActiveSection }: VSCo
+           <select
+             value={currentTheme}
+             onChange={(e) => setCurrentTheme(e.target.value)}
+-            className="bg-[#252526] border border-[#3C3C3C] text-[#CCCCCC] text-xs px-1 py-0.5 focus:outline-hidden max-w-[80px] sm:max-w-none"
++            className="bg-editor-surface border border-editor-border text-editor-foreground text-xs px-1 py-0.5 focus:outline-hidden max-w-[80px] sm:max-w-none"
+             style={{ borderRadius: 2 }}
+           >
+             {Object.keys(themes).map((themeName) => (
+@@ -269,8 +300,8 @@ export function VSCodeLayout({ children, activeSection, setActiveSection }: VSCo
+                 key={themeName}
+                 value={themeName}
+                 style={{ 
+-                  backgroundColor: '#252526',
+-                  color: '#CCCCCC'
++                  backgroundColor: theme.sidebarBackground,
++                  color: theme.foreground,
+                 }}
+               >
+                 {themeName}
+@@ -280,29 +311,29 @@ export function VSCodeLayout({ children, activeSection, setActiveSection }: VSCo
+           {/* Dropdown for switching views (VS Code style) */}
+           <div className="relative">
+             <button
+-              className="ml-1 sm:ml-2 px-1 sm:px-2 py-0.5 sm:py-1 bg-[#252526] border border-[#3C3C3C] text-xs text-[#CCCCCC] font-mono flex items-center gap-1 focus:outline-hidden"
++              className="ml-1 sm:ml-2 px-1 sm:px-2 py-0.5 sm:py-1 bg-editor-surface border border-editor-border text-xs text-editor-foreground font-secondary flex items-center gap-1 focus:outline-hidden"
+               style={{ borderRadius: 2, minWidth: '80px', maxWidth: '100px' }}
+               onClick={() => setOpenDropdown((prev) => !prev)}
+             >
+               {userType === 'developer' ? 'Dev View' : 'Client View'}
+-              <svg className="w-3 h-3 text-[#CCCCCC]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
++              <svg className="w-3 h-3 text-editor-foreground" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+               </svg>
+             </button>
+             {openDropdown && (
+               <div
+-                className="absolute right-0 mt-1 w-28 sm:w-36 border border-[#3C3C3C] bg-[#252526] text-xs font-mono z-50"
++                className="absolute right-0 mt-1 w-28 sm:w-36 border border-editor-border bg-editor-surface text-xs font-secondary z-50"
+                 style={{ borderRadius: 2 }}
+               >
+                 <button
+-                  className={`block w-full text-left px-2 sm:px-4 py-1 sm:py-2 transition-colors ${userType === 'client' ? 'bg-[#007ACC] text-white' : 'text-[#CCCCCC] hover:bg-[#2C2C32] hover:text-white'}`}
++                  className={`block w-full text-left px-2 sm:px-4 py-1 sm:py-2 transition-colors ${userType === 'client' ? 'bg-editor-primary text-editor-primary-foreground' : 'text-editor-foreground hover:bg-editor-raised hover:text-editor-foreground'}`}
+                   style={{ borderTopLeftRadius: 2, borderTopRightRadius: 2 }}
+                   onClick={() => { handleSwitch('client'); setOpenDropdown(false); }}
+                 >
+                   Client View
+                 </button>
+                 <button
+-                  className={`block w-full text-left px-2 sm:px-4 py-1 sm:py-2 transition-colors ${userType === 'developer' ? 'bg-[#007ACC] text-white' : 'text-[#CCCCCC] hover:bg-[#2C2C32] hover:text-white'}`}
++                  className={`block w-full text-left px-2 sm:px-4 py-1 sm:py-2 transition-colors ${userType === 'developer' ? 'bg-editor-primary text-editor-primary-foreground' : 'text-editor-foreground hover:bg-editor-raised hover:text-editor-foreground'}`}
+                   style={{ borderBottomLeftRadius: 2, borderBottomRightRadius: 2 }}
+                   onClick={() => { handleSwitch('developer'); setOpenDropdown(false); }}
+                 >
+diff --git a/src/legacy/vscode/components/vscode-portfolio.tsx b/src/legacy/vscode/components/vscode-portfolio.tsx
+index 0bd6963..e7cfd3a 100644
+--- a/src/legacy/vscode/components/vscode-portfolio.tsx
++++ b/src/legacy/vscode/components/vscode-portfolio.tsx
+@@ -75,9 +75,9 @@ export function VSCodePortfolio({ initialSection = "Home.jsx" }: VSCodePortfolio
+ 
+   if (!isMounted) {
+     return (
+-      <div className="h-screen w-full bg-[#1E1E1E] flex items-center justify-center">
+-        <div className="text-white text-center">
+-          <div className="w-16 h-16 border-4 border-t-blue-500 border-r-transparent border-b-blue-500 border-l-transparent rounded-full mx-auto mb-4"></div>
++      <div className="h-screen w-full bg-peach flex items-center justify-center">
++        <div className="text-cocoa text-center">
++          <div className="w-16 h-16 border-4 border-t-cocoa border-r-transparent border-b-cocoa border-l-transparent rounded-full mx-auto mb-4"></div>
+           <div className="text-lg">Loading Portfolio...</div>
+         </div>
+       </div>
+@@ -89,10 +89,10 @@ export function VSCodePortfolio({ initialSection = "Home.jsx" }: VSCodePortfolio
+       <Modal>
+         <div className="p-6 text-center">
+           <h2 className="text-2xl font-bold mb-4">Who are you?</h2>
+-          <p className="mb-6 text-gray-500">Choose your experience:</p>
++          <p className="mb-6 text-muted">Choose your experience:</p>
+           <div className="flex justify-center gap-4">
+-            <button className="bg-[#007ACC] hover:bg-[#005A9E] text-white px-6 py-2 rounded-md font-semibold transition" onClick={() => handleUserType('developer')}>Developer</button>
+-            <button className="bg-[#252526] hover:bg-[#007ACC] text-white px-6 py-2 rounded-md font-semibold border border-[#3C3C3C] transition" onClick={() => handleUserType('client')}>Client</button>
++            <button className="bg-sunshine hover:bg-sunshine/80 text-cocoa px-6 py-2 rounded-md font-semibold transition" onClick={() => handleUserType('developer')}>Developer</button>
++            <button className="bg-cocoa hover:bg-cocoa-soft text-cream px-6 py-2 rounded-md font-semibold border border-cocoa transition" onClick={() => handleUserType('client')}>Client</button>
+           </div>
+         </div>
+       </Modal>
+diff --git a/src/legacy/vscode/sections/about.tsx b/src/legacy/vscode/sections/about.tsx
+index c2a2627..e3398bf 100644
+--- a/src/legacy/vscode/sections/about.tsx
++++ b/src/legacy/vscode/sections/about.tsx
+@@ -2,116 +2,116 @@ export function About() {
+   return (
+     <div className="max-w-4xl mx-auto">
+       <div className="mb-6">
+-        <div className="text-[#6A9955] text-xl mb-2">// About Me</div>
+-        <div className="text-[#569CD6] text-3xl font-bold mb-4">Developer Profile</div>
++        <div className="text-editor-comment text-xl mb-2">// About Me</div>
++        <div className="text-editor-foreground text-3xl font-bold mb-4">Developer Profile</div>
+       </div>
+ 
+       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 items-center">
+-        <div className="bg-[#1E1E1E] border border-[#3C3C3C] rounded-md p-4">
++        <div className="bg-editor-background border border-editor-border rounded-md p-4">
+           <pre className="font-mono text-sm md:text-base whitespace-pre-wrap overflow-auto">
+             <code>
+-              <span className="text-[#569CD6]">const</span> <span className="text-[#4FC1FF]">aboutMe</span>{" "}
+-              <span className="text-white">=</span> <span className="text-[#DCDCAA]">{"{"}</span>
++              <span className="text-editor-keyword">const</span> <span className="text-editor-keyword">aboutMe</span>{" "}
++              <span className="text-editor-foreground">=</span> <span className="text-editor-symbol">{"{"}</span>
+               <br />
+-              <span className="text-[#9CDCFE]"> name</span>
+-              <span className="text-white">:</span> <span className="text-[#CE9178]">"Victor Onyemaechi"</span>
+-              <span className="text-white">,</span>
++              <span className="text-editor-keyword"> name</span>
++              <span className="text-editor-foreground">:</span> <span className="text-editor-string">"Victor Onyemaechi"</span>
++              <span className="text-editor-foreground">,</span>
+               <br />
+-              <span className="text-[#9CDCFE]"> role</span>
+-              <span className="text-white">:</span> <span className="text-[#CE9178]">"Full Stack Developer"</span>
+-              <span className="text-white">,</span>
++              <span className="text-editor-keyword"> role</span>
++              <span className="text-editor-foreground">:</span> <span className="text-editor-string">"Full Stack Developer"</span>
++              <span className="text-editor-foreground">,</span>
+               <br />
+-              <span className="text-[#9CDCFE]"> location</span>
+-              <span className="text-white">:</span> <span className="text-[#CE9178]">"Lagos, Ajegule"</span>
+-              <span className="text-white">,</span>
++              <span className="text-editor-keyword"> location</span>
++              <span className="text-editor-foreground">:</span> <span className="text-editor-string">"Lagos, Ajegule"</span>
++              <span className="text-editor-foreground">,</span>
+               <br />
+-              {/* <span className="text-[#9CDCFE]"> education</span>
+-              <span className="text-white">:</span>{" "}
+-             <span className="text-[#CE9178]">Awodi-ora Senior Secondary School (2016-2022) - WAEC</span>
+-              <span className="text-white">,</span> */}
++              {/* <span className="text-editor-keyword"> education</span>
++              <span className="text-editor-foreground">:</span>{" "}
++             <span className="text-editor-string">Awodi-ora Senior Secondary School (2016-2022) - WAEC</span>
++              <span className="text-editor-foreground">,</span> */}
+               <br />
+-              <span className="text-[#9CDCFE]"> experience</span>
+-              <span className="text-white">:</span> <span className="text-[#DCDCAA]">[</span>
++              <span className="text-editor-keyword"> experience</span>
++              <span className="text-editor-foreground">:</span> <span className="text-editor-symbol">[</span>
+               <br />
+-              {/* <span className="text-[#CE9178]"> "Senior Developer at Tech Company (2020-Present)"</span> */}
+-              <span className="text-white">,</span>
++              {/* <span className="text-editor-string"> "Senior Developer at Tech Company (2020-Present)"</span> */}
++              <span className="text-editor-foreground">,</span>
+               <br />
+-              <span className="text-[#CE9178]"> "Software Developer at Kode10x (2024-till date)"</span>
+-              <span className="text-white">,</span>
++              <span className="text-editor-string"> "Software Developer at Kode10x (2024-till date)"</span>
++              <span className="text-editor-foreground">,</span>
+               <br />
+-              <span className="text-[#CE9178]"> "Intership and Teaching at Kode10x (2024-till date)"</span>
+-               <span className="text-white">,</span>
++              <span className="text-editor-string"> "Intership and Teaching at Kode10x (2024-till date)"</span>
++               <span className="text-editor-foreground">,</span>
+               <br />
+-              <span className="text-[#CE9178]"> "Computer Engineer"</span>
++              <span className="text-editor-string"> "Computer Engineer"</span>
+               <br />
+-              <span className="text-[#DCDCAA]"> ]</span>
+-              <span className="text-white">,</span>
++              <span className="text-editor-symbol"> ]</span>
++              <span className="text-editor-foreground">,</span>
+               <br />
+-              <span className="text-[#9CDCFE]"> skills</span>
+-              <span className="text-white">:</span> <span className="text-[#DCDCAA]">{"{"}</span>
++              <span className="text-editor-keyword"> skills</span>
++              <span className="text-editor-foreground">:</span> <span className="text-editor-symbol">{"{"}</span>
+               <br />
+-              <span className="text-[#9CDCFE]"> languages</span>
+-              <span className="text-white">:</span> <span className="text-[#DCDCAA]">[</span>
+-              <span className="text-[#CE9178]">"JavaScript"</span>
+-              <span className="text-white">,</span> <span className="text-[#CE9178]">"TypeScript"</span> 
+-              <span className="text-white">,</span> <span className="text-[#CE9178]">"HTML/CSS"</span>
+-              <span className="text-[#DCDCAA]">]</span>
+-              <span className="text-white">,</span>
++              <span className="text-editor-keyword"> languages</span>
++              <span className="text-editor-foreground">:</span> <span className="text-editor-symbol">[</span>
++              <span className="text-editor-string">"JavaScript"</span>
++              <span className="text-editor-foreground">,</span> <span className="text-editor-string">"TypeScript"</span>
++              <span className="text-editor-foreground">,</span> <span className="text-editor-string">"HTML/CSS"</span>
++              <span className="text-editor-symbol">]</span>
++              <span className="text-editor-foreground">,</span>
+               <br />
+-              <span className="text-[#9CDCFE]"> frameworks</span>
+-              <span className="text-white">:</span> <span className="text-[#DCDCAA]">[</span>
+-              <span className="text-[#CE9178]">"React"</span>
+-              <span className="text-white">,</span> <span className="text-[#CE9178]">"Next.js"</span>
+-              <span className="text-white">,</span> <span className="text-[#CE9178]">"Node.js"</span>
+-              <span className="text-white">,</span> <span className="text-[#CE9178]">"Express"</span>
+-              <span className="text-[#DCDCAA]">]</span>
+-              <span className="text-white">,</span>
++              <span className="text-editor-keyword"> frameworks</span>
++              <span className="text-editor-foreground">:</span> <span className="text-editor-symbol">[</span>
++              <span className="text-editor-string">"React"</span>
++              <span className="text-editor-foreground">,</span> <span className="text-editor-string">"Next.js"</span>
++              <span className="text-editor-foreground">,</span> <span className="text-editor-string">"Node.js"</span>
++              <span className="text-editor-foreground">,</span> <span className="text-editor-string">"Express"</span>
++              <span className="text-editor-symbol">]</span>
++              <span className="text-editor-foreground">,</span>
+               <br />
+-              <span className="text-[#9CDCFE]"> tools</span>
+-              <span className="text-white">:</span> <span className="text-[#DCDCAA]">[</span>
+-              <span className="text-[#CE9178]">"Git"</span>
+-              {/* <span className="text-white">,</span> <span className="text-[#CE9178]">"Docker"</span> */}
+-              <span className="text-white">,</span> <span className="text-[#CE9178]">"VS Code"</span>
+-              <span className="text-white">,</span> <span className="text-[#CE9178]">"Figma"</span>
+-              <span className="text-[#DCDCAA]">]</span>
++              <span className="text-editor-keyword"> tools</span>
++              <span className="text-editor-foreground">:</span> <span className="text-editor-symbol">[</span>
++              <span className="text-editor-string">"Git"</span>
++              {/* <span className="text-editor-foreground">,</span> <span className="text-editor-string">"Docker"</span> */}
++              <span className="text-editor-foreground">,</span> <span className="text-editor-string">"VS Code"</span>
++              <span className="text-editor-foreground">,</span> <span className="text-editor-string">"Figma"</span>
++              <span className="text-editor-symbol">]</span>
+               <br />
+-              <span className="text-[#DCDCAA]"> {"}"}</span>
+-              <span className="text-white">,</span>
++              <span className="text-editor-symbol"> {"}"}</span>
++              <span className="text-editor-foreground">,</span>
+               <br />
+-              <span className="text-[#9CDCFE]"> interests</span>
+-              <span className="text-white">:</span> <span className="text-[#DCDCAA]">[</span>
++              <span className="text-editor-keyword"> interests</span>
++              <span className="text-editor-foreground">:</span> <span className="text-editor-symbol">[</span>
+               <br />
+-              <span className="text-[#CE9178]"> "Open Source Development"</span>
+-              <span className="text-white">,</span>
++              <span className="text-editor-string"> "Open Source Development"</span>
++              <span className="text-editor-foreground">,</span>
+               <br />
+-              <span className="text-[#CE9178]"> "UI/UX Design"</span>
+-              <span className="text-white">,</span>
++              <span className="text-editor-string"> "UI/UX Design"</span>
++              <span className="text-editor-foreground">,</span>
+               <br />
+-              <span className="text-[#CE9178]"> "Web Performance Optimization"</span>
+-              <span className="text-white">,</span>
++              <span className="text-editor-string"> "Web Performance Optimization"</span>
++              <span className="text-editor-foreground">,</span>
+               <br />
+-              <span className="text-[#CE9178]"> "Artificial Intelligence"</span>
++              <span className="text-editor-string"> "Artificial Intelligence"</span>
+               <br />
+-              <span className="text-[#DCDCAA]"> ]</span>
+-              <span className="text-white">,</span>
++              <span className="text-editor-symbol"> ]</span>
++              <span className="text-editor-foreground">,</span>
+               <br />
+-              <span className="text-[#9CDCFE]"> bio</span>
+-              <span className="text-white">:</span>{" "}
+-              <span className="text-[#CE9178]">
++              <span className="text-editor-keyword"> bio</span>
++              <span className="text-editor-foreground">:</span>{" "}
++              <span className="text-editor-string">
+               "I'm a dedicated developer with a track record of building real-world web applications. I thrive on solving challenges with clean, efficient code and constantly leveling up my skills."
+               </span>
+               <br />
+-              <span className="text-[#DCDCAA]">{"}"}</span>
+-              <span className="text-white">;</span>
++              <span className="text-editor-symbol">{"}"}</span>
++              <span className="text-editor-foreground">;</span>
+             </code>
+           </pre>
+         </div>
+ 
+         <div className="space-y-6">
+-          <div className="bg-[#252526] border border-[#3C3C3C] rounded-md overflow-hidden">
+-            <div className="bg-[#3C3C3C] px-3 py-1 text-xs text-white font-semibold">profile.jpg</div>
++          <div className="bg-editor-surface border border-editor-border rounded-md overflow-hidden">
++            <div className="bg-editor-raised px-3 py-1 text-xs text-editor-foreground font-semibold">profile.jpg</div>
+             <div className="p-4">
+-              <div className="aspect-square rounded-md overflow-hidden border-2 border-[#569CD6]">
++              <div className="aspect-square rounded-md overflow-hidden border-2 border-editor-keyword">
+                 <img
+                   src="/images/me3.jpg"
+                   alt="Developer Profile"
+@@ -121,14 +121,14 @@ export function About() {
+             </div>
+           </div>
+ 
+-          <div className="bg-[#252526] border border-[#3C3C3C] rounded-md p-4">
+-            <div className="text-[#569CD6] font-bold mb-2">// About Me</div>
+-            <p className="text-[#D4D4D4] mb-4">
++          <div className="bg-editor-surface border border-editor-border rounded-md p-4">
++            <div className="text-editor-keyword font-bold mb-2">// About Me</div>
++            <p className="text-editor-foreground mb-4">
+               I'm a passionate Full Stack Developer with expertise in building modern web applications. With over 1
+               years of experience, I specialize in creating responsive, user-friendly interfaces and robust backend
+               systems.
+             </p>
+-            <p className="text-[#D4D4D4]">
++            <p className="text-editor-foreground">
+               My goal is to deliver high-quality solutions that solve real-world problems and provide exceptional user
+               experiences. I'm constantly learning and exploring new technologies to stay at the forefront of web
+               development.
+@@ -138,16 +138,16 @@ export function About() {
+       </div>
+ 
+       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+-        <div className="bg-[#252526] border border-[#3C3C3C] rounded-md p-4">
+-          <div className="text-[#569CD6] font-bold mb-2">// Professional Skills</div>
++        <div className="bg-editor-surface border border-editor-border rounded-md p-4">
++          <div className="text-editor-keyword font-bold mb-2">// Professional Skills</div>
+           <div className="space-y-3">
+             <div>
+               <div className="flex justify-between mb-1">
+                 <span>React/Next.js</span>
+                 <span>95%</span>
+               </div>
+-              <div className="w-full bg-[#3C3C3C] rounded-full h-2">
+-                <div className="bg-[#569CD6] h-2 rounded-full" style={{ width: "95%" }}></div>
++              <div className="w-full bg-editor-raised rounded-full h-2">
++                <div className="bg-editor-keyword h-2 rounded-full" style={{ width: "95%" }}></div>
+               </div>
+             </div>
+             <div>
+@@ -155,16 +155,16 @@ export function About() {
+                 <span>TypeScript</span>
+                 <span>85%</span>
+               </div>
+-              <div className="w-full bg-[#3C3C3C] rounded-full h-2">
+-                <div className="bg-[#569CD6] h-2 rounded-full" style={{ width: "85%" }}></div>
++              <div className="w-full bg-editor-raised rounded-full h-2">
++                <div className="bg-editor-keyword h-2 rounded-full" style={{ width: "85%" }}></div>
+               </div>
+               
+               <div className="flex justify-between mb-1 mt-3">
+                 <span>JavaScript</span>
+                 <span>90%</span>
+               </div>
+-              <div className="w-full bg-[#3C3C3C] rounded-full h-2">
+-                <div className="bg-[#569CD6] h-2 rounded-full" style={{ width: "90%" }}></div>
++              <div className="w-full bg-editor-raised rounded-full h-2">
++                <div className="bg-editor-keyword h-2 rounded-full" style={{ width: "90%" }}></div>
+               </div>
+             </div>
+             <div>
+@@ -172,8 +172,8 @@ export function About() {
+                 <span>Node.js</span>
+                 <span>85%</span>
+               </div>
+-              <div className="w-full bg-[#3C3C3C] rounded-full h-2">
+-                <div className="bg-[#569CD6] h-2 rounded-full" style={{ width: "85%" }}></div>
++              <div className="w-full bg-editor-raised rounded-full h-2">
++                <div className="bg-editor-keyword h-2 rounded-full" style={{ width: "85%" }}></div>
+               </div>
+             </div>
+             <div>
+@@ -181,22 +181,22 @@ export function About() {
+                 <span>UI/UX Design</span>
+                 <span>80%</span>
+               </div>
+-              <div className="w-full bg-[#3C3C3C] rounded-full h-2">
+-                <div className="bg-[#569CD6] h-2 rounded-full" style={{ width: "80%" }}></div>
++              <div className="w-full bg-editor-raised rounded-full h-2">
++                <div className="bg-editor-keyword h-2 rounded-full" style={{ width: "80%" }}></div>
+               </div>
+             </div>
+           </div>
+         </div>
+ 
+-        <div className="bg-[#252526] border border-[#3C3C3C] rounded-md p-4">
+-          <div className="text-[#6A9955] font-bold mb-2">// Personal Interests</div>
++        <div className="bg-editor-surface border border-editor-border rounded-md p-4">
++          <div className="text-editor-comment font-bold mb-2">// Personal Interests</div>
+           <ul className="list-disc list-inside space-y-2">
+-            <li className="text-[#D4D4D4]">Open Source Contribution</li>
+-            <li className="text-[#D4D4D4]">Learning New Technologies</li>
+-            <li className="text-[#D4D4D4]">Technical Writing</li>
+-            <li className="text-[#D4D4D4]">Mentoring Junior Developers</li>
+-            <li className="text-[#D4D4D4]">Attending Tech Conferences</li>
+-            <li className="text-[#D4D4D4]">Building Side Projects</li>
++            <li className="text-editor-foreground">Open Source Contribution</li>
++            <li className="text-editor-foreground">Learning New Technologies</li>
++            <li className="text-editor-foreground">Technical Writing</li>
++            <li className="text-editor-foreground">Mentoring Junior Developers</li>
++            <li className="text-editor-foreground">Attending Tech Conferences</li>
++            <li className="text-editor-foreground">Building Side Projects</li>
+           </ul>
+         </div>
+       </div>
+diff --git a/src/legacy/vscode/sections/contact.tsx b/src/legacy/vscode/sections/contact.tsx
+index a473946..b856579 100644
+--- a/src/legacy/vscode/sections/contact.tsx
++++ b/src/legacy/vscode/sections/contact.tsx
+@@ -59,21 +59,21 @@ export function Contact() {
+   return (
+     <div className="max-w-3xl mx-auto">
+       <div className="mb-6">
+-        <div className="text-[#6A9955] text-xl mb-2">// Contact</div>
+-        <div className="text-[#569CD6] text-3xl font-bold mb-4">Get In Touch</div>
+-        <div className="text-[#D4D4D4]">Have a project in mind? Let's work together!</div>
++        <div className="text-editor-comment text-xl mb-2">// Contact</div>
++        <div className="text-editor-foreground text-3xl font-bold mb-4">Get In Touch</div>
++        <div className="text-editor-foreground">Have a project in mind? Let's work together!</div>
+       </div>
+ 
+       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+-        <div className="bg-[#1E1E1E] border border-[#3C3C3C] rounded-md p-4">
+-          <div className="flex items-center text-[#569CD6] font-bold mb-4">
++        <div className="bg-editor-background border border-editor-border rounded-md p-4">
++          <div className="flex items-center text-editor-keyword font-bold mb-4">
+             <Mail className="w-5 h-5 mr-2" />
+             <span>Contact Form</span>
+           </div>
+ 
+           <form onSubmit={handleSubmit} className="space-y-4">
+             <div>
+-              <label htmlFor="name" className="block text-[#9CDCFE] mb-1">
++              <label htmlFor="name" className="block text-editor-keyword mb-1">
+                 name:
+               </label>
+               <input
+@@ -83,13 +83,13 @@ export function Contact() {
+                 value={formData.name}
+                 onChange={handleChange}
+                 required
+-                className="w-full bg-[#252526] border border-[#3C3C3C] rounded-md px-3 py-2 text-[#D4D4D4] focus:outline-hidden focus:border-[#569CD6]"
++                className="w-full bg-editor-surface border border-editor-border rounded-md px-3 py-2 text-editor-foreground focus:outline-hidden focus:border-editor-keyword"
+                 placeholder="John Doe"
+               />
+             </div>
+ 
+             <div>
+-              <label htmlFor="email" className="block text-[#9CDCFE] mb-1">
++              <label htmlFor="email" className="block text-editor-keyword mb-1">
+                 email:
+               </label>
+               <input
+@@ -99,13 +99,13 @@ export function Contact() {
+                 value={formData.email}
+                 onChange={handleChange}
+                 required
+-                className="w-full bg-[#252526] border border-[#3C3C3C] rounded-md px-3 py-2 text-[#D4D4D4] focus:outline-hidden focus:border-[#569CD6]"
++                className="w-full bg-editor-surface border border-editor-border rounded-md px-3 py-2 text-editor-foreground focus:outline-hidden focus:border-editor-keyword"
+                 placeholder="john@example.com"
+               />
+             </div>
+ 
+             <div>
+-              <label htmlFor="message" className="block text-[#9CDCFE] mb-1">
++              <label htmlFor="message" className="block text-editor-keyword mb-1">
+                 message:
+               </label>
+               <textarea
+@@ -115,14 +115,14 @@ export function Contact() {
+                 onChange={handleChange}
+                 required
+                 rows={5}
+-                className="w-full bg-[#252526] border border-[#3C3C3C] rounded-md px-3 py-2 text-[#D4D4D4] focus:outline-hidden focus:border-[#569CD6]"
++                className="w-full bg-editor-surface border border-editor-border rounded-md px-3 py-2 text-editor-foreground focus:outline-hidden focus:border-editor-keyword"
+                 placeholder="Your message here..."
+               ></textarea>
+             </div>
+ 
+             <button
+               type="submit"
+-              className="bg-[#007ACC] hover:bg-[#0062A3] text-white px-4 py-2 rounded-md flex items-center transition-colors duration-200"
++              className="bg-editor-primary hover:bg-editor-primary/80 text-editor-primary-foreground px-4 py-2 rounded-md flex items-center transition-colors duration-200"
+             >
+               <Send className="w-4 h-4 mr-2" />
+               Submit
+@@ -130,32 +130,32 @@ export function Contact() {
+           </form>
+         </div>
+ 
+-        <div className="bg-[#1E1E1E] border border-[#3C3C3C] rounded-md flex flex-col">
+-          <div className="bg-[#252526] px-4 py-2 border-b border-[#3C3C3C] text-[#D4D4D4] font-semibold">Terminal</div>
++        <div className="bg-editor-background border border-editor-border rounded-md flex flex-col">
++          <div className="bg-editor-surface px-4 py-2 border-b border-editor-border text-editor-foreground font-semibold">Terminal</div>
+ 
+           <div className="flex-1 p-4 font-mono text-sm overflow-auto">
+             {commandHistory.map((line, index) => (
+-              <div key={index} className={line.startsWith(">") ? "text-[#6A9955]" : "text-[#D4D4D4]"}>
++              <div key={index} className={line.startsWith(">") ? "text-editor-comment" : "text-editor-foreground"}>
+                 {line}
+               </div>
+             ))}
+             <div className="flex items-center mt-2">
+-              <span className="text-[#D4D4D4]">$</span>
+-              <span className="ml-2 w-2 h-4 bg-white animate-pulse"></span>
++              <span className="text-editor-foreground">$</span>
++              <span className="ml-2 w-2 h-4 bg-editor-foreground animate-pulse"></span>
+             </div>
+           </div>
+ 
+-          <div className="bg-[#007ACC] px-4 py-1 text-xs text-white">Contact Terminal — node v18.0.0</div>
++          <div className="bg-editor-primary px-4 py-1 text-xs text-editor-primary-foreground">Contact Terminal — node v18.0.0</div>
+         </div>
+       </div>
+ 
+-      <div className="mt-8 bg-[#252526] border border-[#3C3C3C] rounded-md p-4">
+-        <div className="text-[#569CD6] font-bold mb-2">// Other Ways to Connect</div>
++      <div className="mt-8 bg-editor-surface border border-editor-border rounded-md p-4">
++        <div className="text-editor-keyword font-bold mb-2">// Other Ways to Connect</div>
+ 
+         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+           <a
+             href="mailto:your.email@example.com"
+-            className="flex items-center space-x-2 text-[#D4D4D4] hover:text-[#569CD6]"
++            className="flex items-center space-x-2 text-editor-foreground hover:text-editor-keyword"
+           >
+             <Mail className="w-5 h-5" />
+             <span>victorvector608@gmail,com</span>
+@@ -165,7 +165,7 @@ export function Contact() {
+             href="https://github.com/Conqueror102"
+             target="_blank"
+             rel="noopener noreferrer"
+-            className="flex items-center space-x-2 text-[#D4D4D4] hover:text-[#569CD6]"
++            className="flex items-center space-x-2 text-editor-foreground hover:text-editor-keyword"
+           >
+             <Github className="w-5 h-5" />
+             <span>GitHub</span>
+@@ -175,7 +175,7 @@ export function Contact() {
+             href="https://www.linkedin.com/in/victor-conqueror-956635327/"
+             target="_blank"
+             rel="noopener noreferrer"
+-            className="flex items-center space-x-2 text-[#D4D4D4] hover:text-[#569CD6]"
++            className="flex items-center space-x-2 text-editor-foreground hover:text-editor-keyword"
+           >
+             <Linkedin className="w-5 h-5" />
+             <span>LinkedIn</span>
+@@ -183,19 +183,19 @@ export function Contact() {
+         </div>
+       </div>
+ 
+-      <div className="mt-8 bg-[#25D366]/10 border border-[#25D366] rounded-md p-6">
+-        <div className="flex items-center text-[#25D366] font-bold text-xl mb-4">
++      <div className="mt-8 bg-leaf-ink/10 border border-leaf rounded-md p-6">
++        <div className="flex items-center text-editor-comment font-bold text-xl mb-4">
+           <MessageSquare className="w-6 h-6 mr-2" />
+           <span>WhatsApp Me Directly</span>
+         </div>
+-        <p className="text-[#D4D4D4] mb-6">
++        <p className="text-editor-foreground mb-6">
+           For quick responses and real-time communication, feel free to reach out to me on WhatsApp.
+         </p>
+         <a
+           href="https://wa.me/+2348025383208?text=Hi%20there!%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect."
+           target="_blank"
+           rel="noopener noreferrer"
+-          className="bg-[#25D366] hover:bg-[#128C7E] text-white px-6 py-3 rounded-md transition-colors duration-200 inline-flex items-center font-bold"
++          className="bg-leaf-ink hover:bg-leaf-ink/90 text-cream px-6 py-3 rounded-md transition-colors duration-200 inline-flex items-center font-bold"
+         >
+           <MessageSquare className="w-5 h-5 mr-2" />
+           Chat on WhatsApp
+diff --git a/src/legacy/vscode/sections/education.tsx b/src/legacy/vscode/sections/education.tsx
+index 9747612..ff3f780 100644
+--- a/src/legacy/vscode/sections/education.tsx
++++ b/src/legacy/vscode/sections/education.tsx
+@@ -136,120 +136,120 @@ export function Education() {
+   return (
+     <div className="max-w-4xl mx-auto">
+       <div className="mb-6">
+-        <div className="text-[#6A9955] text-xl mb-2">// Education</div>
+-        <div className="text-[#569CD6] text-3xl font-bold mb-4">Academic Background</div>
+-        <div className="text-[#D4D4D4] mb-8">My educational journey and continuous learning path</div>
++        <div className="text-editor-comment text-xl mb-2">// Education</div>
++        <div className="text-editor-foreground text-3xl font-bold mb-4">Academic Background</div>
++        <div className="text-editor-foreground mb-8">My educational journey and continuous learning path</div>
+       </div>
+ {/* 
+-      <div className="bg-[#1E1E1E] border border-[#3C3C3C] rounded-md p-4 mb-8">
++      <div className="bg-editor-background border border-editor-border rounded-md p-4 mb-8">
+         <pre className="font-mono text-sm md:text-base whitespace-pre-wrap overflow-auto">
+           <code>
+-            <span className="text-[#569CD6]">const</span> <span className="text-[#4FC1FF]">education</span>{" "}
+-            <span className="text-white">=</span> <span className="text-[#DCDCAA]">{"{"}</span>
++            <span className="text-editor-keyword">const</span> <span className="text-editor-keyword">education</span>{" "}
++            <span className="text-editor-foreground">=</span> <span className="text-editor-symbol">{"{"}</span>
+             <br />
+-            <span className="text-[#9CDCFE]"> schools</span>
+-            <span className="text-white">:</span> <span className="text-[#DCDCAA]">[</span>
++            <span className="text-editor-keyword"> schools</span>
++            <span className="text-editor-foreground">:</span> <span className="text-editor-symbol">[</span>
+             <br />
+-            <span className="text-[#DCDCAA]"> {"{"}</span>
++            <span className="text-editor-symbol"> {"{"}</span>
+             <br />
+-            <span className="text-[#9CDCFE]"> name</span>
+-            <span className="text-white">:</span>{" "}
+-            <span className="text-[#CE9178]">"Ebenezer Nur/Pry School"</span>
+-            <span className="text-white">,</span>
++            <span className="text-editor-keyword"> name</span>
++            <span className="text-editor-foreground">:</span>{" "}
++            <span className="text-editor-string">"Ebenezer Nur/Pry School"</span>
++            <span className="text-editor-foreground">,</span>
+             <br />
+-            <span className="text-[#9CDCFE]"> certificate</span>
+-            <span className="text-white">:</span> <span className="text-[#CE9178]">"First School Leaving Certificate (FSLC)"</span>
+-            <span className="text-white">,</span>
++            <span className="text-editor-keyword"> certificate</span>
++            <span className="text-editor-foreground">:</span> <span className="text-editor-string">"First School Leaving Certificate (FSLC)"</span>
++            <span className="text-editor-foreground">,</span>
+             <br />
+-            <span className="text-[#9CDCFE]"> year</span>
+-            <span className="text-white">:</span> <span className="text-[#B5CEA8]">2010-2016</span>
++            <span className="text-editor-keyword"> year</span>
++            <span className="text-editor-foreground">:</span> <span className="text-editor-comment">2010-2016</span>
+             <br />
+-            <span className="text-[#DCDCAA]"> {"}"}</span>
+-            <span className="text-white">,</span>
++            <span className="text-editor-symbol"> {"}"}</span>
++            <span className="text-editor-foreground">,</span>
+             <br />
+-            <span className="text-[#DCDCAA]"> {"{"}</span>
++            <span className="text-editor-symbol"> {"{"}</span>
+             <br />
+-            <span className="text-[#9CDCFE]"> name</span>
+-            <span className="text-white">:</span>{" "}
+-            <span className="text-[#CE9178]">"Awodi-ora Senior Secondary School "</span>
+-            <span className="text-white">,</span>
++            <span className="text-editor-keyword"> name</span>
++            <span className="text-editor-foreground">:</span>{" "}
++            <span className="text-editor-string">"Awodi-ora Senior Secondary School "</span>
++            <span className="text-editor-foreground">,</span>
+             <br />
+-            <span className="text-[#9CDCFE]"> certificate</span>
+-            <span className="text-white">:</span> <span className="text-[#CE9178]">"West African Examination Council (WAEC)"</span>
+-            <span className="text-white">,</span>
++            <span className="text-editor-keyword"> certificate</span>
++            <span className="text-editor-foreground">:</span> <span className="text-editor-string">"West African Examination Council (WAEC)"</span>
++            <span className="text-editor-foreground">,</span>
+             <br />
+-            <span className="text-[#9CDCFE]"> year</span>
+-            <span className="text-white">:</span> <span className="text-[#B5CEA8]">2016-2022</span>
++            <span className="text-editor-keyword"> year</span>
++            <span className="text-editor-foreground">:</span> <span className="text-editor-comment">2016-2022</span>
+             <br />
+-            <span className="text-[#DCDCAA]"> {"}"}</span>
++            <span className="text-editor-symbol"> {"}"}</span>
+             <br />
+-            <span className="text-[#DCDCAA]"> ]</span>
+-            <span className="text-white">,</span>
++            <span className="text-editor-symbol"> ]</span>
++            <span className="text-editor-foreground">,</span>
+             <br />
+-            <span className="text-[#9CDCFE]"> certifications</span>
+-            <span className="text-white">:</span> <span className="text-[#DCDCAA]">[</span>
+-            <span className="text-[#CE9178]">"AWS Certified Solutions Architect"</span>
+-            <span className="text-white">,</span>{" "}
+-            <span className="text-[#CE9178]">"Google Professional Cloud Developer"</span>
+-            <span className="text-white">,</span> <span className="text-[#CE9178]">"Meta Frontend Developer"</span>
+-            <span className="text-[#DCDCAA]">]</span>
+-            <span className="text-white">,</span>
++            <span className="text-editor-keyword"> certifications</span>
++            <span className="text-editor-foreground">:</span> <span className="text-editor-symbol">[</span>
++            <span className="text-editor-string">"AWS Certified Solutions Architect"</span>
++            <span className="text-editor-foreground">,</span>{" "}
++            <span className="text-editor-string">"Google Professional Cloud Developer"</span>
++            <span className="text-editor-foreground">,</span> <span className="text-editor-string">"Meta Frontend Developer"</span>
++            <span className="text-editor-symbol">]</span>
++            <span className="text-editor-foreground">,</span>
+             <br />
+-            <span className="text-[#9CDCFE]"> continuousLearning</span>
+-            <span className="text-white">:</span> <span className="text-[#569CD6]">true</span>
++            <span className="text-editor-keyword"> continuousLearning</span>
++            <span className="text-editor-foreground">:</span> <span className="text-editor-keyword">true</span>
+             <br />
+-            <span className="text-[#DCDCAA]">{"}"}</span>
+-            <span className="text-white">;</span>
++            <span className="text-editor-symbol">{"}"}</span>
++            <span className="text-editor-foreground">;</span>
+           </code>
+         </pre>
+       </div> */}
+ 
+       <div className="space-y-6">
+         {/* Formal Education */}
+-        <div className="bg-[#252526] border border-[#3C3C3C] rounded-md overflow-hidden">
++        <div className="bg-editor-surface border border-editor-border rounded-md overflow-hidden">
+           <button
+             className="w-full flex items-center justify-between p-4 text-left"
+             onClick={() => toggleSection("education")}
+           >
+             <div className="flex items-center">
+-              <GraduationCap className="w-5 h-5 text-[#569CD6] mr-2" />
+-              <span className="text-[#569CD6] font-bold">Formal Education</span>
++              <GraduationCap className="w-5 h-5 text-editor-keyword mr-2" />
++              <span className="text-editor-keyword font-bold">Formal Education</span>
+             </div>
+             {expandedSections.education ? (
+-              <ChevronDown className="w-5 h-5 text-[#D4D4D4]" />
++              <ChevronDown className="w-5 h-5 text-editor-foreground" />
+             ) : (
+-              <ChevronRight className="w-5 h-5 text-[#D4D4D4]" />
++              <ChevronRight className="w-5 h-5 text-editor-foreground" />
+             )}
+           </button>
+ 
+           {expandedSections.education && (
+-            <div className="p-4 border-t border-[#3C3C3C]">
++            <div className="p-4 border-t border-editor-border">
+               <div className="space-y-6">
+                 {education.map((edu, index) => (
+                   <div key={index} className="relative pl-6 pb-6 last:pb-0">
+-                    <div className="absolute left-0 top-0 bottom-0 w-px bg-[#3C3C3C]"></div>
+-                    <div className="absolute left-0 top-2 w-2 h-2 rounded-full bg-[#569CD6]"></div>
++                    <div className="absolute left-0 top-0 bottom-0 w-px bg-editor-raised"></div>
++                    <div className="absolute left-0 top-2 w-2 h-2 rounded-full bg-editor-keyword"></div>
+ 
+                     <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-2">
+                       <div>
+-                        <h3 className="text-[#569CD6] font-bold">{edu.degree}</h3>
+-                        <div className="text-[#D4D4D4]">
++                        <h3 className="text-editor-keyword font-bold">{edu.degree}</h3>
++                        <div className="text-editor-foreground">
+                           {edu.institution}, {edu.location}
+                         </div>
+                       </div>
+-                      <div className="flex items-center text-[#6A9955] mt-1 md:mt-0">
++                      <div className="flex items-center text-editor-comment mt-1 md:mt-0">
+                         <Calendar className="w-4 h-4 mr-1" />
+                         <span>{edu.period}</span>
+                       </div>
+                     </div>
+ 
+-                    <p className="text-[#D4D4D4] mb-2">{edu.description}</p>
++                    <p className="text-editor-foreground mb-2">{edu.description}</p>
+ 
+-                    <div className="text-[#D4D4D4]">
+-                      <span className="text-[#9CDCFE]">Certification:</span> 
++                    <div className="text-editor-foreground">
++                      <span className="text-editor-keyword">Certification:</span>
+                       <div className="flex flex-wrap gap-2">
+                        {edu.certifications.map((certifications, courseIndex) => (
+-                          <span key={courseIndex} className="bg-[#1E1E1E] text-[#CE9178] px-2 py-1 rounded-md text-xs">
++                          <span key={courseIndex} className="bg-editor-background text-editor-string px-2 py-1 rounded-md text-xs">
+                             {certifications}
+                           </span>
+                         ))}
+@@ -257,10 +257,10 @@ export function Education() {
+                     </div>
+ 
+                     <div className="mt-2">
+-                      <div className="text-[#9CDCFE] mb-1">Key Courses:</div>
++                      <div className="text-editor-keyword mb-1">Key Courses:</div>
+                       <div className="flex flex-wrap gap-2">
+                         {edu.courses.map((course, courseIndex) => (
+-                          <span key={courseIndex} className="bg-[#1E1E1E] text-[#CE9178] px-2 py-1 rounded-md text-xs">
++                          <span key={courseIndex} className="bg-editor-background text-editor-string px-2 py-1 rounded-md text-xs">
+                             {course}
+                           </span>
+                         ))}
+@@ -274,45 +274,45 @@ export function Education() {
+         </div>
+ 
+         {/* Certifications */}
+-        {/* <div className="bg-[#252526] border border-[#3C3C3C] rounded-md overflow-hidden">
++        {/* <div className="bg-editor-surface border border-editor-border rounded-md overflow-hidden">
+           <button
+             className="w-full flex items-center justify-between p-4 text-left"
+             onClick={() => toggleSection("certifications")}
+           >
+             <div className="flex items-center">
+-              <Award className="w-5 h-5 text-[#569CD6] mr-2" />
+-              <span className="text-[#569CD6] font-bold">Certifications</span>
++              <Award className="w-5 h-5 text-editor-keyword mr-2" />
++              <span className="text-editor-keyword font-bold">Certifications</span>
+             </div>
+             {expandedSections.certifications ? (
+-              <ChevronDown className="w-5 h-5 text-[#D4D4D4]" />
++              <ChevronDown className="w-5 h-5 text-editor-foreground" />
+             ) : (
+-              <ChevronRight className="w-5 h-5 text-[#D4D4D4]" />
++              <ChevronRight className="w-5 h-5 text-editor-foreground" />
+             )}
+           </button>
+ 
+           {expandedSections.certifications && (
+-            <div className="p-4 border-t border-[#3C3C3C]">
++            <div className="p-4 border-t border-editor-border">
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                 {certifications.map((cert, index) => (
+-                  <div key={index} className="bg-[#1E1E1E] border border-[#3C3C3C] rounded-md p-4">
++                  <div key={index} className="bg-editor-background border border-editor-border rounded-md p-4">
+                     <div className="flex justify-between items-start">
+-                      <h3 className="text-[#569CD6] font-bold">{cert.name}</h3>
++                      <h3 className="text-editor-keyword font-bold">{cert.name}</h3>
+                       <a
+                         href={cert.url}
+                         target="_blank"
+                         rel="noopener noreferrer"
+-                        className="text-[#D4D4D4] hover:text-[#569CD6]"
++                        className="text-editor-foreground hover:text-editor-keyword"
+                       >
+                         <ExternalLink className="w-4 h-4" />
+                       </a>
+                     </div>
+-                    <div className="text-[#D4D4D4] mt-1">{cert.issuer}</div>
+-                    <div className="flex items-center text-[#6A9955] mt-2">
++                    <div className="text-editor-foreground mt-1">{cert.issuer}</div>
++                    <div className="flex items-center text-editor-comment mt-2">
+                       <Calendar className="w-4 h-4 mr-1" />
+                       <span>{cert.date}</span>
+                     </div>
+-                    <div className="text-[#9CDCFE] text-sm mt-2">
+-                      Credential ID: <span className="text-[#D4D4D4]">{cert.credentialId}</span>
++                    <div className="text-editor-keyword text-sm mt-2">
++                      Credential ID: <span className="text-editor-foreground">{cert.credentialId}</span>
+                     </div>
+                   </div>
+                 ))}
+@@ -322,43 +322,43 @@ export function Education() {
+         </div> */}
+ 
+         {/* Online Courses */}
+-        <div className="bg-[#252526] border border-[#3C3C3C] rounded-md overflow-hidden">
++        <div className="bg-editor-surface border border-editor-border rounded-md overflow-hidden">
+           <button
+             className="w-full flex items-center justify-between p-4 text-left"
+             onClick={() => toggleSection("courses")}
+           >
+             <div className="flex items-center">
+-              <BookOpen className="w-5 h-5 text-[#569CD6] mr-2" />
+-              <span className="text-[#569CD6] font-bold">Online Courses</span>
++              <BookOpen className="w-5 h-5 text-editor-keyword mr-2" />
++              <span className="text-editor-keyword font-bold">Online Courses</span>
+             </div>
+             {expandedSections.courses ? (
+-              <ChevronDown className="w-5 h-5 text-[#D4D4D4]" />
++              <ChevronDown className="w-5 h-5 text-editor-foreground" />
+             ) : (
+-              <ChevronRight className="w-5 h-5 text-[#D4D4D4]" />
++              <ChevronRight className="w-5 h-5 text-editor-foreground" />
+             )}
+           </button>
+ 
+           {expandedSections.courses && (
+-            <div className="p-4 border-t border-[#3C3C3C]">
++            <div className="p-4 border-t border-editor-border">
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                 {courses.map((course, index) => (
+-                  <div key={index} className="bg-[#1E1E1E] border border-[#3C3C3C] rounded-md p-4">
++                  <div key={index} className="bg-editor-background border border-editor-border rounded-md p-4">
+                     <div className="flex justify-between items-start">
+-                      <h3 className="text-[#569CD6] font-bold">{course.name}</h3>
++                      <h3 className="text-editor-keyword font-bold">{course.name}</h3>
+                       <a
+                         href={course.url}
+                         target="_blank"
+                         rel="noopener noreferrer"
+-                        className="text-[#D4D4D4] hover:text-[#569CD6]"
++                        className="text-editor-foreground hover:text-editor-keyword"
+                       >
+                         <ExternalLink className="w-4 h-4" />
+                       </a>
+                     </div>
+-                    <div className="text-[#D4D4D4] mt-1">{course.platform}</div>
+-                    <div className="text-[#9CDCFE] text-sm mt-1">
+-                      Instructor: <span className="text-[#D4D4D4]">{course.instructor}</span>
++                    <div className="text-editor-foreground mt-1">{course.platform}</div>
++                    <div className="text-editor-keyword text-sm mt-1">
++                      Instructor: <span className="text-editor-foreground">{course.instructor}</span>
+                     </div>
+-                    <div className="flex items-center text-[#6A9955] mt-2">
++                    <div className="flex items-center text-editor-comment mt-2">
+                       <Calendar className="w-4 h-4 mr-1" />
+                       <span>Completed in {course.completionDate}</span>
+                     </div>
+@@ -370,9 +370,9 @@ export function Education() {
+         </div>
+       </div>
+ 
+-      <div className="mt-8 bg-[#252526] border border-[#3C3C3C] rounded-md p-6">
+-        <div className="text-[#569CD6] text-xl font-bold mb-4">Continuous Learning</div>
+-        <p className="text-[#D4D4D4] mb-6">
++      <div className="mt-8 bg-editor-surface border border-editor-border rounded-md p-6">
++        <div className="text-editor-keyword text-xl font-bold mb-4">Continuous Learning</div>
++        <p className="text-editor-foreground mb-6">
+           I'm committed to continuous learning and staying up-to-date with the latest technologies and best practices in
+           software development. I regularly participate in online courses, workshops, and conferences to expand my
+           knowledge and skills.
+@@ -381,7 +381,7 @@ export function Education() {
+           href="https://wa.me/+2348025383208?text=Hi%20there!%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20your%20educational%20background."
+           target="_blank"
+           rel="noopener noreferrer"
+-          className="bg-[#25D366] hover:bg-[#128C7E] text-white px-6 py-2 rounded-md transition-colors duration-200 inline-flex items-center"
++          className="bg-leaf-ink hover:bg-leaf-ink/90 text-cream px-6 py-2 rounded-md transition-colors duration-200 inline-flex items-center"
+         >
+           <MessageSquare className="w-4 h-4 mr-2" />
+           Ask Me About My Education on WhatsApp
+diff --git a/src/legacy/vscode/sections/hero.tsx b/src/legacy/vscode/sections/hero.tsx
+index 0396d2a..e338a9a 100644
+--- a/src/legacy/vscode/sections/hero.tsx
++++ b/src/legacy/vscode/sections/hero.tsx
+@@ -70,19 +70,19 @@ export function Hero() {
+       <div className="max-w-4xl  mx-auto">
+         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 items-center">
+           <div>
+-            <div className="text-[#6A9955] text-xl md:text-2xl mb-2">// Hi, I'm a Developer</div>
+-            <div className="text-[#569CD6] text-3xl md:text-4xl font-bold mb-4">Welcome to my portfolio</div>
+-            <div className="text-[#CE9178] text-lg md:text-xl mb-4">
++            <div className="text-editor-comment text-xl md:text-2xl mb-2">// Hi, I'm a Developer</div>
++            <div className="text-editor-foreground text-3xl md:text-4xl font-bold mb-4">Welcome to my portfolio</div>
++            <div className="text-editor-string text-lg md:text-xl mb-4">
+               {"<"}
+-              <span className="text-[#4EC9B0]">Portfolio</span>
++              <span className="text-editor-comment">Portfolio</span>
+               {" />"}
+             </div>
+ 
+-            <div className="bg-[#1E1E1E] border border-[#3C3C3C] rounded-md p-4 mb-6 h-32"></div>
++            <div className="bg-editor-background border border-editor-border rounded-md p-4 mb-6 h-32"></div>
+           </div>
+ 
+           <div className="flex justify-center">
+-            <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-lg overflow-hidden border-4 border-[#569CD6] shadow-lg">
++            <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-lg overflow-hidden border-4 border-editor-keyword shadow-lg">
+               <Image
+                 src="/images/me2.jpg"
+                 alt="Developer Profile"
+@@ -100,27 +100,27 @@ export function Hero() {
+             <div
+               key={index}
+               className={cn(
+-                "border border-[#3C3C3C] rounded-md p-6 text-center",
+-                index === 0 ? "bg-[#61DAFB]/10" : index === 1 ? "bg-[#3EC46D]/10" : "bg-[#C586C0]/10",
++                "border border-editor-border rounded-md p-6 text-center",
++                index === 0 ? "bg-sky/20" : index === 1 ? "bg-leaf/20" : "bg-rose/20",
+               )}
+             >
+               <div className="flex justify-center mb-3">
+                 {React.cloneElement(stat.icon, {
+                   className: cn(
+                     "w-10 h-10",
+-                    index === 0 ? "text-[#61DAFB]" : index === 1 ? "text-[#3EC46D]" : "text-[#C586C0]",
++                    index === 0 ? "text-editor-keyword" : index === 1 ? "text-editor-comment" : "text-editor-accent",
+                   ),
+                 })}
+               </div>
+               <div
+                 className={cn(
+                   "text-3xl font-bold mb-2",
+-                  index === 0 ? "text-[#61DAFB]" : index === 1 ? "text-[#3EC46D]" : "text-[#C586C0]",
++                  index === 0 ? "text-editor-keyword" : index === 1 ? "text-editor-comment" : "text-editor-accent",
+                 )}
+               >
+                 {stat.value}
+               </div>
+-              <div className="text-[#D4D4D4]">{stat.title}</div>
++              <div className="text-editor-foreground">{stat.title}</div>
+             </div>
+           ))}
+         </div>
+@@ -132,15 +132,15 @@ export function Hero() {
+     <div className="max-w-4xl mx-auto">
+       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 items-center">
+         <div>
+-          <div className="text-[#6A9955] text-xl md:text-2xl mb-2">// Hi, I'm a Developer</div>
+-          <div className="text-[#569CD6] text-3xl md:text-4xl font-bold mb-4">Welcome to my portfolio</div>
+-          <div className="text-[#CE9178] text-lg md:text-xl mb-4">
++          <div className="text-editor-comment text-xl md:text-2xl mb-2">// Hi, I'm a Developer</div>
++          <div className="text-editor-foreground text-3xl md:text-4xl font-bold mb-4">Welcome to my portfolio</div>
++          <div className="text-editor-string text-lg md:text-xl mb-4">
+             {"<"}
+-            <span className="text-[#4EC9B0]">Portfolio</span>
++            <span className="text-editor-comment">Portfolio</span>
+             {" />"}
+           </div>
+ 
+-          <div className="bg-[#1E1E1E] border border-[#3C3C3C] rounded-md p-4 mb-6">
++          <div className="bg-editor-background border border-editor-border rounded-md p-4 mb-6">
+             <pre className="font-mono text-base md:text-lg whitespace-pre-wrap">
+               <code>
+                 {/* Typing animation with VS Code theme highlights */}
+@@ -149,17 +149,17 @@ export function Hero() {
+                   const highlight = (typed: string) => {
+                     // Regex to match the name, skills, and passion values
+                     const out = typed
+-                      .replace(/\b(const|skills|passion|title|name)\b/g, '<span class="text-[#569CD6]">$1</span>')
+-                      .replace(/('Victor Onyemaechi')/g, '<span class="text-[#CE9178] font-semibold">$1</span>')
+-                      .replace(/(developer)/g, '<span class="text-[#4FC1FF]">$1</span>')
+-                      .replace(/('Full Stack Developer')/g, '<span class="text-[#CE9178] font-semibold">$1</span>')
+-                      .replace(/('React')/g, '<span class="text-[#CE9178] font-semibold">$1</span>')
+-                      .replace(/('Next\.js')/g, '<span class="text-[#CE9178] font-semibold">$1</span>')
+-                      .replace(/('TypeScript')/g, '<span class="text-[#CE9178] font-semibold">$1</span>')
+-                      .replace(/('Node\.js, javascript')/g, '<span class="text-[#CE9178] font-semibold">$1</span>')
+-                      .replace(/('HTML')/g, '<span class="text-[#CE9178] font-semibold">$1</span>')
+-                      .replace(/('CSS')/g, '<span class="text-[#CE9178] font-semibold">$1</span>')
+-                      .replace(/('Building beautiful web experiences')/g, '<span class="text-[#CE9178] font-semibold">$1</span>');
++                      .replace(/\b(const|skills|passion|title|name)\b/g, '<span class="text-editor-keyword">$1</span>')
++                      .replace(/('Victor Onyemaechi')/g, '<span class="text-editor-string font-semibold">$1</span>')
++                      .replace(/(developer)/g, '<span class="text-editor-keyword">$1</span>')
++                      .replace(/('Full Stack Developer')/g, '<span class="text-editor-string font-semibold">$1</span>')
++                      .replace(/('React')/g, '<span class="text-editor-string font-semibold">$1</span>')
++                      .replace(/('Next\.js')/g, '<span class="text-editor-string font-semibold">$1</span>')
++                      .replace(/('TypeScript')/g, '<span class="text-editor-string font-semibold">$1</span>')
++                      .replace(/('Node\.js, javascript')/g, '<span class="text-editor-string font-semibold">$1</span>')
++                      .replace(/('HTML')/g, '<span class="text-editor-string font-semibold">$1</span>')
++                      .replace(/('CSS')/g, '<span class="text-editor-string font-semibold">$1</span>')
++                      .replace(/('Building beautiful web experiences')/g, '<span class="text-editor-string font-semibold">$1</span>');
+                     return out;
+                   };
+                   return (
+@@ -171,7 +171,7 @@ export function Hero() {
+             </pre>
+             <div className="flex justify-center mt-2">
+               <a href="/victor-onyemaechi-cv.pdf" download="Victors Cv.pdf">
+-        <button className="bg-[#007ACC] hover:bg-[#0062A3] text-white px-6 py-2 rounded-md transition-colors duration-200">
++        <button className="bg-editor-primary hover:bg-editor-primary/80 text-editor-primary-foreground px-6 py-2 rounded-md transition-colors duration-200">
+           Download CV
+           <Download className="inline-block ml-2" />
+         </button>
+@@ -181,7 +181,7 @@ export function Hero() {
+         </div>
+ 
+         <div className="flex justify-center">
+-          <div className="relative w-64 h-64 md:w-80 md:h-96 rounded-lg overflow-hidden border-4 border-[#569CD6] shadow-lg">
++          <div className="relative w-64 h-64 md:w-80 md:h-96 rounded-lg overflow-hidden border-4 border-editor-keyword shadow-lg">
+             <Image
+                 src="/images/me2.jpg"
+                 alt="Developer Profile"
+@@ -190,8 +190,8 @@ export function Hero() {
+                 height={320}
+                 priority
+               />
+-            <div className="absolute inset-0 bg-gradient-to-t from-[#1E1E1E] to-transparent opacity-60"></div>
+-            <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
++            <div className="absolute inset-0 bg-gradient-to-t from-cocoa to-transparent opacity-60"></div>
++            <div className="absolute bottom-0 left-0 right-0 p-4 text-cream">
+               <div className="text-lg font-bold ">Victor Onyemaechi</div>
+               <div className="text-sm opacity-80">Full Stack Developer</div>
+             </div>
+@@ -204,27 +204,27 @@ export function Hero() {
+           <div
+             key={index}
+             className={cn(
+-              "border border-[#3C3C3C] rounded-md p-6 text-center",
+-              index === 0 ? "bg-[#61DAFB]/10" : index === 1 ? "bg-[#3EC46D]/10" : "bg-[#C586C0]/10",
++              "border border-editor-border rounded-md p-6 text-center",
++              index === 0 ? "bg-sky/20" : index === 1 ? "bg-leaf/20" : "bg-rose/20",
+             )}
+           >
+             <div className="flex justify-center mb-3">
+               {React.cloneElement(stat.icon, {
+                 className: cn(
+                   "w-10 h-10",
+-                  index === 0 ? "text-[#61DAFB]" : index === 1 ? "text-[#3EC46D]" : "text-[#C586C0]",
++                  index === 0 ? "text-editor-keyword" : index === 1 ? "text-editor-comment" : "text-editor-accent",
+                 ),
+               })}
+             </div>
+             <div
+               className={cn(
+                 "text-3xl font-bold mb-2",
+-                index === 0 ? "text-[#61DAFB]" : index === 1 ? "text-[#3EC46D]" : "text-[#C586C0]",
++                index === 0 ? "text-editor-keyword" : index === 1 ? "text-editor-comment" : "text-editor-accent",
+               )}
+             >
+               {stat.value}
+             </div>
+-            <div className="text-[#D4D4D4]">{stat.title}</div>
++            <div className="text-editor-foreground">{stat.title}</div>
+           </div>
+         ))}
+       </div>
+diff --git a/src/legacy/vscode/sections/image-gallery.tsx b/src/legacy/vscode/sections/image-gallery.tsx
+index 9bebb8b..d8ff6d3 100644
+--- a/src/legacy/vscode/sections/image-gallery.tsx
++++ b/src/legacy/vscode/sections/image-gallery.tsx
+@@ -64,17 +64,17 @@ export function ImageGallery({ title = "Project Gallery", images }: ImageGallery
+     return (
+       <div className="max-w-4xl mx-auto">
+         <div className="mb-6">
+-          <div className="text-[#6A9955] text-xl mb-2">// Gallery</div>
+-          <div className="text-[#569CD6] text-3xl font-bold mb-4">{title}</div>
++          <div className="text-editor-comment text-xl mb-2">// Gallery</div>
++          <div className="text-editor-foreground text-3xl font-bold mb-4">{title}</div>
+         </div>
+ 
+-        <div className="bg-[#1E1E1E] border border-[#3C3C3C] rounded-md overflow-hidden">
+-          <div className="bg-[#252526] px-4 py-2 border-b border-[#3C3C3C] text-[#D4D4D4] font-semibold">
++        <div className="bg-editor-background border border-editor-border rounded-md overflow-hidden">
++          <div className="bg-editor-surface px-4 py-2 border-b border-editor-border text-editor-foreground font-semibold">
+             <span>Image Gallery</span>
+           </div>
+ 
+           <div className="p-4">
+-            <div className="w-full h-[500px] bg-[#252526] rounded-md animate-pulse"></div>
++            <div className="w-full h-[500px] bg-editor-surface rounded-md animate-pulse"></div>
+           </div>
+         </div>
+       </div>
+@@ -84,17 +84,17 @@ export function ImageGallery({ title = "Project Gallery", images }: ImageGallery
+   return (
+     <div className="max-w-4xl mx-auto">
+       <div className="mb-6">
+-        <div className="text-[#6A9955] text-xl mb-2">// Gallery</div>
+-        <div className="text-[#569CD6] text-3xl font-bold mb-4">{title}</div>
++        <div className="text-editor-comment text-xl mb-2">// Gallery</div>
++        <div className="text-editor-foreground text-3xl font-bold mb-4">{title}</div>
+       </div>
+ 
+-      <div className="bg-[#1E1E1E] border border-[#3C3C3C] rounded-md overflow-hidden">
+-        <div className="bg-[#252526] px-4 py-2 border-b border-[#3C3C3C] text-[#D4D4D4] font-semibold flex items-center justify-between">
++      <div className="bg-editor-background border border-editor-border rounded-md overflow-hidden">
++        <div className="bg-editor-surface px-4 py-2 border-b border-editor-border text-editor-foreground font-semibold flex items-center justify-between">
+           <span>{images[currentIndex]?.alt || `Image ${currentIndex + 1} of ${images.length}`}</span>
+           <div className="flex items-center space-x-2">
+             <button
+               onClick={toggleFullscreen}
+-              className="p-1 rounded-sm hover:bg-[#3C3C3C] text-[#D4D4D4]"
++              className="p-1 rounded-sm hover:bg-editor-raised text-editor-foreground"
+               title="Toggle Fullscreen"
+             >
+               <Maximize2 className="w-4 h-4" />
+@@ -103,7 +103,7 @@ export function ImageGallery({ title = "Project Gallery", images }: ImageGallery
+               href={images[currentIndex]?.src}
+               target="_blank"
+               rel="noopener noreferrer"
+-              className="p-1 rounded-sm hover:bg-[#3C3C3C] text-[#D4D4D4]"
++              className="p-1 rounded-sm hover:bg-editor-raised text-editor-foreground"
+               title="Open Original"
+             >
+               <ExternalLink className="w-4 h-4" />
+@@ -114,13 +114,13 @@ export function ImageGallery({ title = "Project Gallery", images }: ImageGallery
+         <div
+           className={cn(
+             "relative",
+-            isFullscreen ? "fixed inset-0 z-50 bg-black flex items-center justify-center" : "p-4",
++            isFullscreen ? "fixed inset-0 z-50 bg-cocoa flex items-center justify-center" : "p-4",
+           )}
+         >
+           {isFullscreen && (
+             <button
+               onClick={toggleFullscreen}
+-              className="absolute top-4 right-4 p-2 rounded-full bg-black/50 text-white z-10"
++              className="absolute top-4 right-4 p-2 rounded-full bg-cocoa/80 text-cream z-10"
+             >
+               <X className="w-6 h-6" />
+             </button>
+@@ -138,14 +138,14 @@ export function ImageGallery({ title = "Project Gallery", images }: ImageGallery
+ 
+             <button
+               onClick={goToPrevious}
+-              className="absolute left-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-black/50 text-white"
++              className="absolute left-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-cocoa/80 text-cream"
+             >
+               <ChevronLeft className="w-6 h-6" />
+             </button>
+ 
+             <button
+               onClick={goToNext}
+-              className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-black/50 text-white"
++              className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-cocoa/80 text-cream"
+             >
+               <ChevronRight className="w-6 h-6" />
+             </button>
+@@ -153,12 +153,12 @@ export function ImageGallery({ title = "Project Gallery", images }: ImageGallery
+         </div>
+ 
+         {images[currentIndex]?.caption && (
+-          <div className="px-4 py-3 border-t border-[#3C3C3C] bg-[#252526] text-[#D4D4D4]">
++          <div className="px-4 py-3 border-t border-editor-border bg-editor-surface text-editor-foreground">
+             {images[currentIndex].caption}
+           </div>
+         )}
+ 
+-        <div className="p-4 border-t border-[#3C3C3C] bg-[#252526]">
++        <div className="p-4 border-t border-editor-border bg-editor-surface">
+           <div className="flex justify-center space-x-2 overflow-x-auto py-2">
+             {images.map((image, index) => (
+               <button
+@@ -166,7 +166,7 @@ export function ImageGallery({ title = "Project Gallery", images }: ImageGallery
+                 onClick={() => setCurrentIndex(index)}
+                 className={cn(
+                   "w-16 h-16 rounded-md overflow-hidden border-2",
+-                  currentIndex === index ? "border-[#569CD6]" : "border-transparent",
++                  currentIndex === index ? "border-editor-keyword" : "border-transparent",
+                 )}
+               >
+                 <img
+diff --git a/src/legacy/vscode/sections/projects.tsx b/src/legacy/vscode/sections/projects.tsx
+index 7c95925..7eb6368 100644
+--- a/src/legacy/vscode/sections/projects.tsx
++++ b/src/legacy/vscode/sections/projects.tsx
+@@ -6,16 +6,16 @@ export function Projects() {
+   return (
+     <div className="max-w-4xl mx-auto">
+       <div className="mb-6">
+-        <div className="text-[#6A9955] text-xl mb-2">// Projects</div>
+-        <div className="text-[#569CD6] text-3xl font-bold mb-4">My Work</div>
+-        <div className="text-[#D4D4D4]">A collection of my recent development projects</div>
++        <div className="text-editor-comment text-xl mb-2">// Projects</div>
++        <div className="text-editor-foreground text-3xl font-bold mb-4">My Work</div>
++        <div className="text-editor-foreground">A collection of my recent development projects</div>
+       </div>
+ 
+       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+         {projects.map((project) => (
+           <div
+             key={project.slug}
+-            className="bg-[#252526] border border-[#3C3C3C] rounded-md overflow-hidden hover:border-[#569CD6] transition-colors duration-200"
++            className="bg-editor-surface border border-editor-border rounded-md overflow-hidden hover:border-editor-keyword transition-colors duration-200"
+           >
+             <div className="h-48 overflow-hidden">
+               <img
+@@ -31,20 +31,20 @@ export function Projects() {
+             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+             <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+           </span>
+-          <p className="text-green-600 text-xs font-medium">Live</p>
++          <p className="text-editor-comment text-xs font-medium">Live</p>
+         </div>
+             )}
+          </div>
+             <div className="p-4">
+               <div className="flex items-center justify-between mb-2">
+-                <h3 className="text-[#569CD6] text-lg font-bold">{project.title}</h3>
++                <h3 className="text-editor-keyword text-lg font-bold">{project.title}</h3>
+                 <div className="flex space-x-2">
+                   {project.repoUrl && (
+                   <a
+                     href={project.repoUrl}
+                     target="_blank"
+                     rel="noopener noreferrer"
+-                    className="text-[#D4D4D4] hover:text-[#569CD6]"
++                    className="text-editor-foreground hover:text-editor-keyword"
+                   >
+                     <Github className="w-5 h-5" />
+                   </a>
+@@ -53,26 +53,26 @@ export function Projects() {
+                     href={project.liveUrl}
+                     target="_blank"
+                     rel="noopener noreferrer"
+-                    className="text-[#D4D4D4] hover:text-[#569CD6]"
++                    className="text-editor-foreground hover:text-editor-keyword"
+                   >
+                     <ExternalLink className="w-5 h-5" />
+                   </a>
+                 </div>
+               </div>
+ 
+-              <p className="text-[#D4D4D4] mb-4">{project.description}</p>
++              <p className="text-editor-foreground mb-4">{project.description}</p>
+ 
+               <div className="flex flex-wrap gap-2">
+                 {project.technologies.map((tech, techIndex) => (
+-                  <span key={techIndex} className="bg-[#1E1E1E] text-[#CE9178] px-2 py-1 rounded-md text-xs">
++                  <span key={techIndex} className="bg-editor-background text-editor-string px-2 py-1 rounded-md text-xs">
+                     {tech}
+                   </span>
+                 ))}
+               </div>
+             </div>
+ 
+-            <div className="px-4 py-3 border-t border-[#3C3C3C] bg-[#1E1E1E]">
+-              <div className="text-[#6A9955] text-xs">// View project details</div>
++            <div className="px-4 py-3 border-t border-editor-border bg-editor-background">
++              <div className="text-editor-comment text-xs">// View project details</div>
+             </div>
+             
+           </div>
+diff --git a/src/legacy/vscode/sections/services.tsx b/src/legacy/vscode/sections/services.tsx
+index 3c6fc49..4e0db09 100644
+--- a/src/legacy/vscode/sections/services.tsx
++++ b/src/legacy/vscode/sections/services.tsx
+@@ -12,37 +12,37 @@ export function Services({ setActiveSection }: { setActiveSection: (section: str
+     {
+       title: "Web Development",
+       description: "Building responsive and performant web applications with modern technologies.",
+-      icon: <Code className="w-10 h-10 text-blue-400" />,
++      icon: <Code className="w-10 h-10 text-editor-keyword" />,
+       color: "blue",
+     },
+     {
+       title: "Mobile App Development",
+       description: "Creating cross-platform mobile applications for iOS and Android.",
+-      icon: <Smartphone className="w-10 h-10 text-green-400" />,
++      icon: <Smartphone className="w-10 h-10 text-editor-comment" />,
+       color: "green",
+     },
+     {
+       title: "UI/UX Design",
+       description: "Designing intuitive and beautiful user interfaces and experiences.",
+-      icon: <Layout className="w-10 h-10 text-purple-400" />,
++      icon: <Layout className="w-10 h-10 text-editor-accent" />,
+       color: "purple",
+     },
+     {
+       title: "Backend Development",
+       description: "Building robust server-side applications and APIs.",
+-      icon: <Database className="w-10 h-10 text-yellow-400" />,
++      icon: <Database className="w-10 h-10 text-editor-string" />,
+       color: "yellow",
+     },
+     {
+       title: "Performance Optimization",
+       description: "Improving the speed and efficiency of web and mobile applications.",
+-      icon: <Zap className="w-10 h-10 text-red-400" />,
++      icon: <Zap className="w-10 h-10 text-editor-accent" />,
+       color: "red",
+     },
+     {
+       title: "Consultation",
+       description: "Providing expert advice on technology choices and architecture.",
+-      icon: <Lightbulb className="w-10 h-10 text-orange-400" />,
++      icon: <Lightbulb className="w-10 h-10 text-editor-string" />,
+       color: "orange",
+     },
+   ]
+@@ -102,40 +102,40 @@ export function Services({ setActiveSection }: { setActiveSection: (section: str
+   return (
+     <div className="max-w-4xl mx-auto">
+       <div className="mb-6">
+-        <div className="text-[#6A9955] text-xl mb-2">// Services</div>
+-        <div className="text-[#569CD6] text-3xl font-bold mb-4">What I Offer</div>
+-        <div className="text-[#D4D4D4] mb-8">Comprehensive development services to bring your ideas to life</div>
++        <div className="text-editor-comment text-xl mb-2">// Services</div>
++        <div className="text-editor-foreground text-3xl font-bold mb-4">What I Offer</div>
++        <div className="text-editor-foreground mb-8">Comprehensive development services to bring your ideas to life</div>
+       </div>
+ 
+       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+         {services.map((service, index) => (
+           <div
+             key={index}
+-            className="bg-[#252526] border border-[#3C3C3C] rounded-md p-6 hover:border-blue-400 transition-colors duration-200"
++            className="bg-editor-surface border border-editor-border rounded-md p-6 hover:border-editor-keyword transition-colors duration-200"
+           >
+             <div className="flex flex-col items-center text-center">
+               <div className="mb-4">{service.icon}</div>
+-              <h3 className="text-[#569CD6] text-lg font-bold mb-2">{service.title}</h3>
+-              <p className="text-[#D4D4D4]">{service.description}</p>
++              <h3 className="text-editor-keyword text-lg font-bold mb-2">{service.title}</h3>
++              <p className="text-editor-foreground">{service.description}</p>
+             </div>
+           </div>
+         ))}
+       </div>
+ 
+       <div className="mb-6">
+-        <div className="text-[#6A9955] text-xl mb-2">// Work Process</div>
+-        <div className="text-[#569CD6] text-2xl font-bold mb-4">How I Work</div>
+-        <div className="text-[#D4D4D4] mb-8">A systematic approach to deliver high-quality results</div>
++        <div className="text-editor-comment text-xl mb-2">// Work Process</div>
++        <div className="text-editor-keyword text-2xl font-bold mb-4">How I Work</div>
++        <div className="text-editor-foreground mb-8">A systematic approach to deliver high-quality results</div>
+       </div>
+ 
+-      <div className="bg-[#1E1E1E] border border-[#3C3C3C] rounded-md mb-8">
+-        <div className="bg-[#252526] px-4 py-2 border-b border-[#3C3C3C] text-[#D4D4D4] font-semibold flex items-center">
++      <div className="bg-editor-background border border-editor-border rounded-md mb-8">
++        <div className="bg-editor-surface px-4 py-2 border-b border-editor-border text-editor-foreground font-semibold flex items-center">
+           <Cpu className="w-4 h-4 mr-2" />
+           <span>Work Process Terminal</span>
+         </div>
+ 
+         <div className="p-4 font-mono text-sm">
+-          <div className="text-[#569CD6] mb-4">// Select a step to see details</div>
++          <div className="text-editor-keyword mb-4">// Select a step to see details</div>
+ 
+           <div className="flex flex-wrap gap-2 mb-6">
+             {workProcess.map((step) => (
+@@ -145,8 +145,8 @@ export function Services({ setActiveSection }: { setActiveSection: (section: str
+                 className={cn(
+                   "px-3 py-1 rounded-md text-sm transition-colors",
+                   activeStep === step.step
+-                    ? "bg-[#007ACC] text-white"
+-                    : "bg-[#252526] text-[#D4D4D4] hover:bg-[#2D2D2D]",
++                    ? "bg-editor-primary text-editor-primary-foreground"
++                    : "bg-editor-surface text-editor-foreground hover:bg-editor-raised",
+                 )}
+               >
+                 Step {step.step}
+@@ -157,33 +157,33 @@ export function Services({ setActiveSection }: { setActiveSection: (section: str
+           {activeStep ? (
+             <div className="space-y-4">
+               <div className="flex items-center">
+-                <div className="w-8 h-8 rounded-full bg-[#007ACC] flex items-center justify-center text-white font-bold mr-3">
++                <div className="w-8 h-8 rounded-full bg-editor-primary flex items-center justify-center text-editor-primary-foreground font-bold mr-3">
+                   {workProcess[activeStep - 1].step}
+                 </div>
+-                <div className="text-[#569CD6] text-lg font-bold">{workProcess[activeStep - 1].title}</div>
++                <div className="text-editor-keyword text-lg font-bold">{workProcess[activeStep - 1].title}</div>
+               </div>
+ 
+-              <div className="text-[#D4D4D4] pl-11">{workProcess[activeStep - 1].description}</div>
++              <div className="text-editor-foreground pl-11">{workProcess[activeStep - 1].description}</div>
+ 
+-              <div className="bg-[#0D0D0D] p-3 rounded-md border border-[#3C3C3C] mt-4">
+-                <div className="flex items-center text-[#D4D4D4]">
+-                  <span className="text-[#569CD6]">$</span>
++              <div className="bg-editor-background p-3 rounded-md border border-editor-border mt-4">
++                <div className="flex items-center text-editor-foreground">
++                  <span className="text-editor-keyword">$</span>
+                   <span className="ml-2">{workProcess[activeStep - 1].command}</span>
+                 </div>
+-                <div className="text-[#6A9955] mt-2">{workProcess[activeStep - 1].output}</div>
++                <div className="text-editor-comment mt-2">{workProcess[activeStep - 1].output}</div>
+               </div>
+ 
+               <div className="flex justify-between mt-4">
+                 <button
+                   onClick={() => setActiveStep(Math.max(1, activeStep - 1))}
+-                  className="px-3 py-1 rounded-md bg-[#252526] text-[#D4D4D4] hover:bg-[#2D2D2D] disabled:opacity-50 disabled:cursor-not-allowed"
++                  className="px-3 py-1 rounded-md bg-editor-surface text-editor-foreground hover:bg-editor-raised disabled:opacity-50 disabled:cursor-not-allowed"
+                   disabled={activeStep === 1}
+                 >
+                   Previous Step
+                 </button>
+                 <button
+                   onClick={() => setActiveStep(Math.min(workProcess.length, activeStep + 1))}
+-                  className="px-3 py-1 rounded-md bg-[#252526] text-[#D4D4D4] hover:bg-[#2D2D2D] disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
++                  className="px-3 py-1 rounded-md bg-editor-surface text-editor-foreground hover:bg-editor-raised disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+                   disabled={activeStep === workProcess.length}
+                 >
+                   Next Step
+@@ -192,28 +192,28 @@ export function Services({ setActiveSection }: { setActiveSection: (section: str
+               </div>
+             </div>
+           ) : (
+-            <div className="text-[#D4D4D4] bg-[#0D0D0D] p-3 rounded-md border border-[#3C3C3C]">
++            <div className="text-editor-foreground bg-editor-background p-3 rounded-md border border-editor-border">
+               <div className="flex items-center">
+-                <span className="text-[#569CD6]">$</span>
++                <span className="text-editor-keyword">$</span>
+                 <span className="ml-2">select-step --number=1-7</span>
+               </div>
+-              <div className="text-[#6A9955] mt-2">{">"} Please select a step to view details...</div>
++              <div className="text-editor-comment mt-2">{">"} Please select a step to view details...</div>
+               <div className="mt-2 w-3 h-5 bg-white inline-block animate-pulse"></div>
+             </div>
+           )}
+         </div>
+       </div>
+ 
+-      <div className="bg-[#252526] border border-[#3C3C3C] rounded-md p-6">
+-        <div className="text-[#569CD6] text-xl font-bold mb-4">Ready to Start a Project?</div>
+-        <p className="text-[#D4D4D4] mb-6">
++      <div className="bg-editor-surface border border-editor-border rounded-md p-6">
++        <div className="text-editor-keyword text-xl font-bold mb-4">Ready to Start a Project?</div>
++        <p className="text-editor-foreground mb-6">
+           Let's discuss your project requirements and how I can help bring your vision to life.
+         </p>
+         <div className="flex flex-wrap gap-4">
+           <a
+             href="#"
+             onClick={() => setActiveSection("Contact.jsx")}
+-            className="bg-[#007ACC] hover:bg-[#0062A3] text-white px-6 py-2 rounded-md transition-colors duration-200 inline-flex items-center"
++            className="bg-editor-primary hover:bg-editor-primary/80 text-editor-primary-foreground px-6 py-2 rounded-md transition-colors duration-200 inline-flex items-center"
+           >
+             Contact Me
+             <ArrowRight className="w-4 h-4 ml-2" />
+@@ -222,7 +222,7 @@ export function Services({ setActiveSection }: { setActiveSection: (section: str
+             href="https://wa.me/+2348025383208?text=Hi%20there!%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project."
+             target="_blank"
+             rel="noopener noreferrer"
+-            className="bg-[#25D366] hover:bg-[#128C7E] text-white px-6 py-2 rounded-md transition-colors duration-200 inline-flex items-center"
++            className="bg-leaf-ink hover:bg-leaf-ink/90 text-cream px-6 py-2 rounded-md transition-colors duration-200 inline-flex items-center"
+           >
+             <MessageSquare className="w-4 h-4 mr-2" />
+             WhatsApp Me
+diff --git a/src/legacy/vscode/sections/skills.tsx b/src/legacy/vscode/sections/skills.tsx
+index 7fdf31e..8fe2492 100644
+--- a/src/legacy/vscode/sections/skills.tsx
++++ b/src/legacy/vscode/sections/skills.tsx
+@@ -1,94 +1,94 @@
+ export function Skills() {
+   const frontendSkills = [
+-    { name: "React", level: 90, color: "#61DAFB" },
+-    { name: "Next.js", level: 85, color: "#000000" },
+-    { name: "TypeScript", level: 80, color: "#3178C6" },
+-    { name: "JavaScript", level: 95, color: "#F7DF1E" },
+-    { name: "HTML/CSS", level: 90, color: "#E34F26" },
+-    { name: "Tailwind CSS", level: 85, color: "#06B6D4" },
++    { name: "React", level: 90, color: "var(--color-sky)" },
++    { name: "Next.js", level: 85, color: "var(--color-cocoa)" },
++    { name: "TypeScript", level: 80, color: "var(--color-sky)" },
++    { name: "JavaScript", level: 95, color: "var(--color-sunshine)" },
++    { name: "HTML/CSS", level: 90, color: "var(--color-tangerine)" },
++    { name: "Tailwind CSS", level: 85, color: "var(--color-sky)" },
+   ]
+ 
+   const backendSkills = [
+-    { name: "Node.js", level: 85, color: "#339933" },
+-    { name: "Express", level: 80, color: "#000000" },
+-    { name: "MongoDB", level: 75, color: "#47A248" },
+-    // { name: "PostgreSQL", level: 70, color: "#336791" },
+-    // { name: "GraphQL", level: 65, color: "#E10098" },
+-    { name: "REST API", level: 90, color: "#FF6C37" },
++    { name: "Node.js", level: 85, color: "var(--color-leaf)" },
++    { name: "Express", level: 80, color: "var(--color-cocoa)" },
++    { name: "MongoDB", level: 75, color: "var(--color-leaf)" },
++    // { name: "PostgreSQL", level: 70, color: "var(--color-sky)" },
++    // { name: "GraphQL", level: 65, color: "var(--color-rose)" },
++    { name: "REST API", level: 90, color: "var(--color-tangerine)" },
+   ]
+ 
+   const devOpsSkills = [
+-    { name: "Git", level: 85, color: "#F05032" },
+-    // { name: "Docker", level: 70, color: "#2496ED" },
+-    { name: "CI/CD", level: 65, color: "#4285F4" },
+-    // { name: "AWS", level: 60, color: "#FF9900" },
+-    { name: "Vercel", level: 80, color: "#000000" },
+-    { name: "Netlify", level: 75, color: "#00C7B7" },
++    { name: "Git", level: 85, color: "var(--color-tangerine)" },
++    // { name: "Docker", level: 70, color: "var(--color-sky)" },
++    { name: "CI/CD", level: 65, color: "var(--color-sky)" },
++    // { name: "AWS", level: 60, color: "var(--color-sunshine)" },
++    { name: "Vercel", level: 80, color: "var(--color-cocoa)" },
++    { name: "Netlify", level: 75, color: "var(--color-leaf)" },
+   ]
+ 
+   const otherSkills = [
+-    { name: "UI/UX Design", level: 75, color: "#FF61F6" },
+-    { name: "Figma", level: 70, color: "#F24E1E" },
+-    { name: "Testing", level: 65, color: "#C21325" },
+-    { name: "Performance Optimization", level: 80, color: "#4CAF50" },
+-    { name: "Responsive Design", level: 90, color: "#FF9800" },
+-    { name: "Accessibility", level: 75, color: "#2196F3" },
++    { name: "UI/UX Design", level: 75, color: "var(--color-rose)" },
++    { name: "Figma", level: 70, color: "var(--color-tangerine)" },
++    { name: "Testing", level: 65, color: "var(--color-rose)" },
++    { name: "Performance Optimization", level: 80, color: "var(--color-leaf)" },
++    { name: "Responsive Design", level: 90, color: "var(--color-tangerine)" },
++    { name: "Accessibility", level: 75, color: "var(--color-sky)" },
+   ]
+ 
+   return (
+     <div className="max-w-4xl mx-auto">
+       <div className="mb-6">
+-        <div className="text-[#6A9955] text-xl mb-2">// Skills</div>
+-        <div className="text-[#569CD6] text-3xl font-bold mb-4">Technical Proficiency</div>
+-        <div className="text-[#D4D4D4] mb-8">A comprehensive overview of my technical skills and expertise</div>
++        <div className="text-editor-comment text-xl mb-2">// Skills</div>
++        <div className="text-editor-foreground text-3xl font-bold mb-4">Technical Proficiency</div>
++        <div className="text-editor-foreground mb-8">A comprehensive overview of my technical skills and expertise</div>
+       </div>
+ 
+-      <div className="bg-[#1E1E1E] border border-[#3C3C3C] rounded-md p-4 mb-8">
++      <div className="bg-editor-background border border-editor-border rounded-md p-4 mb-8">
+         <pre className="font-mono text-sm md:text-base whitespace-pre-wrap overflow-auto">
+           <code>
+-            <span className="text-[#569CD6]">const</span> <span className="text-[#4FC1FF]">developerSkills</span>{" "}
+-            <span className="text-white">=</span> <span className="text-[#DCDCAA]">{"{"}</span>
++            <span className="text-editor-keyword">const</span> <span className="text-editor-keyword">developerSkills</span>{" "}
++            <span className="text-editor-foreground">=</span> <span className="text-editor-symbol">{"{"}</span>
+             <br />
+-            <span className="text-[#9CDCFE]"> frontend</span>
+-            <span className="text-white">:</span> <span className="text-[#DCDCAA]">{"["}</span>
+-            <span className="text-[#CE9178]">"React"</span>
+-            <span className="text-white">,</span> <span className="text-[#CE9178]">"Next.js"</span>
+-            <span className="text-white">,</span> <span className="text-[#CE9178]">"TypeScript"</span>
+-            <span className="text-[#DCDCAA]">{"]"}</span>
+-            <span className="text-white">,</span>
++            <span className="text-editor-keyword"> frontend</span>
++            <span className="text-editor-foreground">:</span> <span className="text-editor-symbol">{"["}</span>
++            <span className="text-editor-string">"React"</span>
++            <span className="text-editor-foreground">,</span> <span className="text-editor-string">"Next.js"</span>
++            <span className="text-editor-foreground">,</span> <span className="text-editor-string">"TypeScript"</span>
++            <span className="text-editor-symbol">{"]"}</span>
++            <span className="text-editor-foreground">,</span>
+             <br />
+-            <span className="text-[#9CDCFE]"> backend</span>
+-            <span className="text-white">:</span> <span className="text-[#DCDCAA]">{"["}</span>
+-            <span className="text-[#CE9178]">"Node.js"</span>
+-            <span className="text-white">,</span> <span className="text-[#CE9178]">"Express"</span>
+-            <span className="text-white">,</span> <span className="text-[#CE9178]">"MongoDB"</span>
+-            <span className="text-[#DCDCAA]">{"]"}</span>
+-            <span className="text-white">,</span>
++            <span className="text-editor-keyword"> backend</span>
++            <span className="text-editor-foreground">:</span> <span className="text-editor-symbol">{"["}</span>
++            <span className="text-editor-string">"Node.js"</span>
++            <span className="text-editor-foreground">,</span> <span className="text-editor-string">"Express"</span>
++            <span className="text-editor-foreground">,</span> <span className="text-editor-string">"MongoDB"</span>
++            <span className="text-editor-symbol">{"]"}</span>
++            <span className="text-editor-foreground">,</span>
+             <br />
+-            <span className="text-[#9CDCFE]"> devOps</span>
+-            <span className="text-white">:</span> <span className="text-[#DCDCAA]">{"["}</span>
+-            <span className="text-[#CE9178]">"Git"</span>
+-            {/* <span className="text-white">,</span> <span className="text-[#CE9178]">"Docker"</span> */}
+-            <span className="text-white">,</span> <span className="text-[#CE9178]">"CI/CD"</span>
+-            <span className="text-[#DCDCAA]">{"]"}</span>
+-            <span className="text-white">,</span>
++            <span className="text-editor-keyword"> devOps</span>
++            <span className="text-editor-foreground">:</span> <span className="text-editor-symbol">{"["}</span>
++            <span className="text-editor-string">"Git"</span>
++            {/* <span className="text-editor-foreground">,</span> <span className="text-editor-string">"Docker"</span> */}
++            <span className="text-editor-foreground">,</span> <span className="text-editor-string">"CI/CD"</span>
++            <span className="text-editor-symbol">{"]"}</span>
++            <span className="text-editor-foreground">,</span>
+             <br />
+-            <span className="text-[#9CDCFE]"> other</span>
+-            <span className="text-white">:</span> <span className="text-[#DCDCAA]">{"["}</span>
+-            <span className="text-[#CE9178]">"UI/UX"</span>
+-            <span className="text-white">,</span> <span className="text-[#CE9178]">"Figma"</span>
+-            <span className="text-white">,</span> <span className="text-[#CE9178]">"Testing"</span>
+-            <span className="text-[#DCDCAA]">{"]"}</span>
++            <span className="text-editor-keyword"> other</span>
++            <span className="text-editor-foreground">:</span> <span className="text-editor-symbol">{"["}</span>
++            <span className="text-editor-string">"UI/UX"</span>
++            <span className="text-editor-foreground">,</span> <span className="text-editor-string">"Figma"</span>
++            <span className="text-editor-foreground">,</span> <span className="text-editor-string">"Testing"</span>
++            <span className="text-editor-symbol">{"]"}</span>
+             <br />
+-            <span className="text-[#DCDCAA]">{"}"}</span>
+-            <span className="text-white">;</span>
++            <span className="text-editor-symbol">{"}"}</span>
++            <span className="text-editor-foreground">;</span>
+           </code>
+         </pre>
+       </div>
+ 
+       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+-        <div className="bg-[#252526] border border-[#3C3C3C] rounded-md p-4">
+-          <div className="text-[#569CD6] font-bold mb-4">// Frontend Development</div>
++        <div className="bg-editor-surface border border-editor-border rounded-md p-4">
++          <div className="text-editor-keyword font-bold mb-4">// Frontend Development</div>
+           <div className="space-y-4">
+             {frontendSkills.map((skill) => (
+               <div key={skill.name}>
+@@ -96,7 +96,7 @@ export function Skills() {
+                   <span>{skill.name}</span>
+                   <span>{skill.level}%</span>
+                 </div>
+-                <div className="w-full bg-[#3C3C3C] rounded-full h-2.5">
++                <div className="w-full bg-editor-raised rounded-full h-2.5">
+                   <div
+                     className="h-2.5 rounded-full"
+                     style={{ width: `${skill.level}%`, backgroundColor: skill.color }}
+@@ -107,8 +107,8 @@ export function Skills() {
+           </div>
+         </div>
+ 
+-        <div className="bg-[#252526] border border-[#3C3C3C] rounded-md p-4">
+-          <div className="text-[#569CD6] font-bold mb-4">// Backend Development</div>
++        <div className="bg-editor-surface border border-editor-border rounded-md p-4">
++          <div className="text-editor-keyword font-bold mb-4">// Backend Development</div>
+           <div className="space-y-4">
+             {backendSkills.map((skill) => (
+               <div key={skill.name}>
+@@ -116,7 +116,7 @@ export function Skills() {
+                   <span>{skill.name}</span>
+                   <span>{skill.level}%</span>
+                 </div>
+-                <div className="w-full bg-[#3C3C3C] rounded-full h-2.5">
++                <div className="w-full bg-editor-raised rounded-full h-2.5">
+                   <div
+                     className="h-2.5 rounded-full"
+                     style={{ width: `${skill.level}%`, backgroundColor: skill.color }}
+@@ -129,8 +129,8 @@ export function Skills() {
+       </div>
+ 
+       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+-        <div className="bg-[#252526] border border-[#3C3C3C] rounded-md p-4">
+-          <div className="text-[#569CD6] font-bold mb-4">// DevOps & Deployment</div>
++        <div className="bg-editor-surface border border-editor-border rounded-md p-4">
++          <div className="text-editor-keyword font-bold mb-4">// DevOps & Deployment</div>
+           <div className="space-y-4">
+             {devOpsSkills.map((skill) => (
+               <div key={skill.name}>
+@@ -138,7 +138,7 @@ export function Skills() {
+                   <span>{skill.name}</span>
+                   <span>{skill.level}%</span>
+                 </div>
+-                <div className="w-full bg-[#3C3C3C] rounded-full h-2.5">
++                <div className="w-full bg-editor-raised rounded-full h-2.5">
+                   <div
+                     className="h-2.5 rounded-full"
+                     style={{ width: `${skill.level}%`, backgroundColor: skill.color }}
+@@ -149,8 +149,8 @@ export function Skills() {
+           </div>
+         </div>
+ 
+-        <div className="bg-[#252526] border border-[#3C3C3C] rounded-md p-4">
+-          <div className="text-[#569CD6] font-bold mb-4">// Other Skills</div>
++        <div className="bg-editor-surface border border-editor-border rounded-md p-4">
++          <div className="text-editor-keyword font-bold mb-4">// Other Skills</div>
+           <div className="space-y-4">
+             {otherSkills.map((skill) => (
+               <div key={skill.name}>
+@@ -158,7 +158,7 @@ export function Skills() {
+                   <span>{skill.name}</span>
+                   <span>{skill.level}%</span>
+                 </div>
+-                <div className="w-full bg-[#3C3C3C] rounded-full h-2.5">
++                <div className="w-full bg-editor-raised rounded-full h-2.5">
+                   <div
+                     className="h-2.5 rounded-full"
+                     style={{ width: `${skill.level}%`, backgroundColor: skill.color }}
+@@ -170,24 +170,24 @@ export function Skills() {
+         </div>
+       </div>
+ 
+-      <div className="bg-[#252526] border border-[#3C3C3C] rounded-md p-4">
+-        <div className="text-[#6A9955] font-bold mb-4">// Skill Breakdown</div>
++      <div className="bg-editor-surface border border-editor-border rounded-md p-4">
++        <div className="text-editor-comment font-bold mb-4">// Skill Breakdown</div>
+         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+-          <div className="bg-[#1E1E1E] p-3 rounded-md">
+-            <div className="text-center mb-2 text-[#569CD6]">Frontend</div>
++          <div className="bg-editor-background p-3 rounded-md">
++            <div className="text-center mb-2 text-editor-keyword">Frontend</div>
+             <div className="aspect-square flex items-center justify-center">
+               <div className="relative w-24 h-24">
+                 <svg viewBox="0 0 36 36" className="w-full h-full">
+                   <path
+                     d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                     fill="none"
+-                    stroke="#3C3C3C"
++                    stroke="var(--editor-border, var(--color-line))"
+                     strokeWidth="2"
+                   />
+                   <path
+                     d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                     fill="none"
+-                    stroke="#61DAFB"
++                    stroke="var(--color-sky)"
+                     strokeWidth="2"
+                     strokeDasharray="87, 100"
+                     strokeLinecap="round"
+@@ -199,21 +199,21 @@ export function Skills() {
+               </div>
+             </div>
+           </div>
+-          <div className="bg-[#1E1E1E] p-3 rounded-md">
+-            <div className="text-center mb-2 text-[#569CD6]">Backend</div>
++          <div className="bg-editor-background p-3 rounded-md">
++            <div className="text-center mb-2 text-editor-keyword">Backend</div>
+             <div className="aspect-square flex items-center justify-center">
+               <div className="relative w-24 h-24">
+                 <svg viewBox="0 0 36 36" className="w-full h-full">
+                   <path
+                     d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                     fill="none"
+-                    stroke="#3C3C3C"
++                    stroke="var(--editor-border, var(--color-line))"
+                     strokeWidth="2"
+                   />
+                   <path
+                     d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                     fill="none"
+-                    stroke="#339933"
++                    stroke="var(--color-leaf)"
+                     strokeWidth="2"
+                     strokeDasharray="78, 100"
+                     strokeLinecap="round"
+@@ -225,21 +225,21 @@ export function Skills() {
+               </div>
+             </div>
+           </div>
+-          <div className="bg-[#1E1E1E] p-3 rounded-md">
+-            <div className="text-center mb-2 text-[#569CD6]">DevOps</div>
++          <div className="bg-editor-background p-3 rounded-md">
++            <div className="text-center mb-2 text-editor-keyword">DevOps</div>
+             <div className="aspect-square flex items-center justify-center">
+               <div className="relative w-24 h-24">
+                 <svg viewBox="0 0 36 36" className="w-full h-full">
+                   <path
+                     d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                     fill="none"
+-                    stroke="#3C3C3C"
++                    stroke="var(--editor-border, var(--color-line))"
+                     strokeWidth="2"
+                   />
+                   <path
+                     d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                     fill="none"
+-                    stroke="#2496ED"
++                    stroke="var(--color-sky)"
+                     strokeWidth="2"
+                     strokeDasharray="45, 100"
+                     strokeLinecap="round"
+@@ -251,21 +251,21 @@ export function Skills() {
+               </div>
+             </div>
+           </div>
+-          <div className="bg-[#1E1E1E] p-3 rounded-md">
+-            <div className="text-center mb-2 text-[#569CD6]">Design</div>
++          <div className="bg-editor-background p-3 rounded-md">
++            <div className="text-center mb-2 text-editor-keyword">Design</div>
+             <div className="aspect-square flex items-center justify-center">
+               <div className="relative w-24 h-24">
+                 <svg viewBox="0 0 36 36" className="w-full h-full">
+                   <path
+                     d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                     fill="none"
+-                    stroke="#3C3C3C"
++                    stroke="var(--editor-border, var(--color-line))"
+                     strokeWidth="2"
+                   />
+                   <path
+                     d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                     fill="none"
+-                    stroke="#FF61F6"
++                    stroke="var(--color-rose)"
+                     strokeWidth="2"
+                     strokeDasharray="75, 100"
+                     strokeLinecap="round"

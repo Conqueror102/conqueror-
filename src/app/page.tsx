@@ -1,13 +1,17 @@
 import { JsonLd } from "@/components/json-ld"
+import { PortfolioHeader } from "@/components/layout/site-header"
+import { PortfolioHero } from "@/components/home/hero"
 import { homeStructuredData } from "@/lib/structured-data"
-import { VSCodePortfolio } from "@/legacy/vscode/components/vscode-portfolio"
 
-// The VS Code portfolio stays on the homepage until the new UI is built.
+// New portfolio homepage. The original VS Code edition lives at /vscode (src/legacy).
 export default function HomePage() {
   return (
     <>
       <JsonLd data={homeStructuredData} />
-      <VSCodePortfolio />
+      <PortfolioHeader />
+      <main>
+        <PortfolioHero />
+      </main>
     </>
   )
 }
