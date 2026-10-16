@@ -47,16 +47,21 @@ visual identity through navigation, buttons, forms, loading states, and mobile
 layouts. Maintain readable text, accessible contrast, keyboard access, reduced
 motion support where needed, and sensible asset loading.
 
+## Where to work (important)
+
+Build the new portfolio fresh. Do not edit anything in `src/legacy/`: that is the
+old VS Code / client portfolio, kept untouched and served only at `/vscode`.
+
+- Homepage: `src/app/page.tsx`
+- Layout pieces (header, footer): `src/components/layout/`
+- Homepage sections: `src/components/home/` (hero is `hero.tsx`; add `about.tsx`,
+  `projects.tsx`, `services.tsx`, `faq.tsx`, `contact.tsx` next to it)
+- Shared UI pieces: `src/components/ui/`
+- Content comes from `src/content/` (later from the admin/database), never hard-coded.
+
 ## Current stage
 
-The homepage hero now uses the supplied compact grid reference as a structural
-starting point, with minimal outer padding and a tall portrait panel on the left.
-The palette and typography remain the established portfolio foundation.
-
-The portrait uses Victor's supplied photo as its identity reference: a subtly
-animated editorial likeness wearing a red Arsenal jersey, embracing a MacBook,
-with irregularly scattered dimensional technology emblems. The original PNG has
-real transparency and lives in `public/images/hero/` alongside its generation
-prompt. Supporting grid panels introduce Victor, show his stack, feature real
-work, and provide contact actions. The existing sections continue below the hero;
-the legacy experience remains at `/vscode`.
+The new hero (bento grid with the illustrated portrait) is live on the homepage via
+`src/components/home/hero.tsx`. The rest of the homepage still needs to be designed
+as new sections below it. An earlier attempt restyled the legacy files; that work
+was reverted and kept only as reference in `design/legacy-restyle-reference.patch`.
