@@ -113,7 +113,7 @@
   .about-tile-arrow { top: 10px; right: 10px; width: 15px; height: 15px; }
 }
 
-.about-feature-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.about-feature-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 55%; }
 
 .about-slogan { display:block; margin-top:10px; font-size:clamp(20px,2.4vw,34px); letter-spacing:-.03em; }
 @media (max-width: 700px) { .about-slogan { font-size:clamp(18px,5.6vw,26px); } }
