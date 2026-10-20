@@ -251,3 +251,23 @@
 .hero-book-next em { font: italic 9px/1.2 var(--font-fredoka), sans-serif; }
 @media (max-width: 700px) { .hero-book-stack { --w: 40px; } .hero-book-stack li { left: calc((var(--i) - 2) * var(--w) * .62); } .hero-book-next span { font-size: 5px; } .hero-book-next em { font-size: 7px; } }
 .hero-cv-button { color: inherit; }
+
+/* Gallery links: a pill on the photo card, a last tile in the fan, and a link in the preview */
+.hero-gallery-link { position: absolute; z-index: 2; top: 12px; right: 12px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 6px 6px 10px; border-radius: 999px; background: var(--color-cream); color: var(--color-cocoa); font: 11px/1.2 var(--font-fredoka), sans-serif; transition: opacity 260ms, background 180ms; }
+.hero-gallery-link span { min-width: 20px; padding: 2px 6px; border-radius: 999px; background: var(--color-cocoa); color: var(--color-cream); font: 10px/1.3 var(--font-jetbrains-mono), monospace; text-align: center; }
+.hero-gallery-link:hover, .hero-gallery-link:focus-visible { background: var(--color-sunshine); }
+.hero-slideshow[data-open="true"] > .hero-gallery-link { opacity: 0; pointer-events: none; }
+.hero-photo-fan-all a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; width: 100%; height: 100%; padding: 6px; border: 3px solid var(--color-cream); border-radius: 14px; background: var(--color-sunshine); color: var(--color-cocoa); box-shadow: 0 16px 34px #2a120f66; text-align: center; transition: transform 220ms; }
+.hero-photo-fan-all strong { font: 500 20px/1 var(--font-fredoka), sans-serif; }
+.hero-photo-fan-all span { font: 10px/1.15 var(--font-fredoka), sans-serif; }
+.hero-photo-fan-all a:hover, .hero-photo-fan-all a:focus-visible { transform: scale(1.12); }
+.hero-lightbox-all { display: inline-flex; align-items: center; gap: 6px; margin-left: auto; padding: 8px 12px; border: 1px solid var(--color-line); border-radius: 999px; font: 12px var(--font-fredoka), sans-serif; white-space: nowrap; transition: background 180ms; }
+.hero-lightbox-all:hover { background: var(--color-sunshine); }
+@media (max-width: 600px) {
+  .hero-lightbox-content footer { flex-wrap: wrap; }
+  .hero-lightbox-content footer > p { flex: 1 1 100%; }
+  .hero-lightbox-all { margin-left: 0; }
+}
+.hero-gallery-link em { font-style: normal; }
+@container (max-width: 300px) { .hero-slideshow > .hero-fan-hint { display: none; } }
+@container (max-width: 190px) { .hero-gallery-link em { display: none; } }

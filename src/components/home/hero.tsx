@@ -8,7 +8,8 @@ import { HeroSoftSkills } from "./hero-soft-skills"
 import type { PortfolioContent } from "@/lib/portfolio-content"
 
 export function PortfolioHero({ content }: { content: PortfolioContent }) {
-  const { profile, home: { hero: copy }, projects, heroLogos } = content
+  const { profile, home: { hero: copy }, projects, heroLogos, gallery } = content
+  const heroPhotos = gallery.photos.filter(photo => photo.showInHero)
   const featured = projects.find(project => project.slug === copy.featuredSlug) ?? projects.find(project => project.featured)
   return (
     <section className="portfolio-hero" id="home" aria-labelledby="hero-title">
@@ -24,7 +25,7 @@ export function PortfolioHero({ content }: { content: PortfolioContent }) {
             <p>{copy.description}</p>
             <a href="#projects" className="hero-inline-link">{copy.workLink}<ArrowDownRight size={21} aria-hidden="true" /></a>
           </div>
-          <HeroSlideshow copy={copy.slideshow} />
+          <HeroSlideshow copy={copy.slideshow} slides={heroPhotos.length ? heroPhotos : gallery.photos} gallery={{ label: gallery.viewAllLabel, href: "/gallery", total: gallery.photos.length }} />
           <div className="hero-code-panel" aria-label={copy.codeLabel}>
             <div className="hero-code-header"><span>{copy.codeFile}</span><span>01</span></div>
             <pre><code><span className="code-pink">const</span> {copy.codeVariable} = {"{"}{"\n"}

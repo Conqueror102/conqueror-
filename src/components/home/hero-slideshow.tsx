@@ -1,8 +1,10 @@
 "use client"
 
 import Image from "next/image"
-import { ArrowLeft, ArrowRight, X } from "lucide-react"
+import Link from "next/link"
+import { Images } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
+import { PhotoLightbox } from "@/components/ui/photo-lightbox"
 
 type SlideshowCopy = {
   label: string
@@ -13,19 +15,22 @@ type SlideshowCopy = {
   previous: string
   next: string
   hint: string
-  slides: readonly { src: string; alt: string; caption: string; position: string }[]
 }
 
+type Slide = { src: string; alt: string; caption: string; position: string }
+
+/** The fan has room for this many photos; the rest live on the gallery page. */
+const FAN_LIMIT = 7
+
 /** Auto-playing photo carousel. On hover (or tap) every photo fans out along an arc; clicking one opens a preview. */
-export function HeroSlideshow({ copy }: { copy: SlideshowCopy }) {
-  const slides = copy.slides
+export function HeroSlideshow({ copy, slides: allSlides, gallery }: { copy: SlideshowCopy; slides: readonly Slide[]; gallery: { label: string; href: string; total: number } }) {
+  const slides = allSlides.slice(0, FAN_LIMIT)
   const [active, setActive] = useState(0)
   const [open, setOpen] = useState(false)
   const [preview, setPreview] = useState<number | null>(null)
   const [visible, setVisible] = useState(false)
   const [reducedMotion, setReducedMotion] = useState(false)
   const root = useRef<HTMLDivElement>(null)
-  const dialog = useRef<HTMLDialogElement>(null)
 
   useEffect(() => {
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)")
@@ -63,12 +68,8 @@ export function HeroSlideshow({ copy }: { copy: SlideshowCopy }) {
   function show(index: number) {
     setPreview(index)
     setActive(index)
-    dialog.current?.showModal()
   }
-  function move(step: number) {
-    setPreview(index => index === null ? index : (index + step + slides.length) % slides.length)
-  }
-  const selected = preview === null ? null : slides[preview]
+  const fanCount = slides.length + 1
 
   return (
     <div ref={root} className="hero-slideshow" role="region" aria-label={copy.label} data-open={open}
@@ -84,35 +85,26 @@ export function HeroSlideshow({ copy }: { copy: SlideshowCopy }) {
         </div>
       ))}
       <span className="hero-fan-hint" aria-hidden="true">{copy.hint}</span>
+      <Link className="hero-gallery-link" href={gallery.href} aria-label={`${gallery.label} (${gallery.total})`} onClick={event => event.stopPropagation()}>
+        <Images size={14} aria-hidden="true" /><em>{gallery.label}</em><span>{gallery.total}</span>
+      </Link>
       <ul className="hero-photo-fan">
         {slides.map((slide, index) => (
-          <li key={slide.src} style={{ "--i": index, "--n": slides.length, "--delay": `${index * 45}ms` } as React.CSSProperties}>
+          <li key={slide.src} style={{ "--i": index, "--n": fanCount, "--delay": `${index * 45}ms` } as React.CSSProperties}>
             <button type="button" aria-label={`${copy.openLabel}: ${slide.caption}`} tabIndex={open ? 0 : -1}
               onClick={event => { event.stopPropagation(); show(index) }}>
               <Image src={slide.src} alt="" fill sizes="90px" style={{ objectPosition: slide.position }} />
             </button>
           </li>
         ))}
+        <li className="hero-photo-fan-all" style={{ "--i": slides.length, "--n": fanCount, "--delay": `${slides.length * 45}ms` } as React.CSSProperties}>
+          <Link href={gallery.href} tabIndex={open ? 0 : -1} onClick={event => event.stopPropagation()}>
+            <Images size={20} aria-hidden="true" /><strong>{gallery.total}</strong><span>{gallery.label}</span>
+          </Link>
+        </li>
       </ul>
-      <dialog ref={dialog} className="hero-lightbox" aria-label={copy.label} onClose={() => setPreview(null)}
-        onClick={event => { if (event.target === event.currentTarget) dialog.current?.close() }}
-        onKeyDown={event => {
-          if (event.key === "ArrowRight") { event.preventDefault(); move(1) }
-          else if (event.key === "ArrowLeft") { event.preventDefault(); move(-1) }
-        }}>
-        {selected && <div className="hero-lightbox-content">
-          <div className="hero-lightbox-image"><Image key={selected.src} src={selected.src} alt={selected.alt} fill sizes="(max-width: 1000px) 92vw, 940px" loading="eager" /></div>
-          <footer>
-            <p>{selected.caption}</p>
-            <nav>
-              <button type="button" aria-label={copy.previous} onClick={() => move(-1)}><ArrowLeft size={18} aria-hidden="true" /></button>
-              <span>{String((preview ?? 0) + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</span>
-              <button type="button" aria-label={copy.next} onClick={() => move(1)}><ArrowRight size={18} aria-hidden="true" /></button>
-            </nav>
-          </footer>
-          <button type="button" className="hero-lightbox-close" aria-label={copy.close} onClick={() => dialog.current?.close()}><X size={20} aria-hidden="true" /></button>
-        </div>}
-      </dialog>
+      <PhotoLightbox photos={slides} index={preview} onChange={index => { setPreview(index); if (index !== null) setActive(index) }}
+        labels={{ label: copy.label, close: copy.close, previous: copy.previous, next: copy.next }} link={{ label: gallery.label, href: gallery.href }} />
     </div>
   )
 }

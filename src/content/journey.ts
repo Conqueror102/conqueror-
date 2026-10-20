@@ -33,13 +33,13 @@ export const outsideContent = {
     {
       id: "events", category: "EVENTS & COMMUNITY", title: "Always in the room where tech happens.",
       body: "When I’m not building, I’m usually at a tech conference or meetup, in person or online. I go to learn what others are working on, swap ideas with people who see problems differently, and meet the builders I might work with next. Some of my best ideas started as a hallway conversation.",
-      image: "/images/me2.jpg", imageAlt: "Victor thinking beside his laptop", imagePosition: "50% 14%",
+      image: "/images/gallery/microsoft-ai-event.jpg", imageAlt: "Victor standing in front of a Microsoft banner at a tech event, wearing a guest lanyard", imagePosition: "50% 22%",
       caption: "Ideas start with people.", preview: false,
     },
     {
       id: "teaching", category: "TEACHING & COMMUNITY", title: "Learning out loud, with other people.",
       body: "As a teaching assistant at Kode10x, I help other developers get unstuck, and explaining things makes me sharper too. Talks, community sessions and write-ups about what I’m learning will live here.",
-      image: "/images/me3.jpg", imageAlt: "Victor at his laptop in Lagos", imagePosition: "50% 20%",
+      image: "/images/gallery/teaching-code-kode10x.jpg", imageAlt: "Victor pointing at code on a large screen while teaching a Kode10x class", imagePosition: "50% 38%",
       caption: "Explaining it is how I learn it.", preview: false,
       link: { label: "Invite me to speak", href: `mailto:${profile.email}?subject=Speaking%20invitation` },
     },

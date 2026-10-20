@@ -1,7 +1,7 @@
 import {
   profile, homeContent, heroLogos, skillGroups, skillIcons, skillGraph, services, process, processPresentation, faqs,
   education, courses, outsideContent, testimonialsContent, capabilitiesContent, footerPile, footerNotes, projectDetailCopy, caseStudyPreview,
-  projects, projectStories, projectCaseStudies, projectEngineering, site, type Project,
+  projects, galleryContent, projectStories, projectCaseStudies, projectEngineering, site, type Project,
 } from "@/content"
 
 /**
@@ -14,6 +14,7 @@ export const contentSections = {
   home: { label: "Homepage copy", group: "Homepage", description: "Navigation, header, hero, about, contact, footer and every label on the homepage.", defaults: homeContent },
   heroLogos: { label: "Hero logos", group: "Homepage", description: "The floating technology logos around the hero portrait.", defaults: heroLogos },
   footerNotes: { label: "Footer notes", group: "Homepage", description: "The back page of the footer: quotes, the short letter, the quick profile card, Right now notes and the Lagos clock.", defaults: footerNotes },
+  gallery: { label: "Photo gallery", group: "Homepage", description: "Every photo on the gallery page. Tick “Show in hero” to also rotate a photo in the hero card.", defaults: galleryContent },
   footerPile: { label: "Footer logo pile", group: "Homepage", description: "The physics logo pile in the footer.", defaults: footerPile },
   skillGraph: { label: "Skill graph", group: "Skills", description: "The interactive skill ecosystem graph.", defaults: skillGraph },
   skillGroups: { label: "Skill groups", group: "Skills", description: "Skills listed by category, used in search data and llms.txt.", defaults: skillGroups },

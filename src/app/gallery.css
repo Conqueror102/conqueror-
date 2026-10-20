@@ -1,0 +1,28 @@
+/* Gallery page: every photo uploaded in admin, in a masonry grid. */
+.gallery-page { background: var(--color-cream); color: var(--color-cocoa); min-height: 100vh; }
+.gallery-width { width: min(100% - 48px, 1200px); margin-inline: auto; padding-bottom: 100px; }
+.gallery-hero { padding-block: 48px 34px; }
+.gallery-back { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 28px; font: 12px var(--font-fredoka), sans-serif; color: var(--color-tangerine-ink); }
+.gallery-kicker { display: flex; align-items: center; gap: 10px; color: var(--color-muted); font: 10px var(--font-jetbrains-mono), monospace; letter-spacing: .1em; }
+.gallery-kicker span { padding: 3px 8px; border-radius: 999px; background: var(--color-peach); color: var(--color-cocoa); }
+.gallery-hero h1 { margin-top: 14px; font: 500 clamp(44px, 8vw, 104px)/.95 var(--font-fredoka), sans-serif; letter-spacing: -.045em; }
+.gallery-hero > p:not(.gallery-kicker) { max-width: 560px; margin-top: 20px; font-size: 18px; line-height: 1.7; }
+.gallery-empty { padding-block: 40px 120px; font-size: 18px; color: var(--color-muted); }
+
+.gallery-grid { columns: 4 240px; column-gap: 16px; margin: 0; padding: 0; list-style: none; }
+.gallery-grid li { break-inside: avoid; margin-bottom: 16px; }
+.gallery-grid button { position: relative; display: block; width: 100%; overflow: hidden; border-radius: 18px; background: var(--color-peach); text-align: left; }
+.gallery-grid img { display: block; width: 100%; height: auto; transition: transform 450ms, filter 300ms; }
+.gallery-grid button > span { position: absolute; left: 10px; right: 10px; bottom: 10px; width: fit-content; max-width: calc(100% - 20px); padding: 6px 9px; border-radius: 8px; background: var(--color-cream); font: 12px/1.3 var(--font-fredoka), sans-serif; opacity: 0; transform: translateY(6px); transition: opacity 220ms, transform 220ms; }
+.gallery-grid button:hover img, .gallery-grid button:focus-visible img { transform: scale(1.03); }
+.gallery-grid button:hover > span, .gallery-grid button:focus-visible > span { opacity: 1; transform: none; }
+@media (hover: none) { .gallery-grid button > span { opacity: 1; transform: none; } }
+@media (max-width: 600px) {
+  .gallery-width { width: calc(100% - 32px); padding-bottom: 64px; }
+  .gallery-hero { padding-block: 28px 24px; }
+  .gallery-hero > p:not(.gallery-kicker) { font-size: 16px; }
+  .gallery-grid { columns: 2; column-gap: 10px; }
+  .gallery-grid li { margin-bottom: 10px; }
+  .gallery-grid button { border-radius: 12px; }
+  .gallery-grid button > span { left: 6px; bottom: 6px; max-width: calc(100% - 12px); font-size: 10px; padding: 4px 6px; }
+}

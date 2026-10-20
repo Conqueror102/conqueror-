@@ -35,12 +35,6 @@ export const homeContent = {
     slideshow: {
       label: "A few moments behind the work", slideLabel: "Photo", interval: 5500,
       openLabel: "Open photo", close: "Close photo", previous: "Previous photo", next: "Next photo", hint: "Hover to see them all",
-      slides: [
-        { src: "/images/me2.jpg", alt: "Victor thinking beside his laptop", caption: "Always a little curious.", position: "50% 14%" },
-        { src: "/images/me3.jpg", alt: "Victor at his laptop in Lagos", caption: "Ideas start with people.", position: "50% 14%" },
-        { src: "/images/hero/victor-arsenal-photo.jpeg", alt: "Victor in his Arsenal jersey outside in Lagos", caption: "Once a Gunner. Always a Gunner.", position: "52% 15%" },
-        { src: "/images/about/victor-editorial-cutout.png", alt: "Grayscale portrait of Victor Onyemaechi", caption: "The human behind the code.", position: "50% 20%" },
-      ],
     },
     bookshelf: {
       label: "ON MY BOOKSHELF", title: "Books that shaped how I work.", link: "More about life beyond code", href: "#outside-the-ide",
