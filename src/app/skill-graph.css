@@ -1,0 +1,59 @@
+.about-skills .skills-intro { display:flex; flex-direction:column; align-items:center; gap:24px; padding-bottom:0; border:0; text-align:center; }
+.about-skills .skills-intro .section-kicker { font-size:10px; letter-spacing:.28em; }
+.about-skills .skills-intro h3 { margin:0; font-size:clamp(34px,4.3vw,58px); line-height:1.2; }
+.skill-graph { padding-top: 24px; }
+.graph-topline { display:flex; flex-direction:column; align-items:center; text-align:center; }
+.graph-topline p { max-width:660px; color:var(--color-cocoa-soft); font-size:15px; line-height:1.7; }
+.graph-instructions { text-align:center; margin-top:16px; font-family:var(--font-jetbrains-mono),monospace; font-size:10px; color:var(--color-cocoa-soft); }
+.graph-toolbar { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:9px; margin:25px 0 12px; }
+.graph-toolbar button { display:flex; gap:10px; align-items:center; min-height:44px; padding:8px 17px; border:1px solid var(--color-line); border-radius:50px; background:transparent; color:var(--color-cocoa); font-size:13px; cursor:pointer; transition:background .2s,border-color .2s; }
+.graph-toolbar button[aria-pressed="true"] { background:var(--color-cocoa); color:var(--color-cream); border-color:var(--color-cocoa); }
+.graph-toolbar .graph-filter[aria-pressed="true"] { background:var(--graph-accent); color:var(--color-cocoa); border-color:var(--graph-accent); }
+.graph-filter > span { font-family:var(--font-jetbrains-mono),monospace; font-size:10px; opacity:.7; }
+.graph-frontend { --graph-accent:var(--color-sunshine); --graph-line:#aa8535; }
+.graph-backend { --graph-accent:#b8d9c6; --graph-line:var(--color-leaf-ink); }
+.graph-ai { --graph-accent:#f8b2ae; --graph-line:var(--color-rose-ink); }
+.graph-deployment { --graph-accent:#ffc59c; --graph-line:var(--color-tangerine-ink); }
+.graph-pan-hint { display:none; }
+.graph-viewport { overflow-x:auto; overflow-y:hidden; scrollbar-width:thin; scrollbar-color:var(--color-line) transparent; overscroll-behavior-x:contain; border-bottom:1px solid var(--color-line); }
+.graph-stage { position:relative; width:100%; min-width:1100px; aspect-ratio:1280/1090; isolation:isolate; margin:20px 0; background-image:radial-gradient(circle,#562d2922 .7px,transparent .8px); background-size:20px 20px; }
+.graph-edges { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:visible; }
+.graph-edge { stroke:var(--graph-line); stroke-width:1; opacity:.25; transition:opacity .25s,stroke-width .25s; }
+.graph-edge.is-cross { stroke-dasharray:4 6; opacity:.19; }
+.graph-edge.is-connected { opacity:.85; stroke-width:1.8; }
+.graph-edge.is-dimmed { opacity:.06; }
+.graph-node { position:absolute; transform:translate(-50%,-50%); z-index:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; width:100px; min-height:59px; padding:4px; border:0; background:transparent; color:var(--color-cocoa); font-family:var(--font-fredoka),sans-serif; font-size:12px; line-height:1.2; cursor:pointer; transition:opacity .25s; }
+.graph-node > span:last-child { background:var(--color-peach); padding:1px 4px; border-radius:3px; }
+.graph-logo { display:grid; place-items:center; width:34px; height:34px; border:1px solid #dec5b380; border-radius:50%; background:var(--color-cream); box-shadow:0 3px 6px #562d2908; transition:transform .25s,border-color .25s,background .25s; }
+.graph-logo img { width:20px; height:20px; object-fit:contain; }
+.graph-branch { font-size:13px; }
+.graph-branch .graph-logo { width:43px; height:43px; border-color:var(--color-line); }
+.graph-branch .graph-logo img { width:25px; height:25px; }
+.graph-hub { flex-direction:row; gap:10px; width:auto; min-width:152px; min-height:61px; padding:16px 21px; border-radius:50px; border:1px solid var(--graph-line); background:var(--graph-accent); font-size:19px; box-shadow:0 6px 0 #562d2909; white-space:nowrap; z-index:2; }
+.graph-hub > span:last-child { padding:0; background:transparent; }
+.graph-hub-number { position:absolute; top:-17px; left:22px; font-family:var(--font-jetbrains-mono),monospace; font-size:10px; color:var(--graph-line); }
+.graph-hub-dot { width:7px; height:7px; background:var(--graph-line); border-radius:50%; }
+.graph-node.is-dimmed { opacity:.25; }
+.graph-node.is-active,.graph-node.is-connected { z-index:3; }
+.graph-node.is-active .graph-logo { transform:scale(1.18); border-color:var(--graph-line); background:var(--graph-accent); }
+.graph-node:focus-visible,.graph-toolbar button:focus-visible,.graph-caption button:focus-visible { outline:2px solid var(--color-cocoa); outline-offset:4px; border-radius:18px; }
+.graph-caption { display:flex; justify-content:space-between; align-items:center; gap:24px; min-height:90px; padding:18px 0; }
+.graph-caption p { display:flex; gap:12px; flex-wrap:wrap; align-items:baseline; max-width:950px; color:var(--color-muted); font-size:13px; line-height:1.65; }
+.graph-caption p strong { font-family:var(--font-fredoka),sans-serif; font-weight:500; color:var(--color-cocoa); font-size:16px; }
+.graph-caption button { flex-shrink:0; display:flex; align-items:center; gap:7px; background:transparent; border:0; color:var(--color-cocoa); min-height:44px; font-size:12px; cursor:pointer; }
+.graph-caption button:disabled { opacity:.35; cursor:default; }
+@media (max-width:1200px) { .graph-pan-hint { display:flex; gap:7px; align-items:center; margin:18px 0 0; color:var(--color-muted); font-size:11px; } }
+@media (max-width:700px) {
+  .about-skills .skills-intro { gap:17px; }
+  .about-skills .skills-intro h3 { font-size:34px; }
+  .graph-topline p { font-size:14px; margin-bottom:12px; }
+  .graph-toolbar { gap:7px; margin-top:20px; }
+  .graph-toolbar button { padding:8px 12px; font-size:12px; }
+  .graph-stage { min-width:1100px; margin-top:15px; }
+  .graph-caption { align-items:flex-start; gap:10px; }
+  .graph-caption p { display:block; font-size:12px; }
+  .graph-caption p strong { display:block; margin-bottom:3px; }
+  .graph-caption button { font-size:0; width:44px; justify-content:center; }
+  .graph-caption button svg { width:17px; height:17px; }
+}
+@media (prefers-reduced-motion:reduce) { .graph-node,.graph-edge,.graph-logo,.graph-toolbar button { transition:none; } }

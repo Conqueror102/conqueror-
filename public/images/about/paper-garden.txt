@@ -1,0 +1,13 @@
+Mode: Built-in ImageGen
+
+Use case: stylized-concept
+Asset type: full-bleed landscape artwork for a creative developer portfolio About mosaic tile.
+Primary request: one premium tactile layered paper-cut tropical garden with one elegant sculptural pink flamingo, inspired by an artisanal editorial paper sculpture.
+Scene/backdrop: dense, beautifully arranged tropical foliage of layered pointed and rounded leaves, coral paper flowers and folded botanical forms, fully filling the entire frame.
+Subject: one graceful pink flamingo centered slightly right, long curved S-shaped neck and small black-tipped beak, sculpted layered feather wings. Bird silhouette clearly readable amid foliage.
+Style/medium: exquisite handmade paper-cut sculpture photographed in a studio, physical layered cardstock, crisp cut edges, small folds and soft realistic depth shadows, polished luxury editorial craft.
+Composition/framing: landscape 1.6:1 ratio, approximately 1536 by 960 pixels or higher. A close botanical vignette: flamingo fills much of height while retaining graceful curved neck; foliage frames all sides and extends to every edge. No empty border.
+Lighting/mood: warm soft directional studio light, delightful, creative, calm and refined, dimensional shadow detail.
+Color palette: cohesive warm pastels anchored in peach #ffe8d0, cream #fef4eb, cocoa #562d29, leaf green #4ca275, rose pink #fe9399, sunshine #fed15c; gentle mint green leaves and coral accents, predominantly rose and green. No purple theme.
+Materials/textures: fine matte paper fibers, tactile layered cardstock, subtle realistic material variation.
+Constraints: artwork only; no interface, no play button, no text, no logo, no border, no watermark; one flamingo only; balanced depth, clear elegant shape.

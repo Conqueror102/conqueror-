@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+@theme {
+  /* Palette sampled from the supplied visual references. */
+  --color-peach: #ffe8d0;
+  --color-cream: #fef4eb;
+  --color-cocoa: #562d29;
+  --color-cocoa-soft: #744942;
+  --color-muted: #765e54;
+  --color-line: #dec5b3;
+  --color-sunshine: #fed15c;
+  --color-leaf: #4ca275;
+  --color-leaf-ink: #286146;
+  --color-rose: #fe9399;
+  --color-rose-ink: #a23943;
+  --color-sky: #8ac0ff;
+  --color-sky-ink: #285982;
+  --color-tangerine: #fd8749;
+  --color-tangerine-ink: #91451e;
+}
+
+/* The portfolio's opening composition; the legacy edition keeps its own layout. */
+.portfolio-header {
+  max-width: 1680px;
+  margin: 0 auto;
+  padding: 22px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  position: relative;
+  z-index: 20;
+}
+.portfolio-wordmark { display: flex; align-items: baseline; gap: 2px; font-size: 31px; line-height: 1; }
+.portfolio-wordmark > span { color: var(--color-tangerine-ink); }
+.portfolio-wordmark small { font-size: 9px; letter-spacing: .15em; margin-left: 9px; }
+.portfolio-logo { align-self: center; width: 44px; height: 44px; margin-right: 8px; object-fit: contain; transition: transform 220ms; }
+.portfolio-wordmark:hover .portfolio-logo { transform: rotate(-8deg); }
+@media (max-width: 700px) { .portfolio-logo { width: 36px; height: 36px; margin-right: 6px; } }
+.portfolio-desktop-nav, .portfolio-header-actions { display: flex; align-items: center; gap: 28px; }
+.portfolio-desktop-nav { font-size: 15px; }
+.portfolio-desktop-nav a, .portfolio-dev-link { transition: opacity 180ms; }
+.portfolio-desktop-nav a:hover, .portfolio-dev-link:hover { opacity: .65; }
+.portfolio-header-actions { gap: 22px; font-family: var(--font-fredoka), sans-serif; }
+.portfolio-dev-link, .portfolio-contact-link { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; }
+.portfolio-contact-link { border: 1px solid var(--color-cocoa); padding: 11px 18px; border-radius: 999px; transition: background 180ms; }
+.portfolio-contact-link:hover { background: var(--color-sunshine); }
+.portfolio-menu-toggle, .portfolio-mobile-nav { display: none; }
+html { scroll-behavior: smooth; }
+@media (max-width: 1100px) and (min-width: 701px) {
+  .portfolio-header { padding: 20px; }
+  .portfolio-header-actions { gap: 12px; }
+  .portfolio-desktop-nav { gap: 18px; }
+}
+@media (max-width: 700px) {
+  .portfolio-header { padding: 18px 16px; gap: 10px; }
+  .portfolio-wordmark { font-size: 27px; }
+  .portfolio-wordmark small { font-size: 8px; margin-left: 5px; }
+  .portfolio-desktop-nav, .portfolio-dev-link { display: none; }
+  .portfolio-header-actions { gap: 12px; }
+  .portfolio-contact-link { font-size: 12px; padding: 9px 12px; }
+  .portfolio-menu-toggle { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; }
+  .portfolio-mobile-nav { display: flex; flex-direction: column; position: absolute; left: 12px; right: 12px; top: calc(100% - 5px); background: var(--color-cream); border: 1px solid var(--color-line); border-radius: 18px; box-shadow: 0 12px 24px #562d291a; padding: 8px 16px; }
+  .portfolio-mobile-nav a { display: flex; justify-content: space-between; align-items: center; padding: 13px 0; border-bottom: 1px solid var(--color-line); }
+  .portfolio-mobile-nav a:last-child { border-bottom: 0; }
+}
+@media (max-width: 380px) { .portfolio-wordmark small { display: none; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+@theme inline {
+  --font-sans: var(--font-delius), ui-sans-serif, system-ui, sans-serif;
+  --font-secondary: var(--font-fredoka), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --color-editor-background: var(--editor-background, var(--color-cream));
+  --color-editor-surface: var(--editor-surface, var(--color-peach));
+  --color-editor-raised: var(--editor-raised, var(--color-cream));
+  --color-editor-foreground: var(--editor-foreground, var(--color-cocoa));
+  --color-editor-muted: var(--editor-muted, var(--color-muted));
+  --color-editor-border: var(--editor-border, var(--color-line));
+  --color-editor-keyword: var(--editor-keyword, var(--color-sky-ink));
+  --color-editor-comment: var(--editor-comment, var(--color-leaf-ink));
+  --color-editor-string: var(--editor-string, var(--color-tangerine-ink));
+  --color-editor-symbol: var(--editor-symbol, var(--color-cocoa));
+  --color-editor-accent: var(--editor-accent, var(--color-rose-ink));
+  --color-editor-primary: var(--editor-primary, var(--color-sunshine));
+  --color-editor-primary-foreground: var(--editor-primary-foreground, var(--color-cocoa));
+}
+
+@layer base {
+  /* Keep default borders in the warm palette. */
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-line);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@layer base {
+  body {
+    background-color: var(--color-peach);
+    color: var(--color-cocoa);
+  }
+
+  ::selection {
+    background-color: var(--color-sunshine);
+    color: var(--color-cocoa);
+  }
+
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  nav,
+  button,
+  [role="button"],
+  label,
+  small {
+    font-family: var(--font-fredoka), ui-sans-serif, system-ui, sans-serif;
+  }
+}
+
+/* Brand line: "Born to ~~live~~ create." The strike draws in once. */
+.brand-slogan { display:inline-block; font-family:var(--font-delius),sans-serif; }
+.brand-slogan s { position:relative; text-decoration:none; color:var(--color-muted); }
+.brand-slogan s::after { content:""; position:absolute; left:-6%; right:-6%; top:54%; height:.11em; min-height:2px; border-radius:99px; background:var(--color-tangerine); transform:rotate(-4deg) scaleX(1); transform-origin:left; animation:slogan-strike .7s .4s ease-out both; }
+.brand-slogan em { font-style:normal; color:var(--color-tangerine-ink); }
+.sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+@keyframes slogan-strike { from { transform:rotate(-4deg) scaleX(0); } }
+@media (prefers-reduced-motion: reduce) { .brand-slogan s::after { animation:none; } }
+.portfolio-wordmark { white-space: nowrap; }
+@media (max-width: 700px) { .portfolio-wordmark { font-size: 22px; } .portfolio-wordmark small { display: none; } }

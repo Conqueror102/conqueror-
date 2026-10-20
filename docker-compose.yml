@@ -1,0 +1,13 @@
+# Local MongoDB for the admin and visitor analytics. Start with: docker compose up -d
+services:
+  mongo:
+    image: mongo:8
+    container_name: portfolio-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - portfolio-mongo-data:/data/db
+
+volumes:
+  portfolio-mongo-data:
