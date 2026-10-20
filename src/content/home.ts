@@ -63,7 +63,8 @@ export const homeContent = {
   about: {
     index: "01 / A LITTLE CONTEXT", label: "About me", heading: "Conqueror", greeting: "I’m", title: ["I build the whole thing.", "Then I ship it."],
     portrait: "/images/about/victor-editorial-cutout.png", photoAlt: "Grayscale portrait of Victor Onyemaechi", cv: "Download my CV", cvLabel: "CV",
-    feature: { video: "/videos/teaching-kode10x.mp4", image: "/images/about/teaching-video-poster.jpg", alt: "Victor teaching a Kode10x class, pointing at React code on a large screen", label: "Teaching code at Kode10x.", link: "See more from my classes", href: "#outside-the-ide" },
+    feature: { video: "/videos/teaching-kode10x.mp4", image: "/images/about/teaching-video-poster.jpg", alt: "Victor teaching a Kode10x class, pointing at React code on a large screen", label: "Teaching code at Kode10x.", link: "See more from my classes", href: "#outside-the-ide",
+      fullVideo: "/videos/teaching-kode10x-full.mp4", fullPoster: "/images/about/teaching-video-full-poster.jpg", watchLabel: "Watch me teach · 1:07", closeLabel: "Close video" },
     sculpture: { image: "/images/about/creative-orbit.png", link: "Explore my services", href: "#services" },
     projectsLabel: "Projects", skillsCountLabel: "Skills", groupsLabel: "Connected skill sets.", skillsLink: "Explore my skills",
     collaboration: { title: "Let’s build\nsomething good.", label: "Work with me", href: "#contact" },

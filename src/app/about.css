@@ -122,3 +122,13 @@
   .about-sculpture { grid-column: 5 / 9; }
   .about-sculpture > img { left: 0; }
 }
+
+/* Feature box as a video: the preview opens the full clip, with sound, in a player */
+.about-feature-watch { display: block; width: 100%; text-align: left; cursor: pointer; }
+.about-feature > .about-feature-play { position: absolute; z-index: 1; top: 50%; left: 50%; right: auto; bottom: auto; width: auto; display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px 10px 12px; border-radius: 999px; background: var(--color-cream); color: var(--color-cocoa); font: 13px/1 var(--font-fredoka), sans-serif; white-space: nowrap; box-shadow: 0 12px 28px #2a120f55; transform: translate(-50%, -50%); transition: transform 200ms, background 200ms; }
+.about-feature-play svg { flex: none; width: 26px; height: 26px; padding: 6px; border-radius: 50%; background: var(--color-cocoa); color: var(--color-cream); }
+.about-feature-watch:hover .about-feature-play, .about-feature-watch:focus-visible .about-feature-play { transform: translate(-50%, -50%) scale(1.06); background: var(--color-sunshine); }
+.about-video-dialog { width: min(92vw, 460px); max-width: none; max-height: 94vh; inset: 0; margin: auto; padding: 0; border: 0; background: transparent; overflow: visible; }
+.about-video-dialog::backdrop { background: #2a120fd9; backdrop-filter: blur(6px); }
+.about-video-dialog video { display: block; width: 100%; max-height: 90vh; aspect-ratio: 9 / 16; border-radius: 20px; background: #000; object-fit: contain; }
+.about-video-dialog .hero-lightbox-close { top: 12px; right: 12px; }

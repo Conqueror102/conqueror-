@@ -4,6 +4,7 @@ import type { PortfolioContent } from "@/lib/portfolio-content"
 import { SkillGraph } from "./skill-graph"
 import { Slogan, brandOf } from "@/components/ui/slogan"
 import { LazyVideo } from "@/components/ui/lazy-video"
+import { AboutFeatureVideo } from "./about-feature-video"
 
 export function AboutSection({ content }: { content: PortfolioContent }) {
   const { profile, projects, skillGroups, home: { about: copy } } = content
@@ -25,13 +26,15 @@ export function AboutSection({ content }: { content: PortfolioContent }) {
       </div>
       <div className="about-mosaic">
         <a className="about-display-link" href="#projects"><div><h2 id="about-title">{copy.heading}</h2><Slogan slogan={brandOf(content).slogan} className="about-slogan" /></div><ArrowUpRight aria-hidden="true" /></a>
-        <a className="about-feature" href={copy.feature.href} aria-label={copy.feature.link}>
-          {copy.feature.video
-            ? <LazyVideo className="about-feature-video" src={copy.feature.video} poster={copy.feature.image} label={copy.feature.alt} />
-            : <Image src={copy.feature.image} alt={copy.feature.alt} fill sizes="(max-width: 700px) 90vw, 45vw" />}
-          <ArrowUpRight className="about-tile-arrow" size={21} aria-hidden="true" />
-          <span>{copy.feature.label}</span>
-        </a>
+        {"fullVideo" in copy.feature && copy.feature.fullVideo
+          ? <AboutFeatureVideo feature={copy.feature} />
+          : <a className="about-feature" href={copy.feature.href} aria-label={copy.feature.link}>
+              {copy.feature.video
+                ? <LazyVideo className="about-feature-video" src={copy.feature.video} poster={copy.feature.image} label={copy.feature.alt} />
+                : <Image src={copy.feature.image} alt={copy.feature.alt} fill sizes="(max-width: 700px) 90vw, 45vw" />}
+              <ArrowUpRight className="about-tile-arrow" size={21} aria-hidden="true" />
+              <span>{copy.feature.label}</span>
+            </a>}
         <div className="about-stat-stack">
           <a href="#projects" className="about-stat about-project-stat"><ArrowUpRight className="about-tile-arrow" size={18} aria-hidden="true" /><strong>{projects.length}</strong><span>{copy.projectsLabel}</span></a>
           <a href="#about-skills" className="about-stat about-skill-stat"><ArrowUpRight className="about-tile-arrow" size={18} aria-hidden="true" /><strong>{skillCount}</strong><span>{copy.skillsCountLabel}</span></a>
