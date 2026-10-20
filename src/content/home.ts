@@ -13,7 +13,7 @@ export const homeContent = {
   ],
   header: { wordmark: "Victor Conqueror", signature: "BORN TO CREATE", homeLabel: "Victor Conqueror home", developer: "Developer view", contact: "Let’s talk", openMenu: "Open navigation", closeMenu: "Close navigation", mainNav: "Main navigation", mobileNav: "Mobile navigation" },
   hero: {
-    kicker: "THE HUMAN BEHIND THE CODE", greeting: "Hey, I’m", personality: "Full-stack & AI engineer. Curious problem solver. Arsenal fan.",
+    kicker: "THE HUMAN BEHIND THE CODE", greeting: "Hey, I’m", personality: "Full-stack & AI engineer. Curious problem solver.",
     portrait: "/images/hero/victor-arsenal-macbook-cutout.png", portraitAlt: "Illustrated Victor wearing an Arsenal jersey and embracing a MacBook", location: "LAGOS, NG",
     headline: ["Ideas into", "production", "software."], description: "I build complete products — web and mobile apps, APIs, payments and AI agents — and ship them to real users in real markets.",
     workLink: "Explore my work", codeLabel: "A little about Victor in code", codeFile: "about-me.ts", codeVariable: "victor", codeLoves: ["hard problems", "learning how things work", "shipping to production"], github: "Find me on GitHub",

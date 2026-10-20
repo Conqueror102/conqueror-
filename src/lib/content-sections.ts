@@ -22,7 +22,7 @@ export const contentSections = {
   process: { label: "Process steps", group: "Services", description: "How you work, step by step.", defaults: process },
   processPresentation: { label: "Process section copy", group: "Services", description: "Headings and labels around the process steps.", defaults: processPresentation },
   faqs: { label: "FAQ", group: "Services", description: "Questions and answers, also published as FAQ structured data.", defaults: faqs },
-  outside: { label: "Beyond the IDE", group: "Story", description: "Life outside coding: reading, football and teaching stories.", defaults: outsideContent },
+  outside: { label: "Beyond the IDE", group: "Story", description: "Life outside coding: reading, events and teaching stories.", defaults: outsideContent },
   testimonials: { label: "Testimonials", group: "Story", description: "What people say about working with you.", defaults: testimonialsContent },
   capabilities: { label: "Capabilities", group: "Story", description: "The capabilities section.", defaults: capabilitiesContent },
   education: { label: "Education", group: "Story", description: "Schools, certifications and courses.", defaults: education },

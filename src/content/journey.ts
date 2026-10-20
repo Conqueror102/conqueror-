@@ -18,9 +18,9 @@ export type OutsideStory = {
 export const outsideContent = {
   kicker: "03 / WHEN THE LAPTOP CLOSES",
   title: "Beyond the IDE.",
-  description: "What I’m up to when I’m not writing code: the books on my desk, the questions I can’t stop chasing, the team I shout for, and the people I learn alongside.",
+  description: "What I’m up to when I’m not writing code: the books on my desk, the questions I can’t stop chasing, the rooms where tech happens, and the people I learn alongside.",
   previewLabel: "STORY PREVIEW",
-  categories: ["Reading", "Football", "Teaching"],
+  categories: ["Reading", "Events", "Teaching"],
   sideNote: "Rest is part of the work.",
   booksLabel: "Books I’ve finished",
   stories: [
@@ -31,10 +31,10 @@ export const outsideContent = {
       caption: "The shelf so far, and the one I’m still reading.", preview: false, showBooks: true,
     },
     {
-      id: "football", category: "FOOTBALL", title: "Once a Gunner. Always a Gunner.",
-      body: "Match days are for Arsenal. Win or lose, ninety minutes of football is the best reset after a long week of building, and the arguments with friends afterwards are half the fun.",
-      image: "/images/hero/victor-arsenal-photo.jpeg", imageAlt: "Victor in his Arsenal jersey outside in Lagos", imagePosition: "52% 15%",
-      caption: "Match-day colours.", preview: false,
+      id: "events", category: "EVENTS & COMMUNITY", title: "Always in the room where tech happens.",
+      body: "When I’m not building, I’m usually at a tech conference or meetup, in person or online. I go to learn what others are working on, swap ideas with people who see problems differently, and meet the builders I might work with next. Some of my best ideas started as a hallway conversation.",
+      image: "/images/me2.jpg", imageAlt: "Victor thinking beside his laptop", imagePosition: "50% 14%",
+      caption: "Ideas start with people.", preview: false,
     },
     {
       id: "teaching", category: "TEACHING & COMMUNITY", title: "Learning out loud, with other people.",
