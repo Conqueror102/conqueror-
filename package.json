@@ -11,16 +11,27 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "admin:hash": "node -e \"console.log(require('bcryptjs').hashSync(process.argv[1], 12))\"",
+    "db:up": "docker compose up -d",
+    "seo:indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.11.0",
     "clsx": "^2.1.1",
+    "jose": "^6.2.12",
     "lucide-react": "^1.57.0",
+    "marked": "^18.1.1",
+    "mongodb": "^7.7.0",
     "next": "^16.4.1",
     "nodemailer": "^10.1.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "tailwind-merge": "^3.7.0"
+    "sanitize-html": "^2.18.1",
+    "server-only": "^0.0.1",
+    "tailwind-merge": "^3.7.0",
+    "ua-parser-js": "^2.0.10"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
@@ -28,10 +39,12 @@
     "@types/nodemailer": "^8.0.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "@types/sanitize-html": "^2.16.2",
     "eslint": "^10.12.0",
     "eslint-config-next": "^16.4.1",
     "schema-dts": "^2.1.0",
     "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15",
     "typescript": "^6.0.3"
   }
 }

@@ -6,7 +6,8 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     // Icons8 icons (see src/components/icons/icons8.tsx).
-    remotePatterns: [{ protocol: "https", hostname: "img.icons8.com" }],
+    // Cloudinary holds images uploaded from the admin.
+    remotePatterns: [{ protocol: "https", hostname: "img.icons8.com" }, { protocol: "https", hostname: "res.cloudinary.com" }],
   },
   async redirects() {
     return [
