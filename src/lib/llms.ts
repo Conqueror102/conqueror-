@@ -1,9 +1,12 @@
-import { absoluteUrl, courses, education, faqs, profile, projects, services, site, skillGroups } from "@/content"
+import { absoluteUrl } from "@/content"
+import type { PortfolioContent } from "@/lib/portfolio-content"
+import type { Post } from "@/lib/server/blog-repo"
+import { realProjects } from "@/lib/structured-data"
 
 const link = (label: string, url: string, note?: string) => `- [${label}](${url})${note ? `: ${note}` : ""}`
 
 /** llms.txt (https://llmstxt.org): a short, link-rich map of the site for AI assistants. */
-export function buildLlmsTxt() {
+export function buildLlmsTxt({ profile, projects, site }: PortfolioContent, posts: Post[] = []) {
   return [
     `# ${profile.name}`,
     "",
@@ -15,14 +18,16 @@ export function buildLlmsTxt() {
     "",
     link("Portfolio", absoluteUrl("/"), "projects, skills, services and contact"),
     link("Full profile for AI assistants", absoluteUrl("/llms-full.txt"), "everything on the site as plain text"),
-    link("CV (PDF)", absoluteUrl(profile.cv)),
+    link("CV (PDF)", absoluteUrl("/cv")),
+    link("Blog", absoluteUrl("/blog"), "articles and build notes"),
     link("GitHub", profile.links.github),
     link("LinkedIn", profile.links.linkedin),
     "",
     "## Projects",
     "",
-    ...projects.map((project) => link(project.title, project.liveUrl ?? absoluteUrl("/"), project.summary)),
+    ...realProjects(projects).map((project) => link(project.title, absoluteUrl(`/projects/${project.slug}`), project.summary)),
     "",
+    ...(posts.length ? ["## Blog", "", ...posts.slice(0, 30).map((post) => link(post.title, absoluteUrl(`/blog/${post.slug}`), post.excerpt)), ""] : []),
     "## Optional",
     "",
     link("X (Twitter)", profile.links.x),
@@ -32,7 +37,7 @@ export function buildLlmsTxt() {
 }
 
 /** llms-full.txt: the whole portfolio as one Markdown document an AI assistant can read in one request. */
-export function buildLlmsFullTxt() {
+export function buildLlmsFullTxt({ profile, projects, site, skillGroups, services, education, courses, faqs }: PortfolioContent, posts: Post[] = []) {
   return [
     `# ${profile.name} – ${profile.jobTitle}`,
     "",
@@ -62,12 +67,13 @@ export function buildLlmsFullTxt() {
     "",
     "## Projects",
     "",
-    ...projects.flatMap((project) => [
+    ...realProjects(projects).flatMap((project) => [
       `### ${project.title}`,
       "",
       project.description,
       "",
       `- Type: ${project.category}`,
+      `- Project story: ${absoluteUrl(`/projects/${project.slug}`)}`,
       `- Built with: ${project.technologies.join(", ")}`,
       ...(project.liveUrl ? [`- Live site: ${project.liveUrl}`] : []),
       ...(project.repoUrl ? [`- Source code: ${project.repoUrl}`] : []),
@@ -85,5 +91,6 @@ export function buildLlmsFullTxt() {
     "## Frequently asked questions",
     "",
     ...faqs.flatMap((faq) => [`### ${faq.question}`, "", faq.answer, ""]),
+    ...(posts.length ? ["## Blog posts", "", ...posts.map((post) => `- [${post.title}](${absoluteUrl(`/blog/${post.slug}`)}) (${post.publishedAt?.slice(0, 10)}): ${post.excerpt}`), ""] : []),
   ].join("\n")
 }

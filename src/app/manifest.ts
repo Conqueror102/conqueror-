@@ -1,7 +1,9 @@
 import type { MetadataRoute } from "next"
-import { profile, site } from "@/content"
+import { site } from "@/content"
+import { getPortfolioContent } from "@/lib/portfolio-content"
 
-export default function manifest(): MetadataRoute.Manifest {
+export default async function manifest(): Promise<MetadataRoute.Manifest> {
+  const { profile } = await getPortfolioContent()
   return {
     name: `${profile.name} – ${profile.jobTitle}`,
     short_name: "Victor O.",
