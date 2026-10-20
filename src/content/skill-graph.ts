@@ -1,0 +1,117 @@
+export type SkillEcosystem = "frontend" | "backend" | "ai" | "deployment"
+export type SkillGraphNode = {
+  id: string
+  label: string
+  group: SkillEcosystem
+  x: number
+  y: number
+  kind?: "hub" | "branch"
+  icon?: string
+}
+
+const tool = (id: string, label: string, group: SkillEcosystem, x: number, y: number, icon = id, branch = false): SkillGraphNode =>
+  ({ id, label, group, x, y, icon: `/icons/brands/${icon}.svg`, kind: branch ? "branch" : undefined })
+
+/** Curated relationships and layout, ready to be supplied by the content adapter. */
+export const skillGraph = {
+  title: "Everything connects.",
+  description: "From the interface to the intelligence behind it. Follow a thread through my technology ecosystem.",
+  label: "Explore the technology graph",
+  filtersLabel: "Focus an ecosystem",
+  allLabel: "Full ecosystem",
+  instructions: "Hover to trace · Tap to pin",
+  panHint: "Swipe the map to explore",
+  resetLabel: "Clear selection",
+  connectionsLabel: "Connected to",
+  defaultDetail: "Small tools. Shared ideas. Endless possibilities.",
+  groups: [
+    { id: "frontend" as const, label: "Frontend", note: "Interfaces that feel right.", number: "01" },
+    { id: "backend" as const, label: "Backend", note: "The systems underneath.", number: "02" },
+    { id: "ai" as const, label: "AI engineering", note: "A little more intelligence.", number: "03" },
+    { id: "deployment" as const, label: "Deployment", note: "From local to live.", number: "04" },
+  ],
+  nodes: [
+    { id: "frontend", label: "Frontend", group: "frontend", x: 205, y: 320, kind: "hub" },
+    tool("javascript", "JavaScript", "frontend", 235, 155, "javascript", true),
+    tool("typescript", "TypeScript", "frontend", 85, 105),
+    tool("react", "React", "frontend", 85, 235),
+    tool("nextdotjs", "Next.js", "frontend", 65, 390),
+    tool("vite", "Vite", "frontend", 365, 100),
+    tool("npm", "npm", "frontend", 365, 225),
+    tool("html5", "HTML", "frontend", 90, 535),
+    tool("css", "CSS", "frontend", 240, 590),
+    tool("tailwindcss", "Tailwind CSS", "frontend", 225, 460),
+    tool("figma", "Figma", "frontend", 365, 555),
+    { id: "backend", label: "Backend", group: "backend", x: 610, y: 310, kind: "hub" },
+    tool("nodedotjs", "Node.js", "backend", 540, 135, "nodedotjs", true),
+    tool("express", "Express", "backend", 475, 55),
+    tool("mongodb", "MongoDB", "backend", 660, 70),
+    tool("prisma", "Prisma", "backend", 710, 180),
+    tool("postgresql", "PostgreSQL", "backend", 785, 70),
+    tool("redis", "Redis", "backend", 815, 290),
+    tool("rust", "Rust", "backend", 465, 445, "rust", true),
+    tool("tokio", "Tokio", "backend", 455, 590),
+    tool("actix", "Actix", "backend", 570, 555),
+    tool("php", "PHP", "backend", 735, 440, "php", true),
+    tool("laravel", "Laravel", "backend", 680, 575),
+    tool("composer", "Composer", "backend", 815, 565),
+    tool("livewire", "Livewire", "backend", 730, 675),
+    tool("mysql", "MySQL", "backend", 590, 680),
+    { id: "ai", label: "AI engineering", group: "ai", x: 1070, y: 320, kind: "hub" },
+    tool("python", "Python", "ai", 1060, 490, "python", true),
+    tool("langchain", "LangChain", "ai", 990, 135, "langchain", true),
+    tool("langgraph", "LangGraph", "ai", 890, 55),
+    tool("claude", "Claude", "ai", 1145, 80),
+    tool("googlegemini", "Gemini", "ai", 1180, 200),
+    tool("huggingface", "Hugging Face", "ai", 925, 235),
+    tool("ollama", "Ollama", "ai", 1210, 435),
+    tool("pytorch", "PyTorch", "ai", 1185, 565),
+    tool("tensorflow", "TensorFlow", "ai", 1175, 680),
+    tool("pandas", "pandas", "ai", 1020, 655),
+    tool("numpy", "NumPy", "ai", 955, 555),
+    tool("fastapi", "FastAPI", "ai", 915, 410),
+    tool("qdrant", "Qdrant", "ai", 1050, 40),
+    { id: "deployment", label: "Deployment", group: "deployment", x: 610, y: 910, kind: "hub" },
+    tool("amazonwebservices", "AWS", "deployment", 420, 800, "amazonwebservices", true),
+    tool("googlecloud", "Google Cloud", "deployment", 840, 800, "googlecloud", true),
+    tool("azure", "Azure", "deployment", 1000, 900, "azure", true),
+    tool("docker", "Docker", "deployment", 610, 770),
+    tool("kubernetes", "Kubernetes", "deployment", 810, 1020),
+    tool("terraform", "Terraform", "deployment", 420, 1020),
+    tool("githubactions", "GitHub Actions", "deployment", 240, 910),
+    tool("git", "Git", "deployment", 100, 1020),
+    tool("vercel", "Vercel", "deployment", 85, 790),
+    tool("netlify", "Netlify", "deployment", 255, 780),
+    tool("digitalocean", "DigitalOcean", "deployment", 1140, 780),
+    tool("render", "Render", "deployment", 1180, 920),
+    tool("cloudinary", "Cloudinary", "deployment", 1010, 1035),
+  ] satisfies SkillGraphNode[],
+  edges: [
+    ["frontend", "javascript"], ["frontend", "react"], ["frontend", "nextdotjs"],
+    ["frontend", "html5"], ["frontend", "css"], ["frontend", "tailwindcss"], ["frontend", "figma"],
+    ["javascript", "typescript"], ["javascript", "react"], ["javascript", "vite"], ["javascript", "npm"],
+    ["react", "nextdotjs"], ["css", "tailwindcss"], ["nextdotjs", "vercel"],
+    ["javascript", "nodedotjs"], ["nextdotjs", "backend"],
+    ["backend", "nodedotjs"], ["backend", "rust"], ["backend", "php"], ["backend", "redis"],
+    ["nodedotjs", "express"], ["nodedotjs", "mongodb"], ["nodedotjs", "prisma"],
+    ["prisma", "postgresql"], ["rust", "tokio"], ["rust", "actix"], ["actix", "postgresql"],
+    ["php", "laravel"], ["php", "composer"], ["laravel", "livewire"], ["laravel", "mysql"],
+    ["backend", "docker"], ["backend", "fastapi"], ["postgresql", "ai"],
+    ["ai", "python"], ["ai", "langchain"], ["ai", "huggingface"], ["ai", "ollama"],
+    ["python", "fastapi"], ["python", "pytorch"], ["python", "tensorflow"], ["python", "pandas"],
+    ["pandas", "numpy"], ["langchain", "langgraph"], ["langchain", "claude"],
+    ["langchain", "googlegemini"], ["langchain", "qdrant"], ["huggingface", "pytorch"],
+    ["ollama", "langchain"], ["docker", "fastapi"],
+    ["deployment", "amazonwebservices"], ["deployment", "googlecloud"], ["deployment", "azure"],
+    ["deployment", "docker"], ["deployment", "terraform"], ["deployment", "githubactions"],
+    ["deployment", "vercel"], ["deployment", "netlify"], ["deployment", "digitalocean"],
+    ["deployment", "render"], ["deployment", "cloudinary"],
+    ["git", "githubactions"], ["githubactions", "docker"], ["githubactions", "vercel"],
+    ["docker", "kubernetes"], ["kubernetes", "amazonwebservices"], ["kubernetes", "googlecloud"],
+    ["kubernetes", "azure"], ["terraform", "amazonwebservices"], ["terraform", "googlecloud"],
+    ["terraform", "azure"], ["react", "netlify"], ["nodedotjs", "render"],
+    ["ai", "googlecloud"], ["backend", "amazonwebservices"],
+  ] as [string, string][],
+}
+
+export type SkillGraphContent = typeof skillGraph

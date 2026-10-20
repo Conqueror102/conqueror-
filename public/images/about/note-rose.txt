@@ -1,0 +1,11 @@
+Mode: Built-in ImageGen
+
+Use case: product-mockup
+Asset type: one blank sticky-note overlay asset for HTML handwriting, square 1024 by 1024 pixel transparent PNG.
+Primary request: one isolated square rose-coral sticky note, straight frontal almost flat view, blank central surface for separately rendered text.
+Subject: a single matte paper sticky note, warm rose #fe9399, tiny brass paperclip attached at its top-right corner. The lower edge is gently lifted, creating a little natural paper curl and a soft physical drop shadow.
+Style/medium: refined tactile realistic stationery photography, fine subtle paper fibers and believable thin paper thickness, premium restrained art direction.
+Composition/framing: square unrotated note centered, occupies almost whole square canvas, tight generous-enough transparent margin to retain its shadow and clip. Front-on camera with no skew or built-in rotation; horizontal upper edge and vertical sides.
+Lighting/mood: soft natural studio light, calm warmth, gentle dimensional paper shading.
+Constraints: genuinely transparent alpha background; preserve delicate shadow on transparency; absolutely blank editable central surface; exactly one note and one tiny brass clip; no backdrop, no frame.
+Avoid: all text, words, letters, numbers, symbols, scribbles, drawings, logos, watermark, hands, extra notes or objects.

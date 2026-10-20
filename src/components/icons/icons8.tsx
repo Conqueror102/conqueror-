@@ -11,10 +11,10 @@ export function Icons8({ icon, alt, size = 24, className }: { icon: string; alt:
   return <Image src={src} alt={alt} width={size} height={size} className={className} unoptimized />
 }
 
-export function Icons8Credit({ className }: { className?: string }) {
+export function Icons8Credit({ className, label = "Icons by Icons8" }: { className?: string; label?: string }) {
   return (
     <a href="https://icons8.com" target="_blank" rel="noopener" className={className}>
-      Icons by Icons8
+      {label}
     </a>
   )
 }

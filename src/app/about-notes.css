@@ -1,0 +1,50 @@
+.about-surface { background: var(--color-cream); border-radius: 28px; padding-bottom: 38px; }
+.about-surface .about-board { background: transparent; }
+.about-noteboard { background: var(--color-leaf-ink); margin: 0 38px; border-radius: 20px; padding-bottom: 32px; scroll-margin-top: 24px; }
+.about-letter { position: relative; min-height: 570px; padding: 72px 15% 108px 10%; }
+.about-letter-paper { object-fit: fill; pointer-events: none; }
+.about-letter-copy { position: relative; z-index: 1; max-width: 720px; margin-inline: auto; text-align: center; }
+.about-letter-kicker { display: block; font: 10px var(--font-fredoka), sans-serif; letter-spacing: .14em; margin-bottom: 22px; }
+.about-letter h3 { font: 400 clamp(31px, 3.6vw, 53px)/1.1 var(--font-delius), sans-serif; letter-spacing: -.04em; margin-bottom: 25px; }
+.about-letter h3 > span { color: var(--color-tangerine-ink); }
+.about-letter-body p { font-size: 15px; line-height: 1.75; color: var(--color-cocoa-soft); }
+.about-letter-body p + p { margin-top: 14px; }
+.about-letter-interests { margin-top: 28px; }
+.about-letter-interests > span { font: 10px var(--font-fredoka), sans-serif; letter-spacing: .09em; }
+.about-letter-interests > p { font-size: 12px; line-height: 1.8; color: var(--color-muted); margin: 10px auto 0; max-width: 540px; }
+.about-pinned-notes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; padding: 0 5%; margin: -18px 0 0; list-style: none; position: relative; z-index: 2; }
+.about-pinned-note { position: relative; aspect-ratio: 1; min-width: 0; }
+.about-pinned-note:nth-child(even) { margin-top: 19px; }
+.about-pinned-note > img { object-fit: contain; pointer-events: none; }
+.about-pinned-note > p { position: absolute; left: 20%; right: 19%; top: 29%; font: 400 clamp(15px, 1.65vw, 24px)/1.25 var(--font-delius), sans-serif; letter-spacing: -.025em; color: var(--color-cocoa); }
+.about-note-contact { display: flex; align-items: center; justify-content: center; gap: 10px; width: fit-content; margin: 12px auto 0; padding: 10px 4px; border-bottom: 1px solid #fef4eb66; color: var(--color-cream); font: 15px var(--font-fredoka), sans-serif; }
+.about-note-contact:hover { color: var(--color-sunshine); }
+@media (max-width: 1100px) {
+  .about-noteboard { margin-inline: 25px; }
+  .about-letter { padding: 58px 13% 95px 8%; }
+  .about-letter-body p { font-size: 14px; }
+  .about-pinned-notes { padding-inline: 3%; }
+  .about-pinned-note > p { font-size: clamp(13px, 1.65vw, 18px); }
+}
+@media (max-width: 700px) {
+  .about-surface { padding-bottom: 15px; border-radius: 24px; }
+  .about-noteboard { margin-inline: 15px; padding-bottom: 22px; border-radius: 16px; }
+  .about-letter { min-height: 0; padding: 45px 10% 108px; }
+  .about-letter-kicker { font-size: 9px; margin-bottom: 18px; }
+  .about-letter h3 { font-size: clamp(26px, 7.1vw, 38px); margin-bottom: 22px; }
+  .about-letter-body p { font-size: 13px; line-height: 1.75; }
+  .about-letter-interests { margin-top: 22px; width: 70%; text-align: left; }
+  .about-letter-interests > span { font-size: 9px; }
+  .about-letter-interests > p { font-size: 11px; line-height: 1.8; }
+  .about-pinned-notes { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0 3%; margin-top: -12px; }
+  .about-pinned-note > p { font-size: clamp(13px, 3.9vw, 20px); }
+  .about-pinned-note:nth-child(even) { margin-top: 10px; }
+  .about-note-contact { font-size: 12px; gap: 6px; margin-top: 8px; }
+}
+@media (max-width: 380px) {
+  .about-surface { padding-bottom: 12px; }
+  .about-noteboard { margin-inline: 12px; }
+  .about-letter { padding-inline: 9%; }
+  .about-letter h3 { font-size: 25px; }
+  .about-pinned-note > p { font-size: 12px; }
+}
