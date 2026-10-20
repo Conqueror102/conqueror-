@@ -117,3 +117,8 @@
 
 .about-slogan { display:block; margin-top:10px; font-size:clamp(20px,2.4vw,34px); letter-spacing:-.03em; }
 @media (max-width: 700px) { .about-slogan { font-size:clamp(18px,5.6vw,26px); } }
+@media (max-width: 1150px) {
+  /* Three equal tiles; on wide screens the stat card overlaps the sculpture on purpose. */
+  .about-sculpture { grid-column: 5 / 9; }
+  .about-sculpture > img { left: 0; }
+}

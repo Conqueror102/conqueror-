@@ -29,7 +29,7 @@
 @media (max-width: 700px) {
   .about-surface { padding-bottom: 15px; border-radius: 24px; }
   .about-noteboard { margin-inline: 15px; padding-bottom: 22px; border-radius: 16px; }
-  .about-letter { min-height: 0; padding: 45px 10% 108px; }
+  .about-letter { min-height: 0; padding: 45px 15% 108px 9%; }
   .about-letter-kicker { font-size: 9px; margin-bottom: 18px; }
   .about-letter h3 { font-size: clamp(26px, 7.1vw, 38px); margin-bottom: 22px; }
   .about-letter-body p { font-size: 13px; line-height: 1.75; }
@@ -44,7 +44,7 @@
 @media (max-width: 380px) {
   .about-surface { padding-bottom: 12px; }
   .about-noteboard { margin-inline: 12px; }
-  .about-letter { padding-inline: 9%; }
+  .about-letter { padding-inline: 8% 15%; }
   .about-letter h3 { font-size: 25px; }
   .about-pinned-note > p { font-size: 12px; }
 }

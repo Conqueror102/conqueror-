@@ -173,3 +173,10 @@ html:has(.project-lightbox[open]) { overflow:hidden; }
 .pd-tradeoff-cost .pd-hard-label { color:var(--color-tangerine-ink); }
 @media(max-width:800px) { .pd-hard-parts li { grid-template-columns:1fr; padding:22px; }.pd-hard-index { grid-row:auto; padding:0; }.pd-hard-body, .pd-tradeoff-list article { grid-template-columns:1fr; gap:16px; } }
 .pd-decisions .pd-kicker { color:var(--color-peach); }
+@media(max-width:600px) {
+  .pd-hard-parts .pd-section-heading { flex-direction:column; align-items:flex-start; gap:12px; }
+}
+@media(max-width:480px) {
+  .pd-executive { font-size:18px; line-height:1.6; }
+  .pd-lead { font-size:18px; }
+}

@@ -142,3 +142,19 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { .brand-slogan s::after { animation:none; } }
 .portfolio-wordmark { white-space: nowrap; }
 @media (max-width: 700px) { .portfolio-wordmark { font-size: 22px; } .portfolio-wordmark small { display: none; } }
+
+/* Phones: the contact pill lives in the menu, so the wordmark and menu get the row. */
+@media (max-width: 480px) {
+  .portfolio-contact-link { display: none; }
+  .portfolio-header { padding-inline: 14px; }
+  .portfolio-mobile-nav { left: 10px; right: 10px; max-height: calc(100svh - 90px); overflow-y: auto; }
+}
+@media (max-width: 340px) { .portfolio-wordmark { font-size: 19px; } .portfolio-logo { width: 32px; height: 32px; } }
+/* Small tablets (iPad mini portrait): six nav links don't fit, so use the menu. */
+@media (max-width: 860px) and (min-width: 701px) {
+  .portfolio-desktop-nav, .portfolio-dev-link { display: none; }
+  .portfolio-menu-toggle { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; }
+  .portfolio-mobile-nav { display: flex; flex-direction: column; position: absolute; right: 20px; top: calc(100% - 5px); width: min(360px, calc(100% - 40px)); background: var(--color-cream); border: 1px solid var(--color-line); border-radius: 18px; box-shadow: 0 12px 24px #562d291a; padding: 8px 16px; }
+  .portfolio-mobile-nav a { display: flex; justify-content: space-between; align-items: center; padding: 13px 0; border-bottom: 1px solid var(--color-line); }
+  .portfolio-mobile-nav a:last-child { border-bottom: 0; }
+}

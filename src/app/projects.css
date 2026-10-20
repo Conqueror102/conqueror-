@@ -91,3 +91,9 @@
   .project-expand small { display:block; margin:10px 0 0; font-size:9px; }
 }
 @media(prefers-reduced-motion:reduce) { .project-preview,.project-preview-open,.project-filters button { transition:none; } }
+@media(max-width:700px) {
+  /* One swipeable row of filters instead of six wrapped rows. */
+  .project-filters { flex-wrap:nowrap; overflow-x:auto; margin-inline:-20px; padding:2px 20px 6px; scrollbar-width:none; scroll-snap-type:x proximity; }
+  .project-filters::-webkit-scrollbar { display:none; }
+  .project-filters button { flex-shrink:0; white-space:nowrap; scroll-snap-align:start; }
+}

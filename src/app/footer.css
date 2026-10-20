@@ -67,7 +67,7 @@
   .footer-wave { left:29%; }
   .footer-email { left:47%; }
 }
-@media(max-width:700px) {
+@media(max-width:900px) {
   .footer-workspace-bar { padding:20px; flex-wrap:wrap; gap:16px; }
   .footer-workspace-bar > span { order:3; width:100%; font-size:8px; }
   .footer-signature { font-size:24px; }
@@ -209,7 +209,7 @@
 .footer-playground { min-height:820px; }
 .footer-colophon-slogan { font-size:12px; }
 @media(max-width:1100px) { .footer-invitation h2.footer-brand { font-size:64px; } }
-@media(max-width:700px) {
+@media(max-width:900px) {
   .footer-playground { min-height:1060px; }
   .footer-invitation { top:250px; }
   .footer-invitation h2.footer-brand { font-size:clamp(40px,12vw,58px); }
@@ -224,6 +224,21 @@
 .footer-sticker { position:absolute; right:15%; bottom:52px; width:150px; aspect-ratio:520/492; transform:rotate(11deg); z-index:3; filter:drop-shadow(0 1px 0 #562d2926) drop-shadow(0 10px 14px #562d2933); transition:transform 260ms cubic-bezier(.2,.9,.3,1.4), filter 260ms; }
 .footer-sticker img { object-fit:contain; }
 .footer-sticker:hover, .footer-sticker:focus-visible { transform:rotate(3deg) scale(1.06) translateY(-4px); filter:drop-shadow(0 1px 0 #562d2926) drop-shadow(0 18px 20px #562d2938); }
-@media (max-width: 1100px) and (min-width: 701px) { .footer-sticker { right:9%; width:125px; } }
-@media (max-width: 700px) { .footer-sticker { right:22px; bottom:150px; width:96px; } }
+@media (max-width: 1100px) and (min-width: 901px) { .footer-sticker { right:9%; width:125px; } }
+@media (max-width: 900px) { .footer-sticker { right:22px; bottom:150px; width:96px; } }
 @media (prefers-reduced-motion: reduce) { .footer-sticker { transition:none; } }
+@media (max-width: 900px) {
+  /* Extra room so the moments photo, wave and sticker stop stacking on each other. */
+  .footer-playground { min-height: 1130px; }
+  .footer-toolrail { gap: 4px; }
+  .footer-toolrail a { white-space: nowrap; padding: 8px 6px; }
+}
+@media (max-width: 380px) { .footer-toolrail a { gap: 4px; font-size: 10px; } .footer-toolrail span { display: none; } }
+/* The logo pile switches layouts at 700px in its script, so tablets keep the wide pile. */
+@media (min-width: 701px) and (max-width: 900px) {
+  .footer-pile-section { margin-top: -80px; }
+  .footer-logo-pile { height: 390px; }
+  .footer-pile-wide { display: block; }
+  .footer-pile-compact { display: none; }
+  .footer-pile-toggle { top: 45px; font-size: 9px; padding: 8px 12px; }
+}

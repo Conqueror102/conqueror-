@@ -34,7 +34,7 @@ export function ProjectList({ initial }: { initial: Row[] }) {
   return (
     <div className="admin-card admin-table-wrap" style={{ padding: 0 }}>
       {error ? <p className="admin-error" style={{ padding: 12 }}>{error}</p> : null}
-      <table className="admin-table">
+      <table className="admin-table admin-cards-projects">
         <thead><tr><th>Order</th><th /><th>Project</th><th>Status</th><th /></tr></thead>
         <tbody>
           {rows.map((row, index) => (

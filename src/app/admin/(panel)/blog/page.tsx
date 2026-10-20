@@ -15,7 +15,7 @@ export default async function BlogAdminPage() {
       </header>
       {posts.length === 0 ? <div className="admin-card"><p className="admin-muted">No posts yet. Your first one will appear at /blog.</p></div> : (
         <div className="admin-card admin-table-wrap" style={{ padding: 0 }}>
-          <table className="admin-table">
+          <table className="admin-table admin-cards-blog">
             <thead><tr><th /><th>Post</th><th>Status</th><th>Published</th><th /></tr></thead>
             <tbody>
               {posts.map((post) => {
