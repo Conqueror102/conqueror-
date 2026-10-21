@@ -47,7 +47,7 @@ export const homeContent = {
         { title: "Steal Like an Artist", author: "Austin Kleon", cover: "/images/books/steal-like-an-artist.webp" },
       ],
     },
-    signature: { label: "THAT’S ME", name: "Victor\nConqueror", note: "Code with care. Ship with confidence.", link: "More about me", skillsLabel: "Soft skills", skillsHint: "Hover to see my soft skills", skillsTipCta: "Click to read more",close: "Close", inPractice: "IN PRACTICE" },
+    signature: { label: "HOW I WORK", name: "Soft\nskills", note: "Code with care. Ship with confidence.", link: "More about me", skillsLabel: "Soft skills", skillsHint: "Hover to see my soft skills", skillsTipCta: "Click to read more", close: "Close", inPractice: "IN PRACTICE" },
     softSkills: [
       { id: "communication", icon: "communication", title: "Communication", summary: "I explain technical decisions in plain language, so clients and teammates always know what’s happening and why.", points: ["Clear updates on progress, risks and trade-offs", "Documentation and API guides other developers can actually use", "Asking the right questions before writing code"] },
       { id: "teamwork", icon: "teamwork", title: "Teamwork", summary: "Good products are built by teams. I work well with designers, product people and other engineers, and I make their jobs easier.", points: ["Clean pull requests that are easy to review", "Sharing context instead of keeping it in my head", "Respecting other people’s time and decisions"] },

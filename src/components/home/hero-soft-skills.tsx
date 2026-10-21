@@ -9,7 +9,7 @@ const icons = { communication: MessagesSquare, teamwork: Users, problem: Puzzle,
 type Copy = HomepageCopy["hero"]["signature"]
 type Skill = HomepageCopy["hero"]["softSkills"][number]
 
-/** The "That's me" card. On hover (or tap) the soft skills circle out around it; each one opens a short note. */
+/** The "How I work" card. On hover (or tap) the soft skills circle out around it; each one opens a short note. */
 export function HeroSoftSkills({ copy, skills }: { copy: Copy; skills: readonly Skill[] }) {
   const [open, setOpen] = useState(false)
   const [selected, setSelected] = useState<Skill | null>(null)
