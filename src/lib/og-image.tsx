@@ -24,8 +24,7 @@ export async function renderOgImage() {
       <div style={{ width: "100%", height: "100%", display: "flex", background: "#ffe8d0", color: "#562d29", position: "relative", fontFamily: "Delius" }}>
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", width: 640, padding: "0 0 0 80px" }}>
           <div style={{ fontFamily: "Fredoka", fontSize: 88, fontWeight: 600, lineHeight: 1.02 }}>{site.name}</div>
-          <div style={{ fontSize: 36, marginTop: 24 }}>{profile.jobTitle}</div>
-          <div style={{ fontSize: 36, marginTop: 12, color: "#c2410c" }}>Born to create</div>
+          <div style={{ fontSize: 40, marginTop: 16, color: "#c2410c" }}>Born to create</div>
         </div>
         <div style={{ position: "absolute", right: 0, bottom: 0, width: 600, height: 630, display: "flex", alignItems: "flex-end", justifyContent: "center", background: "#fed15c", borderTopLeftRadius: 300 }}>
           {/* 1086×1448 cutout scaled to fill the panel height, cropped at the hips */}
