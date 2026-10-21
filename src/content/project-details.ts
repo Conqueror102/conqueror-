@@ -48,7 +48,7 @@ export const projectStories: Record<string, Pick<Project, "story" | "highlights"
   "ai-prompts-platform": { highlights:["Post and browse AI prompts.","Rate and copy prompts from the feed.","Feed filtering and authentication."] },
   "celymed-logistics": { highlights:["A web presence for a logistics and transport company.","Service information and brand presentation.","Direct WhatsApp and call contact options."] },
   "ronix-kitchen": { highlights:["Browse Nigerian dishes and featured meals.","Place food orders online.","A responsive food ordering interface."] },
-  "kode10x-quiz-app": { highlights:["Interactive quizzes built with React.","Timed and personalized quiz experiences."] },
+  "kode10x-quiz-app": { highlights:["Built for Kode10x to assess new students during intake.","Used to assess many students for enrolment.","Timed, personalised quizzes built with React."] },
 }
 
 export const projectDetailCopy = {

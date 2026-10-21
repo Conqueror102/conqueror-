@@ -295,9 +295,9 @@ export const projects: Project[] = [
   {
     slug: "kode10x-quiz-app",
     title: "Kode10x Quiz App",
-    summary: "An interactive, timed and personalized quiz application.",
+    summary: "A timed quiz app I built for Kode10x to assess new students during intake.",
     description:
-      "A modern, interactive quiz application built with React, designed to deliver a smooth, timed, and personalized quiz experience for users.",
+      "When Kode10x takes in new students to teach, it needs a fair way to assess them first. I built this quiz application for that intake: each applicant sits a timed, personalised quiz, and Kode10x uses the results in its enrolment. It has since been used to assess many students coming into Kode10x’s classes. The front end is React, with Node.js, Express and MongoDB behind it.",
     category: "Web application",
     technologies: ["React", "Node.js", "Express", "MongoDB", "JavaScript", "Tailwind CSS", "Google Sheets"],
     image: "/projects/quiz-app.png",
