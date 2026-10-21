@@ -1,6 +1,6 @@
 /**
  * Loads the launch blog posts in scripts/blog-posts/*.md into the `posts` collection.
- * Idempotent by slug: re-running replaces each post with the file's current content.
+ * Covers are public/images/blog/<slug>.png. Idempotent by slug: re-running replaces each post with the file's current content.
  *
  *   npx tsx --env-file=.env.local scripts/seed-blog-posts.ts
  *
@@ -11,11 +11,12 @@ import { join } from "node:path"
 import { MongoClient } from "mongodb"
 import type { Post } from "../src/lib/server/blog-repo"
 
-type Seed = Pick<Post, "slug" | "title" | "excerpt" | "tags" | "seoTitle" | "seoDescription" | "publishedAt">
+type Seed = Pick<Post, "slug" | "title" | "excerpt" | "tags" | "seoTitle" | "seoDescription" | "publishedAt" | "coverAlt">
 
 const seeds: Seed[] = [
   {
     slug: "how-i-built-a-langgraph-multi-agent-planner",
+    coverAlt: "A coordinator node linked to five agent nodes, one flagged as the red-team agent",
     title: "How I built a LangGraph multi-agent planner",
     excerpt: "B4Build turns an AI product idea into a nine-phase build plan with five LangGraph nodes, a rule-based coordinator and a red-team agent that attacks the result.",
     tags: ["AI agents", "LangGraph", "FastAPI"],
@@ -25,6 +26,7 @@ const seeds: Seed[] = [
   },
   {
     slug: "paystack-webhooks-done-right",
+    coverAlt: "Two webhook envelopes passing a verified shield into a naira ledger",
     title: "Paystack webhooks done right",
     excerpt: "Verify the signature, re-verify the transaction, make recording idempotent, never retry provider calls and keep money in a ledger: the rules behind SureCova's payments.",
     tags: ["Payments", "Paystack", "NestJS"],
@@ -34,6 +36,7 @@ const seeds: Seed[] = [
   },
   {
     slug: "face-recognition-check-in-that-cant-be-fooled-by-a-photo",
+    coverAlt: "A check-in kiosk tracking facial landmarks with a head-turn arrow, next to a rejected printed photo",
     title: "Face-recognition check-in that can't be fooled by a photo",
     excerpt: "How TimeWise stops a printed or on-screen photo from checking someone in: a random head-turn challenge measured from facial landmarks, not a buggy head-pose plugin.",
     tags: ["Computer vision", "SaaS", "Nigeria"],
@@ -43,6 +46,7 @@ const seeds: Seed[] = [
   },
   {
     slug: "hiring-a-remote-full-stack-developer-from-lagos",
+    coverAlt: "A laptop between Lagos and European clocks, with their working hours overlapping",
     title: "Hiring a remote full-stack developer from Lagos: what to expect",
     excerpt: "What working with me looks like: four stages, 2 to 4 weeks for a website, 6 to 12 weeks for an MVP with payments, and a WAT (UTC+1) schedule that overlaps with Europe.",
     tags: ["Hiring", "Freelance"],
@@ -65,8 +69,7 @@ async function main() {
       const doc: Post = {
         ...seed,
         content,
-        coverImage: "",
-        coverAlt: "",
+        coverImage: `/images/blog/${seed.slug}.png`,
         status: "published",
         featured: false,
         canonicalUrl: "",
