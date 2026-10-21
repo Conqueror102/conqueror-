@@ -51,7 +51,7 @@ export function PortfolioHero({ content }: { content: PortfolioContent }) {
           </div>
           <a className="hero-books-panel" href={copy.bookshelf.href} aria-label={`${copy.bookshelf.title} ${copy.bookshelf.link}`}>
             <span className="hero-photo-label">{copy.bookshelf.label}<ArrowUpRight size={17} aria-hidden="true" /></span>
-            <ul className="hero-book-stack">
+            <ul className="hero-book-stack" style={{ "--n": copy.bookshelf.books.length + 1 } as React.CSSProperties}>
               {copy.bookshelf.books.map((book, index) => <li key={book.title} style={{ "--i": index } as React.CSSProperties} title={`${book.title} — ${book.author}`}>
                 <Image src={book.cover} alt={`${book.title} by ${book.author}`} fill sizes="80px" />
               </li>)}

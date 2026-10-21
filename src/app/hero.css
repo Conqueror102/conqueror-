@@ -241,15 +241,15 @@
 /* Bookshelf card: covers of books Victor has read, plus the one he's still reading */
 .hero-books-panel { display: flex; flex-direction: column; justify-content: flex-end; }
 .hero-book-stack { position: absolute; left: 50%; top: 52%; width: 0; height: 0; margin: 0; padding: 0; list-style: none; --w: clamp(42px, 4.1vw, 60px); }
-.hero-book-stack li { position: absolute; left: calc((var(--i) - 2) * var(--w) * .74); top: 0; width: var(--w); aspect-ratio: 2 / 3; overflow: hidden; border-radius: 4px 7px 7px 4px; background: var(--color-cream); box-shadow: 0 10px 20px #10301f55, inset 3px 0 0 #00000026; transform: translate(-50%, -50%) rotate(calc((var(--i) - 2) * 4deg)); transform-origin: 50% 120%; transition: transform 260ms cubic-bezier(.2, .9, .25, 1.15); }
+.hero-book-stack li { --o: calc(var(--i) - (var(--n, 5) - 1) / 2); position: absolute; left: calc(var(--o) * var(--w) * .74); top: 0; width: var(--w); aspect-ratio: 2 / 3; overflow: hidden; border-radius: 4px 7px 7px 4px; background: var(--color-cream); box-shadow: 0 10px 20px #10301f55, inset 3px 0 0 #00000026; transform: translate(-50%, -50%) rotate(calc(var(--o) * 4deg)); transform-origin: 50% 120%; transition: transform 260ms cubic-bezier(.2, .9, .25, 1.15); }
 .hero-book-stack li img { object-fit: cover; }
-.hero-books-panel:hover .hero-book-stack li { transform: translate(-50%, -58%) rotate(calc((var(--i) - 2) * 9deg)); }
+.hero-books-panel:hover .hero-book-stack li { transform: translate(-50%, -58%) rotate(calc(var(--o) * 9deg)); }
 .hero-book-stack li:hover { z-index: 2; }
 .hero-books-panel .hero-book-stack li:hover { transform: translate(-50%, -72%) rotate(0deg) scale(1.08); }
 .hero-book-next { display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: 6px; border: 2px dashed var(--color-cocoa); background: #fff8eecc !important; color: var(--color-cocoa); text-align: center; box-shadow: none !important; }
 .hero-book-next span { font: 7px var(--font-fredoka), sans-serif; letter-spacing: .1em; }
 .hero-book-next em { font: italic 9px/1.2 var(--font-fredoka), sans-serif; }
-@media (max-width: 700px) { .hero-book-stack { --w: 40px; } .hero-book-stack li { left: calc((var(--i) - 2) * var(--w) * .62); } .hero-book-next span { font-size: 5px; } .hero-book-next em { font-size: 7px; } }
+@media (max-width: 700px) { .hero-book-stack { --w: 40px; } .hero-book-stack li { left: calc(var(--o) * var(--w) * .62); } .hero-book-next span { font-size: 5px; } .hero-book-next em { font-size: 7px; } }
 .hero-cv-button { color: inherit; }
 
 /* Gallery links: a pill on the photo card, a last tile in the fan, and a link in the preview */

@@ -44,6 +44,7 @@ export const homeContent = {
         { title: "So Good They Can’t Ignore You", author: "Cal Newport", cover: "/images/books/so-good-they-cant-ignore-you.webp" },
         { title: "Atomic Habits", author: "James Clear", cover: "/images/books/atomic-habits.webp" },
         { title: "The Psychology of Money", author: "Morgan Housel", cover: "/images/books/psychology-of-money.webp" },
+        { title: "Steal Like an Artist", author: "Austin Kleon", cover: "/images/books/steal-like-an-artist.webp" },
       ],
     },
     signature: { label: "THAT’S ME", name: "Victor\nConqueror", note: "Code with care. Ship with confidence.", link: "More about me", skillsLabel: "Soft skills", skillsHint: "Hover to see my soft skills", skillsTipCta: "Click to read more",close: "Close", inPractice: "IN PRACTICE" },

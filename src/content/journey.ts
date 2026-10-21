@@ -26,7 +26,7 @@ export const outsideContent = {
   stories: [
     {
       id: "reading", category: "READING", title: "Always a book on the go.",
-      body: "Books are how I slow down and think. Deep Work taught me to protect long stretches of focus. So Good They Can’t Ignore You made skill the goal, not passion. Atomic Habits changed how I build routines, and The Psychology of Money changed how I think about money and time. There’s always another one in progress.",
+      body: "Books are how I slow down and think. Deep Work taught me to protect long stretches of focus. So Good They Can’t Ignore You made skill the goal, not passion. Atomic Habits changed how I build routines, and The Psychology of Money changed how I think about money and time. Steal Like an Artist reminded me that nothing is original, so I study the work I admire and build on it. There’s always another one in progress.",
       image: "/images/books/deep-work.webp", imageAlt: "Covers of books Victor has read", imagePosition: "50% 50%",
       caption: "The shelf so far, and the one I’m still reading.", preview: false, showBooks: true,
     },
