@@ -97,6 +97,17 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    slug: "lodgely",
+    title: "Lodgely – Accommodation Platform Website",
+    summary: "The website for a property and student-accommodation platform in Nigeria and Rwanda, built for search visibility from day one.",
+    description:
+      "Lodgely is building digital accommodation and property infrastructure for Africa, starting with student housing in Nigeria and Rwanda. The website covers students, landlords, agents and universities with dedicated pages, city and university landing pages, housing guides and trust-and-safety content, all with per-page metadata, structured sitemaps and share images.",
+    category: "Client website",
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    image: "/projects/lodgely.webp",
+    liveUrl: "https://lodgelyhome.vercel.app/",
+  },
+  {
     slug: "milky-way",
     title: "Milky Way – Beauty Store & Admin",
     summary: "An online store for a Lagos beauty supplier, with wholesale and retail pricing, Paystack checkout and an admin that runs the whole shop.",
@@ -176,16 +187,6 @@ export const projects: Project[] = [
     technologies: ["Node.js", "Express", "TypeScript", "PostgreSQL", "Prisma", "Mux", "Cloudinary", "Paystack"],
     image: "/projects/course-correct.webp",
     repoUrl: "https://github.com/Conqueror102/courseCorrectBE",
-  },
-  {
-    slug: "lodgely",
-    title: "Lodgely – Accommodation Platform Website",
-    summary: "The website for a property and student-accommodation platform in Nigeria and Rwanda, built for search visibility from day one.",
-    description:
-      "Lodgely is building digital accommodation and property infrastructure for Africa, starting with student housing in Nigeria and Rwanda. The website covers students, landlords, agents and universities with dedicated pages, city and university landing pages, housing guides and trust-and-safety content, all with per-page metadata, structured sitemaps and share images.",
-    category: "Client website",
-    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
-    image: "/projects/lodgely.webp",
   },
   {
     slug: "modupe-olusoga",
