@@ -8,8 +8,11 @@ export type Filters = { days: number; source?: string; sourceType?: string }
 
 const since = (days: number) => new Date(Date.now() - days * 86_400_000)
 
+// Visits flagged as automated stay stored but are left out of every report.
+const human = { bot: { $ne: true } }
+
 function visitMatch({ days, source, sourceType }: Filters): Document {
-  return { createdAt: { $gte: since(days) }, ...(source ? { source } : {}), ...(sourceType ? { sourceType } : {}) }
+  return { createdAt: { $gte: since(days) }, ...human, ...(source ? { source } : {}), ...(sourceType ? { sourceType } : {}) }
 }
 
 async function countBy(collection: string, match: Document, field: string, limit = 12): Promise<Count[]> {
@@ -121,12 +124,13 @@ export type AnalyticsReport = Awaited<ReturnType<typeof analyticsReport>>
 /** Small summary for the admin overview. */
 export async function analyticsSummary(days = 7) {
   const db = await getDb()
-  const match = { createdAt: { $gte: since(days) } }
+  const events = { createdAt: { $gte: since(days) } }
+  const match = { ...events, ...human }
   const [views, sessions, ai, cv] = await Promise.all([
     db.collection("visits").countDocuments(match),
     db.collection("visits").countDocuments({ ...match, entry: true }),
     db.collection("visits").countDocuments({ ...match, entry: true, sourceType: "ai" }),
-    db.collection("events").countDocuments({ ...match, type: "cv_download" }),
+    db.collection("events").countDocuments({ ...events, type: "cv_download" }),
   ])
   const topSources = await countBy("visits", { ...match, entry: true }, "source", 5)
   return { views, sessions, ai, cv, topSources }

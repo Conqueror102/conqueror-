@@ -33,6 +33,8 @@ function ids(newArrival: boolean) {
 }
 
 function send(payload: Record<string, unknown>, beacon = false) {
+  // Browsers driven by automation tools (Puppeteer, Playwright, Selenium) report themselves here.
+  if (navigator.webdriver) return Promise.resolve(null)
   const body = JSON.stringify(payload)
   if (beacon && navigator.sendBeacon) {
     navigator.sendBeacon("/api/track", new Blob([body], { type: "text/plain" }))

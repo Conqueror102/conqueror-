@@ -30,6 +30,8 @@ export type Visit = {
   ipHash?: string
   durationMs?: number
   scrollDepth?: number
+  /** Set by hand on visits later found to be automated; reports skip them. */
+  bot?: boolean
   createdAt: Date
 }
 
@@ -79,6 +81,11 @@ function device(userAgent: string) {
   return { device: type, browser: result.browser.name, os: result.os.name }
 }
 
+/** Known crawlers, plus automated Chrome that hides behind a normal user agent but still reports "HeadlessChrome" in its client hints. */
+function isAutomated(headers: Headers) {
+  return Boolean(detectCrawler(headers.get("user-agent"))) || /headless/i.test(headers.get("sec-ch-ua") ?? "")
+}
+
 const text = (value: unknown, max = 300) => (typeof value === "string" && value ? value.slice(0, max) : undefined)
 
 export type PageviewInput = {
@@ -89,7 +96,7 @@ export type PageviewInput = {
 export async function recordPageview(request: Request, input: PageviewInput) {
   if (!hasDatabase()) return null
   const userAgent = request.headers.get("user-agent") ?? ""
-  if (detectCrawler(userAgent)) return null
+  if (isAutomated(request.headers)) return null
   await ensureIndexes()
   const params = new URLSearchParams(input.query ?? "")
   const utm = {
@@ -138,7 +145,7 @@ export async function recordLeave(viewId: string, durationMs: number, scrollDept
 
 export async function recordEvent(request: Request, input: { type: string; visitorId?: string; sessionId?: string; path?: string; target?: string; label?: string }) {
   if (!hasDatabase()) return
-  if (detectCrawler(request.headers.get("user-agent"))) return
+  if (isAutomated(request.headers)) return
   await ensureIndexes()
   const session = input.sessionId ? await (await collection<Visit>("visits")).findOne({ sessionId: input.sessionId, entry: true }, { projection: { source: 1 } }) : null
   await (await collection<SiteEvent>("events")).insertOne({
