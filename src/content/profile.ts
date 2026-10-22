@@ -33,6 +33,7 @@ export const profile = {
     linkedin: "https://www.linkedin.com/in/victor-conqueror-956635327/",
     x: "https://x.com/TECH_snitch101",
     xHandle: "@TECH_snitch101",
+    tiktok: "https://www.tiktok.com/@victor.conqueror0",
     whatsapp: "https://wa.me/2348025383208",
   },
 } as const

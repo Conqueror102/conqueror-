@@ -10,3 +10,4 @@ card and site footer. Downloaded at 96px for crisp rendering at smaller sizes.
 - Facebook: https://img.icons8.com/color/96/facebook-new.png
 - Gmail: https://img.icons8.com/color/96/gmail-new.png
 - TikTok: https://img.icons8.com/color/96/tiktok--v1.png
+- WhatsApp: https://img.icons8.com/color/96/whatsapp--v1.png
